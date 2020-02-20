@@ -47,6 +47,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         builder.setAutoCancel(true).
                 setDefaults(Notification.DEFAULT_ALL).
                 setWhen(System.currentTimeMillis()).
+                setSmallIcon(android.R.mipmap.sym_def_app_icon).
                 setTicker("asepW").
                 setContentTitle(judul).
                 setContentText(isi).

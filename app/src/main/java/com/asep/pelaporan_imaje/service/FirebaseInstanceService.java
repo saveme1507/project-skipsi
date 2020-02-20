@@ -16,6 +16,7 @@ public class FirebaseInstanceService extends FirebaseInstanceIdService {
         Log.d("TOKEN ",String.valueOf(token));
     }
     public String token(){
+        Log.d("TOKEN ",String.valueOf(FirebaseInstanceId.getInstance().getToken()));
         return FirebaseInstanceId.getInstance().getToken();
     }
 
