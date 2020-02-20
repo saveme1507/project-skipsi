@@ -6,6 +6,9 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.Color;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
@@ -14,6 +17,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Map;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
+    Uri urinotification;
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -25,6 +29,14 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         Map<String,String> data=remoteMessage.getData();
         String judul = data.get("judul");
         String isi   = data.get("isi");
+
+        try{
+            urinotification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Ringtone r = RingtoneManager.getRingtone(getApplicationContext(),urinotification);
+            r.play();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         String NOTIF_CHANEL_ID="notif_Id";
@@ -51,7 +63,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 setTicker("asepW").
                 setContentTitle(judul).
                 setContentText(isi).
-                setContentInfo("Info");
+                setContentInfo("Info").
+                setSound(urinotification);
 
         notificationManager.notify(1, builder.build());
     }
