@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.asep.pelaporan_imaje.R;
@@ -17,13 +18,18 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class MainActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     SliderLayout sliderLayout;
     SharedPreferences sharedPreferences;
+    PhotoViewAttacher photoViewAttacher;
     TextView nama,pt;
+    ImageView foto_profil;
 
     HashMap<String,String> data_img_slide = new HashMap<String, String>();
     @Override
@@ -37,6 +43,17 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         nama = (TextView) findViewById(R.id.home_namaUsr);
         pt   = (TextView) findViewById(R.id.home_namaPT);
         sliderLayout = (SliderLayout) findViewById(R.id.home_slider);
+        foto_profil = (ImageView) findViewById(R.id.home_logoUsr);
+        photoViewAttacher = new PhotoViewAttacher(foto_profil);
+        photoViewAttacher.setZoomable(false);
+        Picasso
+                .get()
+                .load("https://scontent.fcgk24-2.fna.fbcdn.net/v/t1.0-9/s960x960/74319322_2332455163549637_1926326161202216960_o.jpg?_nc_cat=103&_nc_ohc=jr7FzI-0tRkAX_3qWq_&_nc_ht=scontent.fcgk24-2.fna&_nc_tp=7&oh=b24b7e1a545b7cf0da865816e20e1b86&oe=5EF22271")
+                .error(R.drawable.user_icon)
+                .centerCrop()
+                .fit()
+                .transform(new com.asep.pelaporan_imaje.Picasso())
+                .into(foto_profil);
 
         sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
         String a = sharedPreferences.getString("nama_usr","");
