@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "425298508008",
+    "firebase_url": "https://pelaporan-imaje.firebaseio.com",
+    "project_id": "pelaporan-imaje",
+    "storage_bucket": "pelaporan-imaje.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425298508008:android:31abc8db1d12752954b15d",
+        "android_client_info": {
+          "package_name": "com.asep.pelaporan_imaje"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425298508008-qn31a302th9rap0tj169n3741jpfhm1q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.asep.pelaporan_imaje",
+            "certificate_hash": "80947ad45cbfe5fe2ab5f1b72eb22f90a5be57e7"
+          }
+        },
+        {
+          "client_id": "425298508008-5utvdusk20ksg633fm79jscrh9l35d04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKaLrb3Uv5GwDyFCsSk6UcgeA01zUWQr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425298508008-5utvdusk20ksg633fm79jscrh9l35d04.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
