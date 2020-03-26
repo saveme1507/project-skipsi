@@ -71,7 +71,7 @@ public class Login extends AppCompatActivity {
             session = sharedpreferences.getBoolean(session_status, false);
 
             if (session) {
-                Intent intent = new Intent(Login.this, MainActivity.class);
+                Intent intent = new Intent(Login.this, Home.class);
                 finish();
                 startActivity(intent);
             }
@@ -158,7 +158,7 @@ public class Login extends AppCompatActivity {
                             editor.commit();
 
                             // Memanggil main activity
-                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            Intent intent = new Intent(Login.this, Home.class);
                             finish();
                             startActivity(intent);
                         } else {

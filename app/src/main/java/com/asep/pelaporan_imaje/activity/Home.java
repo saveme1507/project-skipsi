@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
 
-public class MainActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+public class Home extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     SliderLayout sliderLayout;
     SharedPreferences sharedPreferences;
     PhotoViewAttacher photoViewAttacher;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tollbarHome);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         data_img_slide.put("slide4", "http://localhost/pelaporan_imaje/images/slider/slide_4.png");
 
         for(String name : data_img_slide.keySet()){
-            TextSliderView textSliderView = new TextSliderView(MainActivity.this);
+            TextSliderView textSliderView = new TextSliderView(Home.this);
             textSliderView
                     .description(name)
                     .image(data_img_slide.get(name))
