@@ -13,25 +13,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.asep.pelaporan_imaje.R;
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
 
-public class Home extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
-    SliderLayout sliderLayout;
+public class Home extends AppCompatActivity {
+    private SliderLayout sliderLayout;
     SharedPreferences sharedPreferences;
     PhotoViewAttacher photoViewAttacher;
     TextView nama,pt;
     ImageView foto_profil;
+    HashMap<String, String> data_slide ;
 
-    HashMap<String,String> data_img_slide = new HashMap<String, String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +42,10 @@ public class Home extends AppCompatActivity implements BaseSliderView.OnSliderCl
 
         nama = (TextView) findViewById(R.id.home_namaUsr);
         pt   = (TextView) findViewById(R.id.home_namaPT);
-        sliderLayout = (SliderLayout) findViewById(R.id.home_slider);
         foto_profil = (ImageView) findViewById(R.id.home_logoUsr);
         photoViewAttacher = new PhotoViewAttacher(foto_profil);
         photoViewAttacher.setZoomable(false);
-        Picasso
-                .get()
+        Picasso .get()
                 .load("https://scontent.fcgk24-2.fna.fbcdn.net/v/t1.0-9/s960x960/74319322_2332455163549637_1926326161202216960_o.jpg?_nc_cat=103&_nc_ohc=jr7FzI-0tRkAX_3qWq_&_nc_ht=scontent.fcgk24-2.fna&_nc_tp=7&oh=b24b7e1a545b7cf0da865816e20e1b86&oe=5EF22271")
                 .error(R.drawable.user_icon)
                 .centerCrop()
@@ -61,6 +59,16 @@ public class Home extends AppCompatActivity implements BaseSliderView.OnSliderCl
 
         nama.setText(a);
         pt.setText(b.toUpperCase());
+
+//        code image slider
+        ImageSlider imageSlider=findViewById(R.id.slider);
+
+        List<SlideModel> slideModels=new ArrayList<>();
+        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide_gambar1.png"));
+        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide_gambar2.png"));
+        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide_gambar3.png"));
+        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide_gambar4.png"));
+        imageSlider.setImageList(slideModels,true);
     }
 
     @Override
@@ -100,48 +108,30 @@ public class Home extends AppCompatActivity implements BaseSliderView.OnSliderCl
         }
     }
 
-    private void image_slide(){
-        data_img_slide.put("slide1","http://localhost/pelaporan_imaje/images/slider/slide_1.png");
-        data_img_slide.put("slide2", "http://localhost/pelaporan_imaje/images/slider/slide_2.png");
-        data_img_slide.put("slide3", "http://localhost/pelaporan_imaje/images/slider/slide_3.png");
-        data_img_slide.put("slide4", "http://localhost/pelaporan_imaje/images/slider/slide_4.png");
+//    @Override
+//    protected void onStop(){
+//        sliderLayout.stopAutoCycle();
+//        super.onStop();
+//    }
+//
+//    @Override
+//    public void onSliderClick(BaseSliderView slider) {
+//        Toast.makeText(this,slider.getBundle().get("extra")+"",Toast.LENGTH_LONG).show();
+//    }
+//
+//    @Override
+//    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//    }
+//
+//    @Override
+//    public void onPageSelected(int position) {
+//        Log.d("Slider","Page Change :"+position);
+//    }
+//
+//    @Override
+//    public void onPageScrollStateChanged(int state) {
+//
+//    }
 
-        for(String name : data_img_slide.keySet()){
-            TextSliderView textSliderView = new TextSliderView(Home.this);
-            textSliderView
-                    .description(name)
-                    .image(data_img_slide.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .setOnSliderClickListener(this);
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra",name);
-            sliderLayout.addSlider(textSliderView);
-        }
-        sliderLayout.setPresetTransformer(SliderLayout.Transformer.FlipHorizontal);
-        sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        sliderLayout.setCustomAnimation(new DescriptionAnimation());
-        sliderLayout.setDuration(3000);
-        sliderLayout.addOnPageChangeListener(this);
-    }
-
-    @Override
-    public void onSliderClick(BaseSliderView slider) {
-
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
 }

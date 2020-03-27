@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F6F6"
+    android:orientation="vertical"
+    tools:context=".activity.DetailHome">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="7dp">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarAboutApk"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:background="#F6F6F6">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Menu Utama"
+                    android:textColor="#E03838"
+                    android:textSize="16dp"
+                    android:fontFamily="sans-serif"/>
+                <TextView
+                    android:layout_width="370dp"
+                    android:layout_height="1dp"
+                    android:background="#E03838"/>
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <Button
+                android:layout_width="85dp"
+                android:layout_height="60dp"
+                android:drawableTop="@drawable/home_datamesin"
+                android:background="#F6F6F6"
+                android:textColor="#E03838"
+                android:textAllCaps="false"
+                android:text="Data Mesin"
+                android:textSize="10dp"
+                android:layout_margin="3dp"/>
+            <Button
+                android:layout_width="85dp"
+                android:layout_height="60dp"
+                android:drawableTop="@drawable/home_sparepart"
+                android:background="#F6F6F6"
+                android:textColor="#E03838"
+                android:textAllCaps="false"
+                android:text="SparePart"
+                android:textSize="10dp"
+                android:layout_margin="3dp"/>
+            <Button
+                android:layout_width="85dp"
+                android:layout_height="60dp"
+                android:drawableTop="@drawable/home_jadwalpm"
+                android:background="#F6F6F6"
+                android:textColor="#E03838"
+                android:textAllCaps="false"
+                android:text="Jadwal PM"
+                android:textSize="10dp"
+                android:layout_margin="3dp"/>
+            <Button
+                android:layout_width="85dp"
+                android:layout_height="60dp"
+                android:drawableTop="@drawable/home_pengaturan"
+                android:background="#F6F6F6"
+                android:textColor="#E03838"
+                android:textAllCaps="false"
+                android:text="Pengaturan"
+                android:textSize="10dp"
+                android:layout_margin="3dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+            <Button
+                android:layout_width="85dp"
+                android:layout_height="60dp"
+                android:drawableTop="@drawable/home_buatlaporan"
+                android:background="#F6F6F6"
+                android:textColor="#E03838"
+                android:textAllCaps="false"
+                android:text="Buat Laporan"
+                android:textSize="10dp"
+                android:layout_margin="3dp"/>
+            <Button
+                android:layout_width="85dp"
+                android:layout_height="60dp"
+                android:drawableTop="@drawable/home_kontak"
+                android:background="#F6F6F6"
+                android:textColor="#E03838"
+                android:textAllCaps="false"
+                android:text="Kontak"
+                android:textSize="10dp"
+                android:layout_margin="3dp"/>
+            <Button
+                android:layout_width="85dp"
+                android:layout_height="60dp"
+                android:drawableTop="@drawable/home_laporan"
+                android:background="#F6F6F6"
+                android:textColor="#E03838"
+                android:textAllCaps="false"
+                android:text="Laporan"
+                android:textSize="10dp"
+                android:layout_margin="3dp"/>
+            <Button
+                android:layout_width="85dp"
+                android:layout_height="60dp"
+                android:drawableTop="@drawable/home_bantuan"
+                android:background="#F6F6F6"
+                android:textColor="#E03838"
+                android:textAllCaps="false"
+                android:text="Bantuan"
+                android:textSize="10dp"
+                android:layout_margin="3dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+
+            <Button
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="#F6F6F6"
+                android:drawableTop="@drawable/home_jadwalkunjungan"
+                android:text="Pengaturan Jadwal Kunjungan"
+                android:textAllCaps="false"
+                android:textColor="#E03838"
+                android:textSize="10dp" />
+
+            <Button
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="#F6F6F6"
+                android:drawableTop="@drawable/home_pengaturanmesin"
+                android:text="Pengaturan Data Mesin"
+                android:textAllCaps="false"
+                android:textColor="#E03838"
+                android:textSize="10dp" />
+
+            <Button
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="#F6F6F6"
+                android:drawableTop="@drawable/home_tambahcustomer"
+                android:text="Tambah      Customer"
+                android:textAllCaps="false"
+                android:textColor="#E03838"
+                android:textSize="10dp" />
+
+            <Button
+                android:layout_width="85dp"
+                android:layout_height="69dp"
+                android:layout_margin="3dp"
+                android:background="#F6F6F6"
+                android:drawableTop="@drawable/home_buatlapkunjungan"
+                android:text="Buat Laporan Kunjungsn"
+                android:textAllCaps="false"
+                android:textColor="#E03838"
+                android:textSize="10dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:gravity="left"
+            android:paddingLeft="25dp">
+
+            <Button
+                android:layout_width="85dp"
+                android:layout_height="72dp"
+                android:layout_margin="3dp"
+                android:background="#F6F6F6"
+                android:drawableTop="@drawable/home_buatlappergantia"
+                android:text="Buat Laporan Pergantian Part"
+                android:textAllCaps="false"
+                android:textColor="#E03838"
+                android:textSize="10dp" />
+
+            <Button
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="#F6F6F6"
+                android:drawableTop="@drawable/home_buatlappm"
+                android:text="Buat Laporan      PM"
+                android:textAllCaps="false"
+                android:textColor="#E03838"
+                android:textSize="10dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
