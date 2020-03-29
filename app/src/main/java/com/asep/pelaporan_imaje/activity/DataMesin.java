@@ -197,7 +197,7 @@ class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHolder>{
     List<Item> items;
     Context context;
 
-    public RecycleAdapter(List<Item> items,Context context){
+    public RecycleAdapter(List<Item> items, Context context){
         this.items = items;
         this.context = context;
     }

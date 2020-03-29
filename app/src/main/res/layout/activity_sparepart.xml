@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.DetailSparepart">
+    tools:context=".activity.Sparepart">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/appBar_detail_sparepart"
+            android:id="@+id/appBar_master_sparepart"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/bg_app_bar_red_gradient"
@@ -53,17 +53,11 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:id="@+id/container"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_item_sparepart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <ProgressBar
-            android:id="@+id/progressbar_detail_sparepart"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:indeterminateTint="@color/colorPrimaryDark"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:scrollbars="vertical"
+        android:scrollbarSize="@dimen/cardview_compat_inset_shadow"/>
 </LinearLayout>
