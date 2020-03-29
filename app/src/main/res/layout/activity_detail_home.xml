@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:elevation="7dp">
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbarAboutApk"
+            android:id="@+id/toolbar_detailhome"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:paddingLeft="30dp"

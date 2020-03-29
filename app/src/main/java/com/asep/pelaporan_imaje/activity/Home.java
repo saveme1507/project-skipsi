@@ -2,6 +2,7 @@ package com.asep.pelaporan_imaje.activity;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -64,11 +67,29 @@ public class Home extends AppCompatActivity {
         ImageSlider imageSlider=findViewById(R.id.slider);
 
         List<SlideModel> slideModels=new ArrayList<>();
-        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide_gambar1.png"));
-        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide_gambar2.png"));
-        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide_gambar3.png"));
-        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide_gambar4.png"));
+        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide1.png"));
+        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide2.png"));
+        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide3.png"));
+        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide4.png"));
         imageSlider.setImageList(slideModels,true);
+
+//        initial button
+        Button bt_lainnya = (Button)findViewById(R.id.bt_lainya);
+        bt_lainnya.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this,DetailHome.class);
+                startActivity(intent);
+            }
+        });
+        Button bt_datamesin = (Button)findViewById(R.id.bt_datamesin);
+        bt_datamesin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this,DataMesin.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -106,6 +127,7 @@ public class Home extends AppCompatActivity {
             default: return super.onOptionsItemSelected(item);
 
         }
+
     }
 
 //    @Override
