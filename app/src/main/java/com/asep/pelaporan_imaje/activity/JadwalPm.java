@@ -1,6 +1,7 @@
 package com.asep.pelaporan_imaje.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -223,10 +224,12 @@ class RecycleAdapterJadwalpm extends RecyclerView.Adapter<RecycleAdapterJadwalpm
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(context, "id :"+itemJadwalpms.get(getAdapterPosition()).mm_id, Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(view.getContext(),DetailSparepart.class);
-//                    intent.putExtra("nama",itemSpareparts.get(getAdapterPosition()).nama);
-//                    intent.putExtra("patch",itemSpareparts.get(getAdapterPosition()).patch);
-//                    view.getContext().startActivity(intent);
+                    Intent intent = new Intent(view.getContext(),HistoriPm.class);
+                    intent.putExtra("mm_id",itemJadwalpms.get(getAdapterPosition()).mm_id);
+                    intent.putExtra("tipe-sn",itemJadwalpms.get(getAdapterPosition()).mm_tipe.toUpperCase()+" "+itemJadwalpms.get(getAdapterPosition()).mm_sn).toString().replace(" ","");
+                    intent.putExtra("last_pm",DateFormat.dd_mmm_yyyy(itemJadwalpms.get(getAdapterPosition()).mm_last_pm));
+                    intent.putExtra("next_pm",DateFormat.dateNextPm(itemJadwalpms.get(getAdapterPosition()).mm_last_pm));
+                    view.getContext().startActivity(intent);
                 }
             });
         }
