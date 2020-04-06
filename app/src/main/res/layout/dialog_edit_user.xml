@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFF">
+    <TextView
+        android:id="@+id/tx_judul_dialog_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Edit Username"
+        android:textSize="18dp"
+        android:gravity="center_vertical"
+        android:fontFamily=""
+        android:paddingLeft="20dp"
+        android:background="@drawable/bg_header"
+        android:textColor="#FFF" />
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+        <EditText
+            android:id="@+id/et_user_dialogUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:inputType="text"/>
+    </android.support.design.widget.TextInputLayout>
+</LinearLayout>

@@ -29,10 +29,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.anshul.libray.PasswordEditText;
+
 public class Login extends AppCompatActivity {
         ProgressDialog pDialog;
         Button btn_register, btn_login;
-        EditText txt_username, txt_password;
+        PasswordEditText et_pass;
+        EditText et_user;
         Intent intent;
         int success;
         ConnectivityManager conMgr;
@@ -63,8 +66,8 @@ public class Login extends AppCompatActivity {
 
             btn_login = (Button) findViewById(R.id.li_masuk);
             btn_register = (Button) findViewById(R.id.li_daftar);
-            txt_username = (EditText) findViewById(R.id.li_username);
-            txt_password = (EditText) findViewById(R.id.li_password);
+            et_user     =(EditText)findViewById(R.id.et_user_login);
+            et_pass     =(PasswordEditText)findViewById(R.id.et_pass_login);
 
             // Cek session login jika TRUE maka langsung buka MainLogin
             sharedpreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
@@ -81,8 +84,8 @@ public class Login extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    String username = txt_username.getText().toString().toLowerCase();
-                    String password = txt_password.getText().toString();
+                    String username = et_user.getText().toString().toLowerCase();
+                    String password = et_pass.getText().toString();
 
                     // mengecek kolom yang kosong
                     if (username.trim().length() > 0 && password.trim().length() > 0) {
@@ -131,14 +134,15 @@ public class Login extends AppCompatActivity {
 
                         // Check for error node in json
                         if (success == 1) {
-                            String a = jObj.getString("id_usr");
-                            String b = jObj.getString("nama_usr");
-                            String c = jObj.getString("telp_usr");
-                            String d = jObj.getString("email_usr");
-                            String e = jObj.getString("id_pt");
-                            String f = jObj.getString("logo_usr");
-                            String g = jObj.getString("flag_usr");
-                            String h = jObj.getString("nama_pt");
+                            String a = jObj.getString("mu_id");
+                            String b = jObj.getString("mu_nama");
+                            String c = jObj.getString("mu_telp");
+                            String d = jObj.getString("mu_email");
+                            String e = jObj.getString("mu_pass");
+                            String f = jObj.getString("mu_logo");
+                            String g = jObj.getString("mu_token");
+                            String h = jObj.getString("mu_id_pt");
+                            String i = jObj.getString("mp_nama");
 
                             Log.e("Anda berhasil Login", jObj.toString());
                             Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
@@ -146,29 +150,28 @@ public class Login extends AppCompatActivity {
                             // menyimpan login ke session
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putBoolean(session_status, true);
-                            editor.putString("id_usr", a);
-                            editor.putString("nama_usr", b);
-                            editor.putString("telp_usr", c);
-                            editor.putString("email_usr", d);
-                            editor.putString("id_pt", e);
-                            editor.putString("logo_usr", f);
-                            editor.putString("flsg_usr", g);
-                            editor.putString("nama_pt", h);
-
+                            editor.putString("mu_id", a);
+                            editor.putString("mu_nama", b);
+                            editor.putString("mu_telp", c);
+                            editor.putString("mu_email", d);
+                            editor.putString("mu_pass", e);
+                            editor.putString("mu_logo", f);
+                            editor.putString("mu_token", g);
+                            editor.putString("mu_id_pt", h);
+                            editor.putString("mp_nama",i);
                             editor.commit();
 
                             // Memanggil main activity
                             Intent intent = new Intent(Login.this, Home.class);
                             finish();
                             startActivity(intent);
-                        } else {
-                            Toast.makeText(getApplicationContext(),
-                                    jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-
+                            Log.d("pass benar", String.valueOf(jObj.getInt("success")));
                         }
                     } catch (JSONException e) {
                         // JSON error
                         e.printStackTrace();
+                        Toast.makeText(getApplicationContext(),"Email atau password salah!", Toast.LENGTH_SHORT).show();
+                        Log.d("response erorr :", "Email atau password salah!");
                     }
 
                 }
@@ -212,7 +215,7 @@ public class Login extends AppCompatActivity {
             FirebaseInstanceService firebaseInstanceService = new FirebaseInstanceService();
             final String token = firebaseInstanceService.getToken_1();
             sharedpreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
-            final String id = sharedpreferences.getString("id_usr","null");
+            final String id = sharedpreferences.getString("mu_id","null");
 
             StringRequest strReq = new StringRequest(Request.Method.POST, Server.URL+"login/tambah_token.php", new Response.Listener<String>() {
                 @Override
@@ -220,7 +223,7 @@ public class Login extends AppCompatActivity {
                     Log.e(TAG, "Login Response: " + response.toString());
                     try {
                         JSONObject jObj = new JSONObject(response);
-                        Log.e("Successfully Login!", jObj.toString());
+                        Log.e("Tambah TOKEN succes", jObj.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -235,8 +238,8 @@ public class Login extends AppCompatActivity {
                 protected Map<String, String> getParams() {
                     // Posting parameters to login url
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("id_usr",id);
-                    params.put("token", token);
+                    params.put("mu_id",id);
+                    params.put("mu_token", token);
                     return params;
                 }
             };

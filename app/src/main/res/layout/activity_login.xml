@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_login"
     tools:context=".activity.Login">
 
@@ -22,27 +23,33 @@
             android:textSize="25dp"
             android:textAlignment="center"
             android:layout_margin="30dp"/>
-        <EditText
-            android:id="@+id/li_username"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="username"
-            android:paddingLeft="15dp"
-            android:drawablePadding="22dp"
-            android:drawableLeft="@android:drawable/ic_menu_myplaces"
-            android:singleLine="true"/>
-        <EditText
-            android:id="@+id/li_password"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <EditText
+                android:id="@+id/et_user_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:inputType="text"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="password"
-            android:paddingLeft="15dp"
-            android:drawablePadding="30dp"
-            android:drawableLeft="@android:drawable/ic_lock_idle_lock"
-            android:password="true"
-            android:singleLine="true"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <in.anshul.libray.PasswordEditText
+                android:id="@+id/et_pass_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                app:password_visible="false"/>
+        </android.support.design.widget.TextInputLayout>
+
         <Button
             android:id="@+id/li_masuk"
             android:layout_width="match_parent"

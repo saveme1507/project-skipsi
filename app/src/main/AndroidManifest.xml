@@ -16,15 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.HistoriPm">
-
-        </activity>
+        <activity android:name=".activity.Pengaturan"></activity>
+        <activity android:name=".activity.HistoriPm"></activity>
         <activity android:name=".activity.JadwalPm">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.Sparepart" />
         <activity android:name=".activity.DetailSparepart" />
@@ -36,8 +31,16 @@
         <activity android:name=".activity.DataMesin" />
         <activity android:name=".activity.DetailHome" />
         <activity android:name=".activity.Registrasi" />
-        <activity android:name=".activity.Login" />
-        <activity android:name=".activity.SpashScreen" />
+        <activity android:name=".activity.Login">
+
+        </activity>
+        <activity android:name=".activity.SpashScreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.Home" />
 
         <service android:name=".service.FirebaseInstanceService">

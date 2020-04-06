@@ -48,17 +48,18 @@ public class Home extends AppCompatActivity {
         foto_profil = (ImageView) findViewById(R.id.home_logoUsr);
         photoViewAttacher = new PhotoViewAttacher(foto_profil);
         photoViewAttacher.setZoomable(false);
+
+        sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
+        String a = sharedPreferences.getString("mu_nama","");
+        String b = sharedPreferences.getString("mp_nama","");
+
         Picasso .get()
-                .load("https://scontent.fcgk24-2.fna.fbcdn.net/v/t1.0-9/s960x960/74319322_2332455163549637_1926326161202216960_o.jpg?_nc_cat=103&_nc_ohc=jr7FzI-0tRkAX_3qWq_&_nc_ht=scontent.fcgk24-2.fna&_nc_tp=7&oh=b24b7e1a545b7cf0da865816e20e1b86&oe=5EF22271")
+                .load(sharedPreferences.getString("mu_logo", ""))
                 .error(R.drawable.user_icon)
                 .centerCrop()
                 .fit()
                 .transform(new com.asep.pelaporan_imaje.Picasso())
                 .into(foto_profil);
-
-        sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
-        String a = sharedPreferences.getString("nama_usr","");
-        String b = sharedPreferences.getString("nama_pt","");
 
         nama.setText(a);
         pt.setText(b.toUpperCase());
@@ -87,6 +88,14 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Home.this,DataMesin.class);
+                startActivity(intent);
+            }
+        });
+        Button bt_pengaturan = (Button)findViewById(R.id.bt_pengaturan_home);
+        bt_pengaturan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this,Pengaturan.class);
                 startActivity(intent);
             }
         });

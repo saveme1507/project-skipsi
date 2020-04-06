@@ -214,6 +214,7 @@
                     android:textSize="10dp" />
 
                 <Button
+                    android:id="@+id/bt_pengaturan_home"
                     android:layout_width="85dp"
                     android:layout_height="60dp"
                     android:background="?android:attr/selectableItemBackground"

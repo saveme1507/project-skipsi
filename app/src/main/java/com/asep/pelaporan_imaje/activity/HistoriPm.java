@@ -2,6 +2,7 @@ package com.asep.pelaporan_imaje.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,7 +35,8 @@ public class HistoriPm extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManagerHistoripm;
     RecycleAdapterHistoripm recycleAdapterHistoripm;
     List<ItemHistorpm> itemHistorpms;
-    String mmId,tipeSn,lastPm,nextPm;
+    String mmId, tipeSn, lastPm, nextPm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,30 +47,32 @@ public class HistoriPm extends AppCompatActivity {
         getSupportActionBar().setTitle("");
 
         layoutManagerHistoripm = new LinearLayoutManager(this);
-        recyclerViewHistoripm = (RecyclerView)findViewById(R.id.recycle_item_historipm);
+        recyclerViewHistoripm = (RecyclerView) findViewById(R.id.recycle_item_historipm);
         recyclerViewHistoripm.setLayoutManager(layoutManagerHistoripm);
         recyclerViewHistoripm.setHasFixedSize(true);
         itemHistorpms = new ArrayList<>();
 
-        lastPm  = getIntent().getStringExtra("last_pm");
-        nextPm  = getIntent().getStringExtra("next_pm");
-        tipeSn  = getIntent().getStringExtra("tipe-sn");
-        mmId    = getIntent().getStringExtra("mm_id");
+        lastPm = getIntent().getStringExtra("last_pm");
+        nextPm = getIntent().getStringExtra("next_pm");
+        tipeSn = getIntent().getStringExtra("tipe-sn");
+        mmId = getIntent().getStringExtra("mm_id");
         getDatalist();
 
-        TextView tipe_sn = (TextView)findViewById(R.id.tx_tipe_sn_historipm);
-        TextView last_pm = (TextView)findViewById(R.id.tx_lastpm_historipm);
-        TextView next_pm = (TextView)findViewById(R.id.tx_nextpm_historipm);
+        TextView tipe_sn = (TextView) findViewById(R.id.tx_tipe_sn_historipm);
+        TextView last_pm = (TextView) findViewById(R.id.tx_lastpm_historipm);
+        TextView next_pm = (TextView) findViewById(R.id.tx_nextpm_historipm);
         tipe_sn.setText(tipeSn);
         last_pm.setText(lastPm);
         next_pm.setText(nextPm);
+
     }
-    private void getDatalist(){
+
+    private void getDatalist() {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.URL + "jadwalpm/select_historipm.php?id_mesin=" + mmId, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.d("Response",response.toString());
-                for(int i = 0; i<response.length(); i++){
+                Log.d("Response", response.toString());
+                for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
                         ItemHistorpm myitemHistorpm = new ItemHistorpm(
@@ -76,9 +80,9 @@ public class HistoriPm extends AppCompatActivity {
                                 jsonObject.getString("hlm_tanggal")
                         );
                         itemHistorpms.add(myitemHistorpm);
-                        recycleAdapterHistoripm= new RecycleAdapterHistoripm(itemHistorpms,HistoriPm.this);
+                        recycleAdapterHistoripm = new RecycleAdapterHistoripm(itemHistorpms, HistoriPm.this);
                         recyclerViewHistoripm.setAdapter(recycleAdapterHistoripm);
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -91,8 +95,10 @@ public class HistoriPm extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
-}
 
+
+
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class ItemHistorpm{
