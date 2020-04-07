@@ -41,26 +41,7 @@ public class DetailSparepart extends AppCompatActivity implements DownloadFile.L
                         patch+nama,
                         this);
 
-//        progressBar.setVisibility(View.VISIBLE);//dispaly the progres bar
-//        String url = Server.URL+"master_katalog_sparepart/9040.pdf";
-//        String finalUrl = "http://drive.google.com/viewerng/viewer?embedded=true&url="+url;
-//
-//        webView.getSettings().setJavaScriptEnabled(true);
-//        webView.getSettings().setBuiltInZoomControls(true);
-//        webView.setWebChromeClient(new WebChromeClient(){
-//            @Override
-//            public void onProgressChanged(WebView view, int newProgress) {
-//                super.onProgressChanged(view, newProgress);
-//                if(newProgress==50){
-//                    progressBar.setVisibility(View.GONE);
-//
-//                }
-//            }
-//        });
-//        webView.loadUrl(finalUrl);
-
     }
-
 
     @Override
     public void onSuccess(String url, String destinationPath) {

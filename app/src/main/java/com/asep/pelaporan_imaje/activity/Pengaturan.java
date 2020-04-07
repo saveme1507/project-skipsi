@@ -432,7 +432,7 @@ public class Pengaturan extends AppCompatActivity {
                     //menghilangkan progress dialog
                     loading.dismiss();
                     //menampilkan toast
-                    Log.e("Error response :", error.getMessage().toString());
+                    Log.e("Error response :", error.getMessage());
                 }
             }){
             @Override

@@ -194,6 +194,7 @@
                     android:textSize="10dp" />
 
                 <Button
+                    android:id="@+id/bt_sparepart_home"
                     android:layout_width="85dp"
                     android:layout_height="60dp"
                     android:background="?android:attr/selectableItemBackground"
@@ -204,6 +205,7 @@
                     android:textSize="10dp" />
 
                 <Button
+                    android:id="@+id/bt_jadwalPm_home"
                     android:layout_width="85dp"
                     android:layout_height="60dp"
                     android:background="?android:attr/selectableItemBackground"

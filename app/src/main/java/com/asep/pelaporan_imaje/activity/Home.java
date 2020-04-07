@@ -99,6 +99,22 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button bt_sparepert = (Button)findViewById(R.id.bt_sparepart_home);
+        bt_sparepert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this,Sparepart.class);
+                startActivity(intent);
+            }
+        });
+        final Button bt_jadwalPm = (Button)findViewById(R.id.bt_jadwalPm_home);
+        bt_jadwalPm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this,JadwalPm.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

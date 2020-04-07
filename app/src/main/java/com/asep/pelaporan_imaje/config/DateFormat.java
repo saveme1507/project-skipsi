@@ -53,4 +53,10 @@ public class DateFormat {
         }
         return dateHasil;
     }
+    public static String currentDatetimeFormatSQL(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = new Date();
+        String hasil = dateFormat.format(date);
+        return hasil;
+    }
 }
