@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="15dp"
+        android:background="#FFFF"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/tx_telp_itemkontak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/tx_nama_itemkontak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Asep widiyotomo"
+                android:textColor="@color/colorTextList"/>
+            <TextView
+                android:id="@+id/tx_jabatan_itemkontak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Teknisi"
+                android:textSize="8dp"/>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_telp_kontak"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@android:drawable/ic_menu_call"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"/>
+
+        <ImageView
+            android:id="@+id/iv_wa_kontak"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@android:drawable/sym_action_chat" />
+        <ImageView
+            android:id="@+id/iv_email_kontak"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@android:drawable/ic_menu_send"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorBatasList"/>
+</LinearLayout>

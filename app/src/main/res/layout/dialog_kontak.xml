@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center">
+    <TextView
+        android:id="@+id/iv_telp_dialogKontak"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_vertical"
+        android:drawableTop="@drawable/icon_kontak_telp"
+        android:text="Telephone"
+        android:textSize="8dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorTextList"
+        android:layout_margin="10dp"
+        android:gravity="bottom"/>
+    <TextView
+        android:id="@+id/iv_whatsapp_dialogKontak"
+        android:layout_width="40dp"
+        android:layout_height="37dp"
+        android:layout_gravity="center_vertical"
+        android:drawableTop="@drawable/icon_kontak_whatsapp"
+        android:text="Whatsapp"
+        android:textSize="8dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorTextList"
+        android:layout_margin="10dp"
+        android:gravity="bottom"/>
+    <TextView
+        android:id="@+id/iv_sms_dialogKontak"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_vertical"
+        android:drawableTop="@drawable/icon_kontak_sms"
+        android:text="Email"
+        android:textSize="8dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorTextList"
+        android:layout_margin="10dp"
+        android:gravity="bottom"/>
+</LinearLayout>
