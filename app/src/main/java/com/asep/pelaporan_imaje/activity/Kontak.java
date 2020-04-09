@@ -170,9 +170,6 @@ class RecycleAdapterKontak extends RecyclerView.Adapter<RecycleAdapterKontak.MyV
         }
         myViewHolderKontak.tx_jabatan.setText(jabatan);
         myViewHolderKontak.tx_telp.setText(itemKontaks.get(i).mu_telp);
-
-
-
     }
 
     @Override

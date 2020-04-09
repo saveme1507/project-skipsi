@@ -16,14 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.Bantuan">
+        <activity android:name=".activity.JadwalKunjungan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.Kontak"/>
+        <activity android:name=".activity.Bantuan"/>
+        <activity android:name=".activity.Kontak" />
         <activity android:name=".activity.BuatLaporan" />
         <activity android:name=".activity.Pengaturan" />
         <activity android:name=".activity.HistoriPm" />
