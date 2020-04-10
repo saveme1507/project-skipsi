@@ -523,5 +523,4 @@ public class Pengaturan extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
     }
-
 }

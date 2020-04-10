@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+    <ImageView
+        android:id="@+id/iv_logo_pelanggan"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/home_pengaturanmesin"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"/>
+    <TextView
+        android:id="@+id/tx_nama_pelanggan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PT Nestlem Indonesia"
+        android:textColor="@color/colorTextList"
+        android:textSize="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="18dp"/>
+    <TextView
+        android:id="@+id/tx_alamat_pelanggan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jl Permata no 32-43 sukaliti kawasan KIIC karawang barat iIndonesia"
+        android:textColor="@color/colorTextList"
+        android:textSize="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"/>
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorBatasList"/>
+</RelativeLayout>

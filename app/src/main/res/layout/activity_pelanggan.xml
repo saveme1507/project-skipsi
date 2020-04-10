@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:fitsSystemWindows="true"
-    tools:context=".activity.DataMesin">
+    tools:context=".activity.Pelanggan">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/appBar_datamesin"
+            android:id="@+id/appBar_pelanggan"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/bg_app_bar_red_gradient"
@@ -34,26 +34,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:text="Data Mesin "
+                    android:text="Data Pelanggan"
                     android:textColor="#FBFBFB"
                     android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/tx_judul"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:text="dummy"
-                    android:textColor="#FBFBFB"
-                    android:textSize="16dp"
-                    app:layout_constraintEnd_toStartOf="@+id/spinner_sort_datamesin"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/tx_"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:layout_width="275dp"
@@ -64,24 +51,12 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="1.0" />
 
-                <org.angmarch.views.NiceSpinner
-                    android:id="@+id/spinner_sort_datamesin"
-                    android:layout_width="100dp"
-                    android:layout_height="25dp"
-                    app:backgroundSelector="?android:attr/selectableItemBackground"
-                    app:arrowTint="#FBFBFB"
-                    android:textAlignment="textEnd"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycle_item_data_mesin"
+        android:id="@+id/recycle_item_pelanggan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -90,7 +65,7 @@
         android:scrollbars="vertical"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floating_tambah_datamesin"
+        android:id="@+id/floating_tambah_pelanggan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

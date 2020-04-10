@@ -63,7 +63,6 @@ public class JadwalKunjungan extends AppCompatActivity implements SwipeRefreshLa
             @Override
             public void run() {
                 refreshLayout.setRefreshing(true);
-                itemJadwalKunjungans.clear();
                 getData();
             }
         });
@@ -74,6 +73,7 @@ public class JadwalKunjungan extends AppCompatActivity implements SwipeRefreshLa
             @Override
             public void onResponse(JSONArray response) {
                 Log.d("Response", response.toString());
+                itemJadwalKunjungans.clear();
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
@@ -102,7 +102,7 @@ public class JadwalKunjungan extends AppCompatActivity implements SwipeRefreshLa
         requestQueue.add(jsonArrayRequest);
     }
 
-    public void updateData(final Context context, final String hari, final String pel1, final String pel2){
+    public void updateData(final String hari, final String pel1, final String pel2){
         StringRequest strReq = new StringRequest(Request.Method.POST, Server.URL+"jadwal_kunjungan/update_data.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -110,11 +110,12 @@ public class JadwalKunjungan extends AppCompatActivity implements SwipeRefreshLa
                 try {
                     JSONObject jObj = new JSONObject(response);
                     if (jObj.getInt("success")==1){
-                        Toast.makeText(context, jObj.getString("message"),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), jObj.getString("message"),Toast.LENGTH_SHORT).show();
+                        getData();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(context,"Terjadi kesalahan edit jadwal",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Terjadi kesalahan edit jadwal",Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -133,123 +134,119 @@ public class JadwalKunjungan extends AppCompatActivity implements SwipeRefreshLa
                 return params;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(context);
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(strReq);
     }
 
     @Override
     public void onRefresh() {
-        itemJadwalKunjungans.clear();
         getData();
     }
 
-    public void refresh (ArrayList list,Context context){
-    }
-}
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    class ItemJadwalKunjungan{
+        String hari,pel_1,pel_2;
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-class ItemJadwalKunjungan{
-    String hari,pel_1,pel_2;
+        public ItemJadwalKunjungan(String hari, String pel_1, String pel_2) {
+            this.hari = hari;
+            this.pel_1 = pel_1;
+            this.pel_2 = pel_2;
+        }
 
-    public ItemJadwalKunjungan(String hari, String pel_1, String pel_2) {
-        this.hari = hari;
-        this.pel_1 = pel_1;
-        this.pel_2 = pel_2;
-    }
+        public String getHari() {
+            return hari;
+        }
 
-    public String getHari() {
-        return hari;
-    }
+        public void setHari(String hari) {
+            this.hari = hari;
+        }
 
-    public void setHari(String hari) {
-        this.hari = hari;
-    }
+        public String getPel_1() {
+            return pel_1;
+        }
 
-    public String getPel_1() {
-        return pel_1;
-    }
+        public void setPel_1(String pel_1) {
+            this.pel_1 = pel_1;
+        }
 
-    public void setPel_1(String pel_1) {
-        this.pel_1 = pel_1;
-    }
+        public String getPel_2() {
+            return pel_2;
+        }
 
-    public String getPel_2() {
-        return pel_2;
-    }
-
-    public void setPel_2(String pel_2) {
-        this.pel_2 = pel_2;
-    }
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-class RecycleAdapterJadwalKunjungan extends RecyclerView.Adapter<RecycleAdapterJadwalKunjungan.MyViewHolderJadwalKunjungan>{
-    List<ItemJadwalKunjungan> itemJadwalKunjungans;
-    Context context;
-
-    public RecycleAdapterJadwalKunjungan(List<ItemJadwalKunjungan> itemJadwalKunjungans, Context context) {
-        this.itemJadwalKunjungans = itemJadwalKunjungans;
-        this.context = context;
+        public void setPel_2(String pel_2) {
+            this.pel_2 = pel_2;
+        }
     }
 
-    @Override
-    public MyViewHolderJadwalKunjungan onCreateViewHolder( ViewGroup viewGroup, int i) {
-        View view =  LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_jadwal_kunjungan,viewGroup,false);
-        return  new MyViewHolderJadwalKunjungan(view);
-    }
 
-    @Override
-    public void onBindViewHolder( RecycleAdapterJadwalKunjungan.MyViewHolderJadwalKunjungan myViewHolderJadwalKunjungan, int i) {
-        myViewHolderJadwalKunjungan.tx_hari.setText(itemJadwalKunjungans.get(i).hari);
-        myViewHolderJadwalKunjungan.tx_pel1.setText(itemJadwalKunjungans.get(i).pel_1);
-        myViewHolderJadwalKunjungan.tx_pel2.setText(itemJadwalKunjungans.get(i).pel_2);
-    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    class RecycleAdapterJadwalKunjungan extends RecyclerView.Adapter<RecycleAdapterJadwalKunjungan.MyViewHolderJadwalKunjungan>{
+        List<ItemJadwalKunjungan> itemJadwalKunjungans;
+        Context context;
 
-    @Override
-    public int getItemCount() {
-        return itemJadwalKunjungans.size();
-    }
-    public class MyViewHolderJadwalKunjungan extends RecyclerView.ViewHolder {
-        TextView tx_hari,tx_pel1,tx_pel2;
-        JadwalKunjungan jadwalKunjungan = new JadwalKunjungan();
-        public MyViewHolderJadwalKunjungan(View itemView) {
-            super(itemView);
-            tx_hari =(TextView)itemView.findViewById(R.id.tx_hari_item_jadwalKunjungan);
-            tx_pel1 =(TextView)itemView.findViewById(R.id.tx_pelanggan1_item_jadwalKunjungan);
-            tx_pel2 =(TextView)itemView.findViewById(R.id.tx_pelanggan2_item_jadwalKunjungan);
+        public RecycleAdapterJadwalKunjungan(List<ItemJadwalKunjungan> itemJadwalKunjungans, Context context) {
+            this.itemJadwalKunjungans = itemJadwalKunjungans;
+            this.context = context;
+        }
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View itemView) {
-                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
-                    View view=LayoutInflater.from(context).inflate(R.layout.dialog_edit_jadwalkunjungan,null);
-                    alertBuilder.setView(view);
-                    alertBuilder.setCancelable(false);
+        @Override
+        public MyViewHolderJadwalKunjungan onCreateViewHolder( ViewGroup viewGroup, int i) {
+            View view =  LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_jadwal_kunjungan,viewGroup,false);
+            return  new MyViewHolderJadwalKunjungan(view);
+        }
 
-                    TextView tx_judul =(TextView) view.findViewById(R.id.tx_judul_dialogJadwalkunjungan);
-                    final TextView tx_pel1  =(TextView) view.findViewById(R.id.et_pel1_dialogJadwalkunjungan);
-                    final TextView tx_pel2  =(TextView) view.findViewById(R.id.et_pel2_dialogJadwalkunjungan);
+        @Override
+        public void onBindViewHolder( RecycleAdapterJadwalKunjungan.MyViewHolderJadwalKunjungan myViewHolderJadwalKunjungan, int i) {
+            myViewHolderJadwalKunjungan.tx_hari.setText(itemJadwalKunjungans.get(i).hari);
+            myViewHolderJadwalKunjungan.tx_pel1.setText(itemJadwalKunjungans.get(i).pel_1);
+            myViewHolderJadwalKunjungan.tx_pel2.setText(itemJadwalKunjungans.get(i).pel_2);
+        }
 
-                    String kapital = itemJadwalKunjungans.get(getAdapterPosition()).hari.substring(0,1).toUpperCase();
-                    tx_judul.setText("Kunjungan Hari "+itemJadwalKunjungans.get(getAdapterPosition()).hari.replace(itemJadwalKunjungans.get(getAdapterPosition()).hari.substring(0,1),kapital));
-                    alertBuilder.setPositiveButton("SIMPAN", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            String pel1 = tx_pel1.getText().toString();
-                            String pel2 = tx_pel2.getText().toString();
-                            jadwalKunjungan.updateData(context,itemJadwalKunjungans.get(getAdapterPosition()).hari, pel1, pel2);
-                        }
-                    }).setNegativeButton("BATAL", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-                    alertBuilder.show();
-                }
-            });
+        @Override
+        public int getItemCount() {
+            return itemJadwalKunjungans.size();
+        }
+        public class MyViewHolderJadwalKunjungan extends RecyclerView.ViewHolder {
+            TextView tx_hari,tx_pel1,tx_pel2;
+            public MyViewHolderJadwalKunjungan(View itemView) {
+                super(itemView);
+                tx_hari =(TextView)itemView.findViewById(R.id.tx_hari_item_jadwalKunjungan);
+                tx_pel1 =(TextView)itemView.findViewById(R.id.tx_pelanggan1_item_jadwalKunjungan);
+                tx_pel2 =(TextView)itemView.findViewById(R.id.tx_pelanggan2_item_jadwalKunjungan);
+
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View itemView) {
+                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                        View view=LayoutInflater.from(context).inflate(R.layout.dialog_edit_jadwalkunjungan,null);
+                        alertBuilder.setView(view);
+                        alertBuilder.setCancelable(false);
+
+                        TextView tx_judul =(TextView) view.findViewById(R.id.tx_judul_dialogJadwalkunjungan);
+                        final TextView tx_pel1  =(TextView) view.findViewById(R.id.et_pel1_dialogJadwalkunjungan);
+                        final TextView tx_pel2  =(TextView) view.findViewById(R.id.et_pel2_dialogJadwalkunjungan);
+
+                        String kapital = itemJadwalKunjungans.get(getAdapterPosition()).hari.substring(0,1).toUpperCase();
+                        tx_judul.setText("Kunjungan Hari "+itemJadwalKunjungans.get(getAdapterPosition()).hari.replace(itemJadwalKunjungans.get(getAdapterPosition()).hari.substring(0,1),kapital));
+                        alertBuilder.setPositiveButton("SIMPAN", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String pel1 = tx_pel1.getText().toString();
+                                String pel2 = tx_pel2.getText().toString();
+                                updateData(itemJadwalKunjungans.get(getAdapterPosition()).hari, pel1, pel2);
+
+                            }
+                        }).setNegativeButton("BATAL", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        alertBuilder.show();
+                    }
+                });
+            }
         }
     }
 }
