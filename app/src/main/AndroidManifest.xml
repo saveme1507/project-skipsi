@@ -16,12 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.Pelanggan">
+        <activity android:name=".activity.Pelaporan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.BuatLaporanPengerjaan">
 
         </activity>
-        <activity android:name=".activity.JadwalKunjungan">
-
-        </activity>
+        <activity android:name=".activity.Pelanggan" />
+        <activity android:name=".activity.JadwalKunjungan" />
         <activity android:name=".activity.Bantuan" />
         <activity android:name=".activity.Kontak" />
         <activity android:name=".activity.BuatLaporan" />
@@ -35,13 +41,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".activity.DataMesin">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activity.DataMesin"></activity>
         <activity android:name=".activity.DetailHome" />
         <activity android:name=".activity.Registrasi" />
         <activity android:name=".activity.Login" />

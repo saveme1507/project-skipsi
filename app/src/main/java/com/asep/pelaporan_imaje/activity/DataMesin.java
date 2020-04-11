@@ -14,8 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,12 +47,13 @@ public class DataMesin extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     RecycleAdapter recycleAdapter;
     List<Item> items;
-    ArrayList<String> id_pt = new ArrayList<>();
+    ArrayList<String> array_id_pt = new ArrayList<>();
     ArrayList<String> nama_pt = new ArrayList<>();
     ArrayList<String> data = new ArrayList<String>();
     NiceSpinner niceSpinner;
     TextView tx_judul;
     FloatingActionButton floatingActionButton;
+    Spinner sp_palanggan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,13 +142,13 @@ public class DataMesin extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
                         data.add(jsonObject.getString("mp_nama"));
-                        id_pt.add(jsonObject.getString("mp_id"));
+                        array_id_pt.add(jsonObject.getString("mp_id"));
                         nama_pt.add(jsonObject.getString("mp_nama"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-                niceSpinner.attachDataSource(nama_pt);
+                niceSpinner.attachDataSource(data);
             }
         },new Response.ErrorListener(){
             @Override
@@ -164,6 +167,7 @@ public class DataMesin extends AppCompatActivity {
                     JSONObject jObj = new JSONObject(response);
                     if (jObj.getInt("success")==1){
                         Toast.makeText(getApplicationContext(), jObj.getString("message"),Toast.LENGTH_SHORT).show();
+                        getDataMesin(sp_palanggan.getSelectedItem().toString());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -194,11 +198,12 @@ public class DataMesin extends AppCompatActivity {
         StringRequest strReq = new StringRequest(Request.Method.POST, Server.URL+"data_mesin/update_datamesin.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("Response :", response);
+                Log.d("Response :", response);
                 try {
                     JSONObject jObj = new JSONObject(response);
                     if (jObj.getInt("success")==1){
                         Toast.makeText(getApplicationContext(), jObj.getString("message"),Toast.LENGTH_SHORT).show();
+                        getDataMesin(sp_palanggan.getSelectedItem().toString());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -208,7 +213,7 @@ public class DataMesin extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Response Error :", error.getMessage());
+                Log.d("Response Error :", error.getMessage());
             }
         }) {
             @Override
@@ -235,6 +240,7 @@ public class DataMesin extends AppCompatActivity {
                     JSONObject jObj = new JSONObject(response);
                     if (jObj.getInt("success")==1){
                         Toast.makeText(getApplicationContext(), jObj.getString("message"),Toast.LENGTH_SHORT).show();
+                        getDataMesin(tx_judul.getText().toString());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -270,9 +276,10 @@ public class DataMesin extends AppCompatActivity {
         final EditText et_tipe    =(EditText)view.findViewById(R.id.et_tipe_dialog_datamesin);
         final EditText et_posisi  =(EditText)view.findViewById(R.id.et_posisi_dialog_datamesin);
         final EditText et_lastPm  =(EditText)view.findViewById(R.id.et_lastPm_dialog_datamesin);
-        final NiceSpinner ns_id_pt=(NiceSpinner)view.findViewById(R.id.ns_pelanggan_dialog_datamesin);
-
-        ns_id_pt.attachDataSource(data);
+        sp_palanggan =(Spinner) view.findViewById(R.id.sp_namapt_dialog_datamesin);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(DataMesin.this, android.R.layout.simple_spinner_item,nama_pt);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_palanggan.setAdapter(arrayAdapter);
 
         if (!id.equals("")) {
             tx_judul.setText(judul);
@@ -281,7 +288,8 @@ public class DataMesin extends AppCompatActivity {
             et_tipe.setText(tipe);
             et_posisi.setText(posisi);
             et_lastPm.setText(lastpm);
-            ns_id_pt.setSelectedIndex(id_pt.indexOf(ns_id_pt.getSelectedIndex()));
+            sp_palanggan.setEnabled(false);
+            sp_palanggan.setSelection(array_id_pt.indexOf(id_pt));
         }
         alertBuilder.setPositiveButton("SIMPAN", new DialogInterface.OnClickListener() {
             @Override
@@ -294,7 +302,7 @@ public class DataMesin extends AppCompatActivity {
                             et_tipe.getText().toString(),
                             et_posisi.getText().toString(),
                             et_lastPm.getText().toString(),
-                            String.valueOf(id_pt.indexOf(ns_id_pt.getSelectedIndex()))
+                            id_pt
                     );
                 }else{
                     //insert
@@ -303,7 +311,7 @@ public class DataMesin extends AppCompatActivity {
                             et_tipe.getText().toString(),
                             et_posisi.getText().toString(),
                             et_lastPm.getText().toString(),
-                            String.valueOf(id_pt.indexOf(ns_id_pt.getSelectedIndex()))
+                            array_id_pt.get(nama_pt.indexOf(sp_palanggan.getSelectedItem().toString()))
                     );
                 }
             }

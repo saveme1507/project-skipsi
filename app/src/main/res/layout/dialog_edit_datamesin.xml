@@ -74,12 +74,16 @@
             android:hint="Last PM"
             android:inputType="text"/>
     </android.support.design.widget.TextInputLayout>
-    <org.angmarch.views.NiceSpinner
-        android:id="@+id/ns_pelanggan_dialog_datamesin"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        app:backgroundTint="#EBE8E8"/>
+        android:layout_marginRight="20dp">
+        <Spinner
+            android:id="@+id/sp_namapt_dialog_datamesin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"/>
+    </android.support.design.widget.TextInputLayout>
 </LinearLayout>

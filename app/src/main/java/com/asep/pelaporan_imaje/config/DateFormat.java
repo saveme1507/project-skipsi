@@ -59,4 +59,36 @@ public class DateFormat {
         String hasil = dateFormat.format(date);
         return hasil;
     }
+    public static String dateTimeStatus(String dateSql){
+        SimpleDateFormat formatInput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatOutput = new SimpleDateFormat("dd-MM-yyy HH:mm");
+        String hasil = null;
+        try {
+            Date date = formatInput.parse(dateSql);
+            hasil = formatOutput.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return hasil;
+    }
+    public static String dateTimeTanggal(String dateSql){
+        int hari, bulan, tahun, jam, menit, detik;
+        SimpleDateFormat formatInput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateHasil = null;
+        try {
+            Date dateInput = formatInput.parse(dateSql);
+            GregorianCalendar date = (GregorianCalendar) GregorianCalendar.getInstance();
+            date.setTime(dateInput);
+            String namabulan[] = {"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"};
+            hari = date.get(Calendar.DAY_OF_MONTH);
+            bulan = date.get(Calendar.MONTH);
+            tahun = date.get(Calendar.YEAR);
+            jam     = date.get(Calendar.HOUR_OF_DAY);
+            menit   = date.get(Calendar.MINUTE);
+            dateHasil = String.valueOf(hari+" "+namabulan[bulan]+" "+tahun+"  "+jam+":"+menit);
+        }catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dateHasil;
+    }
 }
