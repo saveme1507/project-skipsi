@@ -2,6 +2,8 @@ package com.asep.pelaporan_imaje.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -43,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DataMesin extends AppCompatActivity {
+    SharedPreferences sharedPreferences;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RecycleAdapter recycleAdapter;
@@ -54,6 +57,7 @@ public class DataMesin extends AppCompatActivity {
     TextView tx_judul;
     FloatingActionButton floatingActionButton;
     Spinner sp_palanggan;
+    String id_intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +71,28 @@ public class DataMesin extends AppCompatActivity {
         niceSpinner     = (NiceSpinner)findViewById(R.id.spinner_sort_datamesin);
         tx_judul        = (TextView)findViewById(R.id.tx_judul);
         floatingActionButton = (FloatingActionButton)findViewById(R.id.floating_tambah_datamesin);
+        sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
+        id_intent = getIntent().getStringExtra("id_intent");
+
+        if (id_intent.equals("data_mesin")){
+            floatingActionButton.hide();
+            if (sharedPreferences.getString("mu_flag","").equals("0")){
+                tx_judul.setText(sharedPreferences.getString("mp_nama",""));
+                niceSpinner.setVisibility(View.GONE);
+            }else{
+                tx_judul.setText("All");
+            }
+        }else if (id_intent.equals("pengaturan_data_mesin")){
+            tx_judul.setText("All");
+        }
+
         layoutManager   = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         items = new ArrayList<>();
 
         dataSpinner();
-        tx_judul.setText("All");
-        getDataMesin("");
+        getDataMesin(tx_judul.getText().toString());
 
         niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -428,7 +446,16 @@ public class DataMesin extends AppCompatActivity {
                                     ,items.get(getAdapterPosition()).mm_id_pt);
                         }
                     });
-                    alertBuilder.show();
+
+                    if (id_intent.equals("data_mesin")){
+                        Intent intent = new Intent(DataMesin.this,PerformaMesin.class);
+                        view.getContext().startActivity(intent);
+                    }else if (id_intent.equals("pengaturan_data_mesin")) {
+                        if (!sharedPreferences.getString("mu_flag","").equals("0")){
+                            alertBuilder.show();
+                        }
+                    }
+
                 }
             });
             }

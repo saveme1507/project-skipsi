@@ -37,127 +37,131 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <GridLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+        android:layout_marginTop="10dp"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="center_horizontal"
+        android:columnCount="4"
+        android:keepScreenOn="true">
             <Button
-                android:layout_width="85dp"
+                android:id="@+id/bt_datamesin_detailhome"
+                android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:drawableTop="@drawable/home_datamesin"
-                android:background="#F6F6F6"
+                android:background="?android:attr/selectableItemBackground"
                 android:textColor="#E03838"
                 android:textAllCaps="false"
                 android:text="Data Mesin"
                 android:textSize="10dp"
-                android:layout_margin="3dp"/>
+                android:layout_marginLeft="3dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="3dp"/>
             <Button
-                android:layout_width="85dp"
+                android:id="@+id/br_sparepart_detailhome"
+                android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:drawableTop="@drawable/home_sparepart"
-                android:background="#F6F6F6"
+                android:background="?android:attr/selectableItemBackground"
                 android:textColor="#E03838"
                 android:textAllCaps="false"
                 android:text="SparePart"
                 android:textSize="10dp"
                 android:layout_margin="3dp"/>
             <Button
-                android:layout_width="85dp"
+                android:id="@+id/bt_jadwalpm_detailhome"
+                android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:drawableTop="@drawable/home_jadwalpm"
-                android:background="#F6F6F6"
+                android:background="?android:attr/selectableItemBackground"
                 android:textColor="#E03838"
                 android:textAllCaps="false"
                 android:text="Jadwal PM"
                 android:textSize="10dp"
                 android:layout_margin="3dp"/>
             <Button
-                android:layout_width="85dp"
+                android:id="@+id/bt_pengaturan_detailhome"
+                android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:drawableTop="@drawable/home_pengaturan"
-                android:background="#F6F6F6"
+                android:background="?android:attr/selectableItemBackground"
                 android:textColor="#E03838"
                 android:textAllCaps="false"
                 android:text="Pengaturan"
                 android:textSize="10dp"
                 android:layout_margin="3dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:gravity="center">
+
             <Button
-                android:layout_width="85dp"
+                android:id="@+id/bt_buatlaporan_detailhome"
+                android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:drawableTop="@drawable/home_buatlaporan"
-                android:background="#F6F6F6"
+                android:background="?android:attr/selectableItemBackground"
                 android:textColor="#E03838"
                 android:textAllCaps="false"
                 android:text="Buat Laporan"
                 android:textSize="10dp"
-                android:layout_margin="3dp"/>
+                android:layout_marginLeft="3dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="3dp"/>
             <Button
-                android:layout_width="85dp"
+                android:id="@+id/bt_kontak_detailhome"
+                android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:drawableTop="@drawable/home_kontak"
-                android:background="#F6F6F6"
+                android:background="?android:attr/selectableItemBackground"
                 android:textColor="#E03838"
                 android:textAllCaps="false"
                 android:text="Kontak"
                 android:textSize="10dp"
                 android:layout_margin="3dp"/>
             <Button
-                android:layout_width="85dp"
+                android:id="@+id/bt_laporan_detailhome"
+                android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:drawableTop="@drawable/home_laporan"
-                android:background="#F6F6F6"
+                android:background="?android:attr/selectableItemBackground"
                 android:textColor="#E03838"
                 android:textAllCaps="false"
                 android:text="Laporan"
                 android:textSize="10dp"
                 android:layout_margin="3dp"/>
             <Button
-                android:layout_width="85dp"
+                android:id="@+id/bt_bantuan_detailhome"
+                android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:drawableTop="@drawable/home_bantuan"
-                android:background="#F6F6F6"
+                android:background="?android:attr/selectableItemBackground"
                 android:textColor="#E03838"
                 android:textAllCaps="false"
                 android:text="Bantuan"
                 android:textSize="10dp"
                 android:layout_margin="3dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:gravity="center">
 
             <Button
-                android:layout_width="85dp"
+                android:id="@+id/bt_jadwalkunjungan_detailhome"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="#F6F6F6"
+                android:background="?android:attr/selectableItemBackground"
                 android:drawableTop="@drawable/home_jadwalkunjungan"
-                android:text="Pengaturan Jadwal Kunjungan"
+                android:text="Jadwal Kunjungan"
                 android:textAllCaps="false"
                 android:textColor="#E03838"
-                android:textSize="10dp" />
+                android:textSize="10dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="3dp"/>
 
             <Button
-                android:layout_width="85dp"
+                android:id="@+id/bt_pengaturanDatamesin_detailHome"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
-                android:background="#F6F6F6"
+                android:background="?android:attr/selectableItemBackground"
                 android:drawableTop="@drawable/home_pengaturanmesin"
                 android:text="Pengaturan Data Mesin"
                 android:textAllCaps="false"
@@ -165,10 +169,11 @@
                 android:textSize="10dp" />
 
             <Button
-                android:layout_width="85dp"
+                android:id="@+id/bt_tambahpelanggan_detailhome"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
-                android:background="#F6F6F6"
+                android:background="?android:attr/selectableItemBackground"
                 android:drawableTop="@drawable/home_tambahcustomer"
                 android:text="Tambah      Customer"
                 android:textAllCaps="false"
@@ -176,29 +181,24 @@
                 android:textSize="10dp" />
 
             <Button
-                android:layout_width="85dp"
-                android:layout_height="69dp"
+                android:id="@+id/bt_buatlaporankunjungan_detailhome"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="3dp"
-                android:background="#F6F6F6"
+                android:background="?android:attr/selectableItemBackground"
                 android:drawableTop="@drawable/home_buatlapkunjungan"
                 android:text="Buat Laporan Kunjungsn"
                 android:textAllCaps="false"
                 android:textColor="#E03838"
                 android:textSize="10dp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:gravity="left"
-            android:paddingLeft="25dp">
+
 
             <Button
-                android:layout_width="85dp"
+                android:id="@+id/bt_pergantianpart_detailhome"
+                android:layout_width="80dp"
                 android:layout_height="72dp"
                 android:layout_margin="3dp"
-                android:background="#F6F6F6"
+                android:background="?android:attr/selectableItemBackground"
                 android:drawableTop="@drawable/home_buatlappergantia"
                 android:text="Buat Laporan Pergantian Part"
                 android:textAllCaps="false"
@@ -206,16 +206,17 @@
                 android:textSize="10dp" />
 
             <Button
-                android:layout_width="85dp"
+                android:id="@+id/bt_buatlaporanpm_detailhome"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
-                android:background="#F6F6F6"
+                android:background="?android:attr/selectableItemBackground"
                 android:drawableTop="@drawable/home_buatlappm"
                 android:text="Buat Laporan      PM"
                 android:textAllCaps="false"
                 android:textColor="#E03838"
                 android:textSize="10dp" />
-        </LinearLayout>
-    </LinearLayout>
+
+    </GridLayout>
 
 </LinearLayout>

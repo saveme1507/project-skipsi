@@ -82,82 +82,84 @@ public class Sparepart extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
-}
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    class ItemSparepart{
+        String nama,patch;
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-class ItemSparepart{
-    String nama,patch;
+        public ItemSparepart(String nama, String patch) {
+            this.nama = nama;
+            this.patch = patch;
+        }
 
-    public ItemSparepart(String nama, String patch) {
-        this.nama = nama;
-        this.patch = patch;
-    }
+        public String getNama() {
+            return nama;
+        }
 
-    public String getNama() {
-        return nama;
-    }
+        public void setNama(String nama) {
+            this.nama = nama;
+        }
 
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
+        public String getPatch() {
+            return patch;
+        }
 
-    public String getPatch() {
-        return patch;
-    }
-
-    public void setPatch(String patch) {
-        this.patch = patch;
-    }
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-class RecycleAdapterSparepart extends RecyclerView.Adapter<RecycleAdapterSparepart.MyViewHolderSparepart>{
-    List<ItemSparepart> itemSpareparts;
-    Context context;
-
-    public RecycleAdapterSparepart(List<ItemSparepart> itemSpareparts, Context context) {
-        this.itemSpareparts = itemSpareparts;
-        this.context = context;
-    }
-
-    @Override
-    public MyViewHolderSparepart onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_sparepart,viewGroup,false);
-        return new MyViewHolderSparepart(view);
-    }
-
-    @Override
-    public void onBindViewHolder(MyViewHolderSparepart myViewHolderSparepart, int i) {
-        myViewHolderSparepart.nama.setText(itemSpareparts.get(i).nama);
-        myViewHolderSparepart.patch.setText(itemSpareparts.get(i).patch);
-
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return itemSpareparts.size();
-    }
-
-    public class MyViewHolderSparepart extends RecyclerView.ViewHolder{
-        TextView nama,patch;
-
-        public MyViewHolderSparepart(View view){
-            super(view);
-            nama    = (TextView)view.findViewById(R.id.tx_nama_sparepart);
-            patch   = (TextView)view.findViewById(R.id.tx_path_sparepart);
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(view.getContext(),DetailSparepart.class);
-                    intent.putExtra("nama",itemSpareparts.get(getAdapterPosition()).nama);
-                    intent.putExtra("patch",itemSpareparts.get(getAdapterPosition()).patch);
-                    view.getContext().startActivity(intent);
-                }
-            });
+        public void setPatch(String patch) {
+            this.patch = patch;
         }
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    class RecycleAdapterSparepart extends RecyclerView.Adapter<RecycleAdapterSparepart.MyViewHolderSparepart>{
+        List<ItemSparepart> itemSpareparts;
+        Context context;
+
+        public RecycleAdapterSparepart(List<ItemSparepart> itemSpareparts, Context context) {
+            this.itemSpareparts = itemSpareparts;
+            this.context = context;
+        }
+
+        @Override
+        public MyViewHolderSparepart onCreateViewHolder(ViewGroup viewGroup, int i) {
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_sparepart,viewGroup,false);
+            return new MyViewHolderSparepart(view);
+        }
+
+        @Override
+        public void onBindViewHolder(MyViewHolderSparepart myViewHolderSparepart, int i) {
+            myViewHolderSparepart.nama.setText(itemSpareparts.get(i).nama);
+            myViewHolderSparepart.patch.setText(itemSpareparts.get(i).patch);
+
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return itemSpareparts.size();
+        }
+
+        public class MyViewHolderSparepart extends RecyclerView.ViewHolder{
+            TextView nama,patch;
+
+            public MyViewHolderSparepart(View view){
+                super(view);
+                nama    = (TextView)view.findViewById(R.id.tx_nama_sparepart);
+                patch   = (TextView)view.findViewById(R.id.tx_path_sparepart);
+
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(view.getContext(),DetailSparepart.class);
+                        intent.putExtra("nama",itemSpareparts.get(getAdapterPosition()).nama);
+                        intent.putExtra("patch",itemSpareparts.get(getAdapterPosition()).patch);
+                        view.getContext().startActivity(intent);
+                    }
+                });
+            }
+        }
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

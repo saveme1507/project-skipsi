@@ -75,6 +75,35 @@ public class Home extends AppCompatActivity {
         imageSlider.setImageList(slideModels,true);
 
 //        initial button
+        Button bt_pending = (Button)findViewById(R.id.bt_pelaporanPending_home);
+        bt_pending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this,Pelaporan.class);
+                intent.putExtra("statusLap","Pending");
+                startActivity(intent);
+            }
+        });
+        Button bt_proses = (Button)findViewById(R.id.bt_pelaporanProses_home);
+        bt_proses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this,Pelaporan.class);
+                intent.putExtra("statusLap","Proses");
+                startActivity(intent);
+            }
+        });
+        Button bt_selesai = (Button)findViewById(R.id.bt_pelaporanSelesai_home);
+        bt_selesai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this,Pelaporan.class);
+                intent.putExtra("statusLap","Selesai");
+                startActivity(intent);
+            }
+        });
+
+
         Button bt_lainnya = (Button)findViewById(R.id.bt_lainya);
         bt_lainnya.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,14 +117,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Home.this,DataMesin.class);
-                startActivity(intent);
-            }
-        });
-        Button bt_pengaturan = (Button)findViewById(R.id.bt_pengaturan_home);
-        bt_pengaturan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Home.this,Pengaturan.class);
+                intent.putExtra("id_intent","data_mesin");
                 startActivity(intent);
             }
         });
@@ -115,6 +137,39 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button bt_pengaturan = (Button)findViewById(R.id.bt_pengaturan_home);
+        bt_pengaturan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this,Pengaturan.class);
+                startActivity(intent);
+            }
+        });
+        Button bt_buatlpaoran = (Button)findViewById(R.id.bt_buatlaporan_home);
+        bt_buatlpaoran.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this,BuatLaporan.class);
+                startActivity(intent);
+            }
+        });
+        Button bt_kontak = (Button)findViewById(R.id.bt_kontak_home);
+        bt_kontak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this,Kontak.class);
+                startActivity(intent);
+            }
+        });
+        Button bt_laporan = (Button)findViewById(R.id.bt_laporan_home);
+        bt_laporan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this,Laporan.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

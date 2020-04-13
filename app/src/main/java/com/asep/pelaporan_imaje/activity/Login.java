@@ -143,6 +143,7 @@ public class Login extends AppCompatActivity {
                             String g = jObj.getString("mu_token");
                             String h = jObj.getString("mu_id_pt");
                             String i = jObj.getString("mp_nama");
+                            String j = jObj.getString("mu_flag");
 
                             Log.e("Anda berhasil Login", jObj.toString());
                             Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
@@ -159,6 +160,7 @@ public class Login extends AppCompatActivity {
                             editor.putString("mu_token", g);
                             editor.putString("mu_id_pt", h);
                             editor.putString("mp_nama",i);
+                            editor.putString("mu_flag",j);
                             editor.commit();
 
                             // Memanggil main activity

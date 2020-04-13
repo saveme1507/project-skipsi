@@ -2,6 +2,7 @@ package com.asep.pelaporan_imaje.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JadwalPm extends AppCompatActivity {
+    SharedPreferences sharedPreferences;
     RecyclerView recyclerViewJadwalpm;
     RecyclerView.LayoutManager layoutManagerJadwalpm;
     RecycleAdapterJadwalpm recycleAdapterJadwalpm;
@@ -49,6 +50,7 @@ public class JadwalPm extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.appBar_jadwalpm);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
+        sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
 
         recyclerViewJadwalpm = (RecyclerView)findViewById(R.id.recycle_item_jadwalpm);
         niceSpinner = (NiceSpinner)findViewById(R.id.spinner_sort_Jadwalpm);
@@ -58,9 +60,17 @@ public class JadwalPm extends AppCompatActivity {
         recyclerViewJadwalpm.setHasFixedSize(true);
         itemJadwalpms = new ArrayList<>();
 
+
+        if (sharedPreferences.getString("mu_flag","").equals("0")){
+            tx_judul.setText(sharedPreferences.getString("mp_nama",""));
+            niceSpinner.setVisibility(View.GONE);
+        }else{
+            tx_judul.setText("All");
+        }
+
+
         dataSpinner();
-        tx_judul.setText("All");
-        getDataMesin("");
+        getDataMesin(tx_judul.getText().toString());
 
         niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -134,104 +144,103 @@ public class JadwalPm extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
-}
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    class ItemJadwalpm{
+        String mm_id,mm_sn,mm_tipe,mm_last_pm;
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-class ItemJadwalpm{
-    String mm_id,mm_sn,mm_tipe,mm_last_pm;
+        public ItemJadwalpm(String mm_id, String mm_sn, String mm_tipe, String mm_last_pm) {
+            this.mm_id = mm_id;
+            this.mm_sn = mm_sn;
+            this.mm_tipe = mm_tipe;
+            this.mm_last_pm = mm_last_pm;
+        }
 
-    public ItemJadwalpm(String mm_id, String mm_sn, String mm_tipe, String mm_last_pm) {
-        this.mm_id = mm_id;
-        this.mm_sn = mm_sn;
-        this.mm_tipe = mm_tipe;
-        this.mm_last_pm = mm_last_pm;
-    }
+        public String getMm_id() {
+            return mm_id;
+        }
 
-    public String getMm_id() {
-        return mm_id;
-    }
+        public void setMm_id(String mm_id) {
+            this.mm_id = mm_id;
+        }
 
-    public void setMm_id(String mm_id) {
-        this.mm_id = mm_id;
-    }
+        public String getMm_sn() {
+            return mm_sn;
+        }
 
-    public String getMm_sn() {
-        return mm_sn;
-    }
+        public void setMm_sn(String mm_sn) {
+            this.mm_sn = mm_sn;
+        }
 
-    public void setMm_sn(String mm_sn) {
-        this.mm_sn = mm_sn;
-    }
+        public String getMm_tipe() {
+            return mm_tipe;
+        }
 
-    public String getMm_tipe() {
-        return mm_tipe;
-    }
+        public void setMm_tipe(String mm_tipe) {
+            this.mm_tipe = mm_tipe;
+        }
 
-    public void setMm_tipe(String mm_tipe) {
-        this.mm_tipe = mm_tipe;
-    }
+        public String getMm_last_pm() {
+            return mm_last_pm;
+        }
 
-    public String getMm_last_pm() {
-        return mm_last_pm;
-    }
-
-    public void setMm_last_pm(String mm_last_pm) {
-        this.mm_last_pm = mm_last_pm;
-    }
-}
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-class RecycleAdapterJadwalpm extends RecyclerView.Adapter<RecycleAdapterJadwalpm.MyViewHolderJadwalpm>{
-    List<ItemJadwalpm> itemJadwalpms;
-    Context context;
-
-    public RecycleAdapterJadwalpm(List<ItemJadwalpm> itemJadwalpms, Context context) {
-        this.itemJadwalpms = itemJadwalpms;
-        this.context = context;
-    }
-
-    @Override
-    public MyViewHolderJadwalpm onCreateViewHolder( ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_jadwal_pm,viewGroup,false);
-        return new MyViewHolderJadwalpm(view);
-    }
-
-    @Override
-    public void onBindViewHolder( MyViewHolderJadwalpm myViewHolderJadwalpm, int i) {
-        myViewHolderJadwalpm.mm_id.setText(itemJadwalpms.get(i).mm_id);
-        myViewHolderJadwalpm.mm_last_pm.setText(DateFormat.dateNextPm(itemJadwalpms.get(i).mm_last_pm));
-        myViewHolderJadwalpm.mm_tipe.setText(itemJadwalpms.get(i).mm_tipe.toUpperCase());
-        myViewHolderJadwalpm.mm_sn.setText(itemJadwalpms.get(i).mm_sn);
-    }
-
-    @Override
-    public int getItemCount() {
-        return itemJadwalpms.size();
-    }
-
-    public class MyViewHolderJadwalpm extends RecyclerView.ViewHolder{
-        TextView mm_id,mm_sn,mm_tipe,mm_last_pm;
-        public MyViewHolderJadwalpm(@NonNull View itemView) {
-            super(itemView);
-            mm_id       =(TextView)itemView.findViewById(R.id.tx_id_jadwalpm);
-            mm_last_pm  =(TextView)itemView.findViewById(R.id.tx_lastpm_jadwalpm);
-            mm_tipe     =(TextView)itemView.findViewById(R.id.tx_tipe_jadwalpm);
-            mm_sn       =(TextView)itemView.findViewById(R.id.tx_sn_jadwalpm);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(context, "id :"+itemJadwalpms.get(getAdapterPosition()).mm_id, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(view.getContext(),HistoriPm.class);
-                    intent.putExtra("mm_id",itemJadwalpms.get(getAdapterPosition()).mm_id);
-                    intent.putExtra("tipe-sn",itemJadwalpms.get(getAdapterPosition()).mm_tipe.toUpperCase()+" "+itemJadwalpms.get(getAdapterPosition()).mm_sn).toString().replace(" ","");
-                    intent.putExtra("last_pm",DateFormat.dd_mmm_yyyy(itemJadwalpms.get(getAdapterPosition()).mm_last_pm));
-                    intent.putExtra("next_pm",DateFormat.dateNextPm(itemJadwalpms.get(getAdapterPosition()).mm_last_pm));
-                    view.getContext().startActivity(intent);
-                }
-            });
+        public void setMm_last_pm(String mm_last_pm) {
+            this.mm_last_pm = mm_last_pm;
         }
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    class RecycleAdapterJadwalpm extends RecyclerView.Adapter<RecycleAdapterJadwalpm.MyViewHolderJadwalpm>{
+        List<ItemJadwalpm> itemJadwalpms;
+        Context context;
+
+        public RecycleAdapterJadwalpm(List<ItemJadwalpm> itemJadwalpms, Context context) {
+            this.itemJadwalpms = itemJadwalpms;
+            this.context = context;
+        }
+
+        @Override
+        public MyViewHolderJadwalpm onCreateViewHolder( ViewGroup viewGroup, int i) {
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_jadwal_pm,viewGroup,false);
+            return new MyViewHolderJadwalpm(view);
+        }
+
+        @Override
+        public void onBindViewHolder( MyViewHolderJadwalpm myViewHolderJadwalpm, int i) {
+            myViewHolderJadwalpm.mm_id.setText(itemJadwalpms.get(i).mm_id);
+            myViewHolderJadwalpm.mm_last_pm.setText(DateFormat.dateNextPm(itemJadwalpms.get(i).mm_last_pm));
+            myViewHolderJadwalpm.mm_tipe.setText(itemJadwalpms.get(i).mm_tipe.toUpperCase());
+            myViewHolderJadwalpm.mm_sn.setText(itemJadwalpms.get(i).mm_sn);
+        }
+
+        @Override
+        public int getItemCount() {
+            return itemJadwalpms.size();
+        }
+
+        public class MyViewHolderJadwalpm extends RecyclerView.ViewHolder{
+            TextView mm_id,mm_sn,mm_tipe,mm_last_pm;
+            public MyViewHolderJadwalpm(@NonNull View itemView) {
+                super(itemView);
+                mm_id       =(TextView)itemView.findViewById(R.id.tx_id_jadwalpm);
+                mm_last_pm  =(TextView)itemView.findViewById(R.id.tx_lastpm_jadwalpm);
+                mm_tipe     =(TextView)itemView.findViewById(R.id.tx_tipe_jadwalpm);
+                mm_sn       =(TextView)itemView.findViewById(R.id.tx_sn_jadwalpm);
+
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(view.getContext(),HistoriPm.class);
+                        intent.putExtra("mm_id",itemJadwalpms.get(getAdapterPosition()).mm_id);
+                        intent.putExtra("tipe-sn",itemJadwalpms.get(getAdapterPosition()).mm_tipe.toUpperCase()+" "+itemJadwalpms.get(getAdapterPosition()).mm_sn).toString().replace(" ","");
+                        intent.putExtra("last_pm",DateFormat.dd_mmm_yyyy(itemJadwalpms.get(getAdapterPosition()).mm_last_pm));
+                        intent.putExtra("next_pm",DateFormat.dateNextPm(itemJadwalpms.get(getAdapterPosition()).mm_last_pm));
+                        view.getContext().startActivity(intent);
+                    }
+                });
+            }
+        }
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
 }

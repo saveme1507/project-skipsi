@@ -1,6 +1,7 @@
 package com.asep.pelaporan_imaje.activity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,10 +30,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pelaporan extends AppCompatActivity {
+    SharedPreferences sharedPreferences;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     Pelaporan.RecycleAdapterPelaporan recycleAdapterPelaporan;
     List<Pelaporan.ItemPelaporan> itemPelaporans;
+    TextView tx_judul;
+    String statusLap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +45,42 @@ public class Pelaporan extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.appBar_pelaporan);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
+        sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
 
         recyclerView =(RecyclerView)findViewById(R.id.recycle_item_pelaporan);
+        tx_judul   =(TextView)findViewById(R.id.tx_judul_pelaporan);
         layoutManager   = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+        statusLap = getIntent().getStringExtra("statusLap");
 
-        selectPelaporan("");
+        if (statusLap.equals("Pending")){
+            tx_judul.setText("Data Pelaporan Pending");
+            if (sharedPreferences.getString("mu_flag","").equals("0")){
+                selectPelaporan(statusLap,sharedPreferences.getString("mp_nama",""));
+            }else{
+                selectPelaporan(statusLap,"");
+            }
+        }else if (statusLap.equals("Proses")){
+            tx_judul.setText("Data Pelaporan Proses");
+            if (sharedPreferences.getString("mu_flag","").equals("0")){
+                selectPelaporan(statusLap,sharedPreferences.getString("mp_nama",""));
+            }else{
+                selectPelaporan(statusLap,"");
+            }
+        }else if (statusLap.equals("Selesai")){
+            tx_judul.setText("Data Pelaporan Selesai");
+            if (sharedPreferences.getString("mu_flag","").equals("0")){
+                selectPelaporan(statusLap,sharedPreferences.getString("mp_nama",""));
+            }else{
+                selectPelaporan(statusLap,"");
+            }
+        }
+
     }
 
-    private void selectPelaporan(String status){
-        String url= Server.URL + "buat_laporan/select_pelaporan_by_status.php?status="+status;
+    private void selectPelaporan(String status, String namaPT){
+        String url= Server.URL + "buat_laporan/select_pelaporan_by_status.php?status="+status+"&mp_nama="+namaPT;
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url.replace(" ","%20"),new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

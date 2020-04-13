@@ -2,7 +2,6 @@ package com.asep.pelaporan_imaje.activity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -96,81 +95,81 @@ public class HistoriPm extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    class ItemHistorpm{
+        String hlm_id,hlm_tanggal;
 
+        public ItemHistorpm(String hlm_id, String hlm_tanggal) {
+            this.hlm_id = hlm_id;
+            this.hlm_tanggal = hlm_tanggal;
+        }
 
-}
+        public String getHlm_id() {
+            return hlm_id;
+        }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-class ItemHistorpm{
-    String hlm_id,hlm_tanggal;
+        public void setHlm_id(String hlm_id) {
+            this.hlm_id = hlm_id;
+        }
 
-    public ItemHistorpm(String hlm_id, String hlm_tanggal) {
-        this.hlm_id = hlm_id;
-        this.hlm_tanggal = hlm_tanggal;
+        public String getHlm_tanggal() {
+            return hlm_tanggal;
+        }
+
+        public void setHlm_tanggal(String hlm_tanggal) {
+            this.hlm_tanggal = hlm_tanggal;
+        }
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public String getHlm_id() {
-        return hlm_id;
-    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    class RecycleAdapterHistoripm extends RecyclerView.Adapter<RecycleAdapterHistoripm.MyViewHolderHistoripm>{
+        List<ItemHistorpm> itemHistorpms;
+        Context context;
 
-    public void setHlm_id(String hlm_id) {
-        this.hlm_id = hlm_id;
-    }
+        public RecycleAdapterHistoripm(List<ItemHistorpm> itemHistorpms, Context context) {
+            this.itemHistorpms = itemHistorpms;
+            this.context = context;
+        }
 
-    public String getHlm_tanggal() {
-        return hlm_tanggal;
-    }
+        @Override
+        public MyViewHolderHistoripm onCreateViewHolder(ViewGroup viewGroup, int i) {
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_historipm,viewGroup,false);
+            return new MyViewHolderHistoripm(view);
+        }
 
-    public void setHlm_tanggal(String hlm_tanggal) {
-        this.hlm_tanggal = hlm_tanggal;
-    }
-}
+        @Override
+        public void onBindViewHolder(MyViewHolderHistoripm myViewHoldelHistoripm, int i) {
+            myViewHoldelHistoripm.hlm_id.setText(itemHistorpms.get(i).hlm_id);
+            myViewHoldelHistoripm.hlm_tanggal.setText(DateFormat.dd_MMMM_yyyy(itemHistorpms.get(i).hlm_tanggal));
+        }
 
+        @Override
+        public int getItemCount() {
+            return itemHistorpms.size();
+        }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-class RecycleAdapterHistoripm extends RecyclerView.Adapter<RecycleAdapterHistoripm.MyViewHolderHistoripm>{
-    List<ItemHistorpm> itemHistorpms;
-    Context context;
+        public class MyViewHolderHistoripm extends RecyclerView.ViewHolder{
+            TextView hlm_id,hlm_tanggal;
+            public MyViewHolderHistoripm(View itemView) {
+                super(itemView);
+                hlm_id = (TextView)itemView.findViewById(R.id.tx_id_itemhistori);
+                hlm_tanggal = (TextView)itemView.findViewById(R.id.tx_tanggal_itemhistori);
 
-    public RecycleAdapterHistoripm(List<ItemHistorpm> itemHistorpms, Context context) {
-        this.itemHistorpms = itemHistorpms;
-        this.context = context;
-    }
-
-    @Override
-    public MyViewHolderHistoripm onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_historipm,viewGroup,false);
-        return new MyViewHolderHistoripm(view);
-    }
-
-    @Override
-    public void onBindViewHolder(MyViewHolderHistoripm myViewHoldelHistoripm, int i) {
-        myViewHoldelHistoripm.hlm_id.setText(itemHistorpms.get(i).hlm_id);
-        myViewHoldelHistoripm.hlm_tanggal.setText(DateFormat.dd_MMMM_yyyy(itemHistorpms.get(i).hlm_tanggal));
-    }
-
-    @Override
-    public int getItemCount() {
-        return itemHistorpms.size();
-    }
-
-    public class MyViewHolderHistoripm extends RecyclerView.ViewHolder{
-        TextView hlm_id,hlm_tanggal;
-        public MyViewHolderHistoripm(View itemView) {
-            super(itemView);
-            hlm_id = (TextView)itemView.findViewById(R.id.tx_id_itemhistori);
-            hlm_tanggal = (TextView)itemView.findViewById(R.id.tx_tanggal_itemhistori);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(context, "id :"+itemHistorpms.get(getAdapterPosition()).hlm_tanggal, Toast.LENGTH_SHORT).show();
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(context, "id :"+itemHistorpms.get(getAdapterPosition()).hlm_tanggal, Toast.LENGTH_SHORT).show();
 //                    Intent intent = new Intent(view.getContext(),DetailSparepart.class);
 //                    intent.putExtra("nama",itemSpareparts.get(getAdapterPosition()).nama);
 //                    intent.putExtra("patch",itemSpareparts.get(getAdapterPosition()).patch);
 //                    view.getContext().startActivity(intent);
-                }
-            });
+                    }
+                });
+            }
         }
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+
 }
+

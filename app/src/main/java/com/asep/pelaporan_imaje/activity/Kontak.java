@@ -83,134 +83,131 @@ public class Kontak extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
     }
 
-}
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    class ItemKontak{
+        String mu_nama,mu_flag,mu_telp,mu_email;
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-class ItemKontak{
-    String mu_nama,mu_flag,mu_telp,mu_email;
-
-    public ItemKontak(String mu_nama, String mu_flag, String mu_telp, String mu_email) {
-        this.mu_nama = mu_nama;
-        this.mu_flag = mu_flag;
-        this.mu_telp = mu_telp;
-        this.mu_email = mu_email;
-    }
-
-    public String getMu_nama() {
-        return mu_nama;
-    }
-
-    public void setMu_nama(String mu_nama) {
-        this.mu_nama = mu_nama;
-    }
-
-    public String getMu_flag() {
-        return mu_flag;
-    }
-
-    public void setMu_flag(String mu_flag) {
-        this.mu_flag = mu_flag;
-    }
-
-    public String getMu_telp() {
-        return mu_telp;
-    }
-
-    public void setMu_telp(String mu_telp) {
-        this.mu_telp = mu_telp;
-    }
-
-    public String getMu_email() {
-        return mu_email;
-    }
-
-    public void setMu_email(String mu_email) {
-        this.mu_email = mu_email;
-    }
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-class RecycleAdapterKontak extends RecyclerView.Adapter<RecycleAdapterKontak.MyViewHolderKontak>{
-    List<ItemKontak> itemKontaks;
-    Context context;
-
-    public RecycleAdapterKontak(List<ItemKontak> itemKontaks, Context context) {
-        this.itemKontaks = itemKontaks;
-        this.context = context;
-    }
-
-    @Override
-    public MyViewHolderKontak onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view =  LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_kontak,viewGroup,false);
-        return  new MyViewHolderKontak(view);
-    }
-
-    @Override
-    public void onBindViewHolder(RecycleAdapterKontak.MyViewHolderKontak myViewHolderKontak, int i) {
-        String kapital  = itemKontaks.get(i).mu_nama.substring(0,1).toUpperCase();
-        String nama     = itemKontaks.get(i).mu_nama.replace(itemKontaks.get(i).mu_nama.substring(0,1),kapital);
-        myViewHolderKontak.tx_nama.setText(nama);
-
-        String jabatan = null;
-        int flag = Integer.parseInt((itemKontaks.get(i).mu_flag));
-        if (flag==1){
-            jabatan="Teknisi";
-        }else if (flag==2){
-            jabatan="Assitent Supervisor";
-        }else if (flag==3){
-            jabatan="Supervisor";
-        }else if (flag==4){
-            jabatan="Branch Manager";
-        }else if (flag==5){
-            jabatan="Manager Teknik";
-        }else if (flag==6){
-            jabatan="Owner";
+        public ItemKontak(String mu_nama, String mu_flag, String mu_telp, String mu_email) {
+            this.mu_nama = mu_nama;
+            this.mu_flag = mu_flag;
+            this.mu_telp = mu_telp;
+            this.mu_email = mu_email;
         }
-        myViewHolderKontak.tx_jabatan.setText(jabatan);
-        myViewHolderKontak.tx_telp.setText(itemKontaks.get(i).mu_telp);
+
+        public String getMu_nama() {
+            return mu_nama;
+        }
+
+        public void setMu_nama(String mu_nama) {
+            this.mu_nama = mu_nama;
+        }
+
+        public String getMu_flag() {
+            return mu_flag;
+        }
+
+        public void setMu_flag(String mu_flag) {
+            this.mu_flag = mu_flag;
+        }
+
+        public String getMu_telp() {
+            return mu_telp;
+        }
+
+        public void setMu_telp(String mu_telp) {
+            this.mu_telp = mu_telp;
+        }
+
+        public String getMu_email() {
+            return mu_email;
+        }
+
+        public void setMu_email(String mu_email) {
+            this.mu_email = mu_email;
+        }
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @Override
-    public int getItemCount() {
-        return itemKontaks.size();
-    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    class RecycleAdapterKontak extends RecyclerView.Adapter<RecycleAdapterKontak.MyViewHolderKontak>{
+        List<ItemKontak> itemKontaks;
+        Context context;
 
-    public class MyViewHolderKontak extends RecyclerView.ViewHolder{
-        TextView tx_nama,tx_jabatan,tx_telp;
-        ImageView iv_telp,iv_wa,iv_email;
+        public RecycleAdapterKontak(List<ItemKontak> itemKontaks, Context context) {
+            this.itemKontaks = itemKontaks;
+            this.context = context;
+        }
 
-        public MyViewHolderKontak(View itemView) {
-            super(itemView);
-            tx_nama = (TextView)itemView.findViewById(R.id.tx_nama_itemkontak);
-            tx_jabatan = (TextView)itemView.findViewById(R.id.tx_jabatan_itemkontak);
-            tx_telp = (TextView)itemView.findViewById(R.id.tx_telp_itemkontak);
-            iv_telp =(ImageView)itemView.findViewById(R.id.iv_telp_kontak);
-            iv_wa   =(ImageView)itemView.findViewById(R.id.iv_wa_kontak);
-            iv_email=(ImageView)itemView.findViewById(R.id.iv_email_kontak);
+        @Override
+        public MyViewHolderKontak onCreateViewHolder(ViewGroup viewGroup, int i) {
+            View view =  LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_kontak,viewGroup,false);
+            return  new MyViewHolderKontak(view);
+        }
 
-            iv_telp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent telpon = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+itemKontaks.get(getAdapterPosition()).mu_telp));
-                    view.getContext().startActivity(telpon);
-                }
-            });
-            iv_wa.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent sendIntent = new Intent();
-                    sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Hello, "+itemKontaks.get(getAdapterPosition()).mu_nama);
-                    sendIntent.setType("text/plain");
-                    view.getContext().startActivity(sendIntent);
-                }
-            });
-            iv_email.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent=null, chooser=null;
+        @Override
+        public void onBindViewHolder(RecycleAdapterKontak.MyViewHolderKontak myViewHolderKontak, int i) {
+            String kapital  = itemKontaks.get(i).mu_nama.substring(0,1).toUpperCase();
+            String nama     = itemKontaks.get(i).mu_nama.replace(itemKontaks.get(i).mu_nama.substring(0,1),kapital);
+            myViewHolderKontak.tx_nama.setText(nama);
+
+            String jabatan = null;
+            int flag = Integer.parseInt((itemKontaks.get(i).mu_flag));
+            if (flag==1){
+                jabatan="Teknisi";
+            }else if (flag==2){
+                jabatan="Assitent Supervisor";
+            }else if (flag==3){
+                jabatan="Supervisor";
+            }else if (flag==4){
+                jabatan="Branch Manager";
+            }else if (flag==5){
+                jabatan="Manager Teknik";
+            }else if (flag==6){
+                jabatan="Owner";
+            }
+            myViewHolderKontak.tx_jabatan.setText(jabatan);
+            myViewHolderKontak.tx_telp.setText(itemKontaks.get(i).mu_telp);
+        }
+
+        @Override
+        public int getItemCount() {
+            return itemKontaks.size();
+        }
+
+        public class MyViewHolderKontak extends RecyclerView.ViewHolder{
+            TextView tx_nama,tx_jabatan,tx_telp;
+            ImageView iv_telp,iv_wa,iv_email;
+
+            public MyViewHolderKontak(View itemView) {
+                super(itemView);
+                tx_nama = (TextView)itemView.findViewById(R.id.tx_nama_itemkontak);
+                tx_jabatan = (TextView)itemView.findViewById(R.id.tx_jabatan_itemkontak);
+                tx_telp = (TextView)itemView.findViewById(R.id.tx_telp_itemkontak);
+                iv_telp =(ImageView)itemView.findViewById(R.id.iv_telp_kontak);
+                iv_wa   =(ImageView)itemView.findViewById(R.id.iv_wa_kontak);
+                iv_email=(ImageView)itemView.findViewById(R.id.iv_email_kontak);
+
+                iv_telp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent telpon = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+itemKontaks.get(getAdapterPosition()).mu_telp));
+                        view.getContext().startActivity(telpon);
+                    }
+                });
+                iv_wa.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Hello, "+itemKontaks.get(getAdapterPosition()).mu_nama);
+                        sendIntent.setType("text/plain");
+                        view.getContext().startActivity(sendIntent);
+                    }
+                });
+                iv_email.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent=null, chooser=null;
                         intent = new Intent(Intent.ACTION_SEND);
                         String[] to={"email"};
                         intent.putExtra(Intent.EXTRA_EMAIL, to);
@@ -219,8 +216,8 @@ class RecycleAdapterKontak extends RecyclerView.Adapter<RecycleAdapterKontak.MyV
                         intent.setType("message/rfc822");
                         chooser=Intent.createChooser(intent, "Send Email");
                         view.getContext().startActivity(chooser);
-                }
-            });
+                    }
+                });
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(final View itemView) {
@@ -267,6 +264,9 @@ class RecycleAdapterKontak extends RecyclerView.Adapter<RecycleAdapterKontak.MyV
 //                    alertBuilder.show();
 //                }
 //            });
+            }
         }
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }
