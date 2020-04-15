@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    tools:context=".activity.DetailPelaporan">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="7dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/appBar_detailpelaporan"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_app_bar_red_gradient"
+            android:paddingLeft="30dp"
+            android:paddingRight="10dp">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tx_judul_pelaporan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="Detail Pelaporan"
+                    android:textColor="#FBFBFB"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+                <TextView
+                    android:layout_width="275dp"
+                    android:layout_height="1dp"
+                    android:background="#FBFBFB"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFF"
+            android:padding="20dp">
+            <TextView
+                android:id="@+id/tx_isi_detailpelaporan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextList"
+                android:textSize="14dp"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pilih Tanggal Pengerjaan"
+                    android:textSize="10dp"/>
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/icon_spinner"
+                    android:layout_marginStart="160dp"
+                    android:layout_marginTop="6dp"/>
+                <EditText
+                    android:id="@+id/et_pilihtgl_detailpelaporan"
+                    android:layout_marginTop="14dp"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:textColor="@color/colorTextList"
+                    android:paddingStart="10dp"
+                    android:textSize="16dp"
+                    android:background="@drawable/bg_edittext"/>
+            </RelativeLayout>
+            <ng.max.slideview.SlideView
+                android:id="@+id/sv_terima_detailpelaporan"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:sv_buttonBackgroundColor="@color/colorAccent"
+                app:sv_buttonImage="@android:drawable/ic_media_ff"
+                app:sv_slideBackgroundColor="@android:color/white"
+                app:sv_slideText="Terima"
+                app:sv_slideTextColor="@color/colorAccent"
+                app:sv_strokeColor="@color/colorAccent"
+                android:layout_marginBottom="40dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -80,10 +80,10 @@ public class DataMesin extends AppCompatActivity {
                 tx_judul.setText(sharedPreferences.getString("mp_nama",""));
                 niceSpinner.setVisibility(View.GONE);
             }else{
-                tx_judul.setText("All");
+                tx_judul.setText("");
             }
         }else if (id_intent.equals("pengaturan_data_mesin")){
-            tx_judul.setText("All");
+            tx_judul.setText("");
         }
 
         layoutManager   = new LinearLayoutManager(this);
@@ -449,6 +449,11 @@ public class DataMesin extends AppCompatActivity {
 
                     if (id_intent.equals("data_mesin")){
                         Intent intent = new Intent(DataMesin.this,PerformaMesin.class);
+                        intent.putExtra("mm_id", items.get(getAdapterPosition()).mm_id);
+                        intent.putExtra("mm_tipe",items.get(getAdapterPosition()).tipe);
+                        intent.putExtra("mm_sn", items.get(getAdapterPosition()).sn);
+                        intent.putExtra("mm_lastPm",items.get(getAdapterPosition()).instal);
+                        intent.putExtra("mm_line",items.get(getAdapterPosition()).line);
                         view.getContext().startActivity(intent);
                     }else if (id_intent.equals("pengaturan_data_mesin")) {
                         if (!sharedPreferences.getString("mu_flag","").equals("0")){

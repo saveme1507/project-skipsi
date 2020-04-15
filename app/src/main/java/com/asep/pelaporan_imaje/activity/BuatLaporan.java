@@ -55,7 +55,7 @@ public class BuatLaporan extends AppCompatActivity {
         ns_sn   = (NiceSpinner)findViewById(R.id.ns_sn_buatLap);
         et_deskripsi =(EditText)findViewById(R.id.et_deskripsi_buatLap);
         sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
-        dataSpinner("");
+        dataSpinner(sharedPreferences.getString("mu_id_pt",""));
 
         ns_line.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

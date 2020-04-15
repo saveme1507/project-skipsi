@@ -16,8 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.Laporan"></activity>
-        <activity android:name=".activity.PerformaMesin" />
+        <activity android:name=".activity.DetailPelaporan"></activity>
+        <activity android:name=".activity.Laporan" />
+        <activity android:name=".activity.PerformaMesin">
+
+        </activity>
         <activity android:name=".activity.PergantianPart" />
         <activity android:name=".activity.Pelaporan" />
         <activity android:name=".activity.BuatLaporanPengerjaan" />

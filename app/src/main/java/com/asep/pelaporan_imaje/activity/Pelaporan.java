@@ -1,6 +1,7 @@
 package com.asep.pelaporan_imaje.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -240,7 +241,11 @@ public class Pelaporan extends AppCompatActivity {
             myViewHolderPelaporan.tx_tgl.setText("Tanggal "+DateFormat.dateTimeTanggal(itemPelaporans.get(i).lk_tgl));
             myViewHolderPelaporan.tx_mpNama_muNama.setText(itemPelaporans.get(i).mp_nama+" | "+itemPelaporans.get(i).mu_nama);
             myViewHolderPelaporan.tx_des.setText(itemPelaporans.get(i).lk_ket);
-            myViewHolderPelaporan.tx_lkStatus_lkUpdate.setText("Status: "+ itemPelaporans.get(i).lk_status+" | "+DateFormat.dateTimeStatus(itemPelaporans.get(i).lk_update));
+            if (statusLap.equals("Pending")){
+                myViewHolderPelaporan.tx_lkStatus_lkUpdate.setText("Status: "+ itemPelaporans.get(i).lk_status);
+            }else{
+                myViewHolderPelaporan.tx_lkStatus_lkUpdate.setText("Status: "+ itemPelaporans.get(i).lk_status+" | "+DateFormat.dateTimeStatus(itemPelaporans.get(i).lk_update));
+            }
         }
 
         @Override
@@ -257,6 +262,19 @@ public class Pelaporan extends AppCompatActivity {
                 tx_des          =(TextView)itemView.findViewById(R.id.tx_deskripsi_itemPelaporan);
                 tx_lkStatus_lkUpdate =(TextView)itemView.findViewById(R.id.tx_status_update_itemPelaporan);
 
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Pelaporan.this,DetailPelaporan.class);
+                        intent.putExtra("lk_id",itemPelaporans.get(getAdapterPosition()).lk_id);
+                        intent.putExtra("mu_nama",itemPelaporans.get(getAdapterPosition()).mu_nama);
+                        intent.putExtra("mp_nama", itemPelaporans.get(getAdapterPosition()).mp_nama);
+                        intent.putExtra("lk_tgl",itemPelaporans.get(getAdapterPosition()).lk_tgl);
+                        intent.putExtra("lk_ket", itemPelaporans.get(getAdapterPosition()).lk_ket);
+                        intent.putExtra("lk_status", itemPelaporans.get(getAdapterPosition()).lk_status);
+                        view.getContext().startActivity(intent);
+                    }
+                });
             }
         }
     }

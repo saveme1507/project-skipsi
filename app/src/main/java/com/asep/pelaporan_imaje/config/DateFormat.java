@@ -91,4 +91,19 @@ public class DateFormat {
         }
         return dateHasil;
     }
+    public static String dateLabelChart(String dateSql){
+        SimpleDateFormat formatInput = new SimpleDateFormat("yyyy-MM");
+        SimpleDateFormat formatOutput = new SimpleDateFormat("MMM yyyy");
+        String hasil = null;
+        try {
+            Date date   = formatInput.parse(dateSql); //parse strign to date
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date); //parse date to calender
+            Date datehasil = calendar.getTime(); //parse calender to date
+            hasil = formatOutput.format(datehasil);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return hasil;
+    }
 }

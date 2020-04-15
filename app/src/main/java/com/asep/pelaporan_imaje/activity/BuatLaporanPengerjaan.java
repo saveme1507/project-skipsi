@@ -33,7 +33,7 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
     Spinner sp_pengerjaan,sp_pelanggan,sp_sn;
     EditText et_tanggal;
     String[] namabulan = {"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"};
-    String[] pengerjaan = {"Laporan Kerusakan","Kunjungan Rutin","Pergantian Sparepart","Preventive Maintenance"};
+    String[] pengerjaan = {"Perbaikan","Kunjungan Rutin","Pergantian Sparepart","Preventive Maintenance"};
     List<String> array_mp_id  ;
     List<String> array_mp_nama;
     List<String> array_mm_sn  ;
