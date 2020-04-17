@@ -57,7 +57,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#FFF">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -161,8 +162,34 @@
                     android:id="@+id/chart_performamesin"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"
-                    android:layout_marginTop="40dp"/>
+                    android:layout_marginTop="30dp"/>
             </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/colorBackground"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="History Pergantian Sparepart"
+                android:textColor="@color/colorTextList"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="5dp"
+                android:textSize="16dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_item_performa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:scrollbars="vertical"
+                android:scrollbarSize="@dimen/cardview_compat_inset_shadow"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -12,6 +14,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
+import com.asep.pelaporan_imaje.activity.Login;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
@@ -40,6 +43,9 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         String NOTIF_CHANEL_ID="notif_Id";
+        Intent intent = new Intent(this, Login.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
 
@@ -52,7 +58,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.green(1));
             notificationChannel.enableVibration(true);
-
             notificationManager.createNotificationChannel(notificationChannel);
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,NOTIF_CHANEL_ID);
@@ -64,8 +69,12 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 setContentTitle(judul).
                 setContentText(isi).
                 setContentInfo("Info").
-                setSound(urinotification);
+                setSound(urinotification).
+                setContentIntent(pendingIntent);
 
         notificationManager.notify(1, builder.build());
+
+
+
     }
 }

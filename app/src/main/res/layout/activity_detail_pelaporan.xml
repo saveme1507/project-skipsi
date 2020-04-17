@@ -72,11 +72,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
                 <TextView
+                    android:id="@+id/tx_judulPilihTgl_detailPel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pilih Tanggal Pengerjaan"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="10dp"/>
                 <ImageView
+                    android:id="@+id/logo_detaiPel"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/icon_spinner"
@@ -90,7 +93,8 @@
                     android:textColor="@color/colorTextList"
                     android:paddingStart="10dp"
                     android:textSize="16dp"
-                    android:background="@drawable/bg_edittext"/>
+                    android:background="@drawable/bg_edittext"
+                    android:focusable="false"/>
             </RelativeLayout>
             <ng.max.slideview.SlideView
                 android:id="@+id/sv_terima_detailpelaporan"

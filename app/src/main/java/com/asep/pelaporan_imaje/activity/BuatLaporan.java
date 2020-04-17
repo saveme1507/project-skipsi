@@ -149,6 +149,7 @@ public class BuatLaporan extends AppCompatActivity {
                 params.put("mu_id", sharedPreferences.getString("mu_id",""));
                 params.put("deskripsi", et_deskripsi.getText().toString());
                 params.put("tgl_lap", DateFormat.currentDatetimeFormatSQL());
+                params.put("mp_nama",sharedPreferences.getString("mp_nama",""));
                 return params;
             }
         };

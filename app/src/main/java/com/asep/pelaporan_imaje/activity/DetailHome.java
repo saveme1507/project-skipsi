@@ -147,7 +147,6 @@ public class DetailHome extends AppCompatActivity {
             }
         });
         if (sharedPreferences.getString("mu_flag","").equals("0")){
-            bt_jadwalkunjungan.setVisibility(View.GONE);
             bt_pengaturanDatamesin.setVisibility(View.GONE);
             bt_tambahPelanggan.setVisibility(View.GONE);
             bt_buatLapKunjungan.setVisibility(View.GONE);

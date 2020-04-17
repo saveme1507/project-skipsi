@@ -218,52 +218,6 @@ public class Kontak extends AppCompatActivity {
                         view.getContext().startActivity(chooser);
                     }
                 });
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(final View itemView) {
-//                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
-//                    View view=LayoutInflater.from(context).inflate(R.layout.dialog_kontak,null);
-//                    alertBuilder.setView(view);
-//                    alertBuilder.setCancelable(true);
-//
-//                    TextView iv_telp =(TextView) view.findViewById(R.id.iv_telp_dialogKontak);
-//                    TextView iv_wa   =(TextView) view.findViewById(R.id.iv_whatsapp_dialogKontak);
-//                    TextView iv_sms  =(TextView) view.findViewById(R.id.iv_sms_dialogKontak);
-//
-//                    iv_telp.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            Intent telpon = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+itemKontaks.get(getAdapterPosition()).mu_telp));
-//                            itemView.getContext().startActivity(telpon);
-//                        }
-//                    });
-//                    iv_wa.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            Intent sendIntent = new Intent();
-//                            sendIntent.setAction(Intent.ACTION_SEND);
-//                            sendIntent.putExtra(Intent.EXTRA_TEXT, "Hello, "+nama);
-//                            sendIntent.setType("text/plain");
-//                            startActivity(sendIntent);
-//                        }
-//                    });
-//                    iv_sms.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            Intent intent=null, chooser=null;
-//                            intent = new Intent(Intent.ACTION_SEND);
-//                            String[] to={"email"};
-//                            intent.putExtra(Intent.EXTRA_EMAIL, to);
-//                            intent.putExtra(Intent.EXTRA_SUBJECT,"Tentang aplikasi myprintech");
-//                            intent.putExtra(Intent.EXTRA_TEXT,"Hello, "+nama +"\n Tulis isi disini");
-//                            intent.setType("message/rfc822");
-//                            chooser=Intent.createChooser(intent, "Send Email");
-//                            startActivity(chooser);
-//                        }
-//                    });
-//                    alertBuilder.show();
-//                }
-//            });
             }
         }
     }

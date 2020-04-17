@@ -2,6 +2,7 @@ package com.asep.pelaporan_imaje.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -36,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 public class JadwalKunjungan extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+    SharedPreferences sharedPreferences;
     SwipeRefreshLayout refreshLayout;
     RecyclerView recyclerViewJadwalKunjungan;
     RecyclerView.LayoutManager layoutManagerJadwalKunjungan;
@@ -51,6 +53,7 @@ public class JadwalKunjungan extends AppCompatActivity implements SwipeRefreshLa
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
+        sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
         refreshLayout= (SwipeRefreshLayout)findViewById(R.id.swipRefresh_jadwalKunjungan);
         layoutManagerJadwalKunjungan = new LinearLayoutManager(this);
         recyclerViewJadwalKunjungan =(RecyclerView)findViewById(R.id.recycle_item_jadwalKunjungan);
@@ -243,7 +246,9 @@ public class JadwalKunjungan extends AppCompatActivity implements SwipeRefreshLa
                                 dialogInterface.dismiss();
                             }
                         });
-                        alertBuilder.show();
+                        if (!sharedPreferences.getString("mu_flag","").equals("0")){
+                            alertBuilder.show();
+                        }
                     }
                 });
             }

@@ -3,25 +3,45 @@ package com.asep.pelaporan_imaje.activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.asep.pelaporan_imaje.R;
+import com.asep.pelaporan_imaje.config.DateFormat;
+import com.asep.pelaporan_imaje.server.Server;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import ng.max.slideview.SlideView;
 
 public class DetailPelaporan extends AppCompatActivity {
+    SharedPreferences sharedPreferences;
     DatePickerDialog.OnDateSetListener onDateSetListener;
     String[] namabulan = {"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"};
-    String lk_id,lk_tgl,lk_ket,lk_status,mp_nama,mu_nama;
+    String lk_id,lk_tgl,lk_ket,lk_status,mp_nama,mu_nama,tgl_proses;
+    EditText et_tgl;
+    TextView tx_judulPilihTgl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,22 +50,33 @@ public class DetailPelaporan extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
+        sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
         TextView tx_isi =(TextView)findViewById(R.id.tx_isi_detailpelaporan);
-        final EditText et_tgl =(EditText)findViewById(R.id.et_pilihtgl_detailpelaporan);
+        et_tgl =(EditText)findViewById(R.id.et_pilihtgl_detailpelaporan);
         SlideView sv_terima =(SlideView)findViewById(R.id.sv_terima_detailpelaporan);
+        tx_judulPilihTgl =(TextView)findViewById(R.id.tx_judulPilihTgl_detailPel);
+        ImageView logo =(ImageView)findViewById(R.id.logo_detaiPel);
 
-        lk_id   = getIntent().getStringExtra("lk_id");
+        if (sharedPreferences.getString("mu_flag","").equals("0")){
+            et_tgl.setVisibility(View.GONE);
+            sv_terima.setVisibility(View.GONE);
+            logo.setVisibility(View.GONE);
+            tx_judulPilihTgl.setVisibility(View.GONE);
+        }
+
+
+            lk_id   = getIntent().getStringExtra("lk_id");
         lk_tgl  = getIntent().getStringExtra("lk_tgl");
         lk_ket   = getIntent().getStringExtra("lk_ket");
         lk_status  = getIntent().getStringExtra("lk_status");
         mp_nama = getIntent().getStringExtra("mp_nama");
         mu_nama = getIntent().getStringExtra("mu_nama");
 
-        String isi ="Tanggal Laporan \t: "+lk_tgl+"\n\n" +
-                "Pelapor \t\t: "+mu_nama+"\n\n" +
+        String isi ="Tanggal Laporan \t: "+ DateFormat.dateTimeTanggal(lk_tgl)+"\n\n" +
+                "Pelapor \t: "+mu_nama+"\n\n" +
                 "Perusahaan \t: "+mp_nama+"\n\n" +
                 "Keterangan \t: "+lk_ket+"\n\n" +
-                "Status \t\t: "+lk_status;
+                "Status \t: "+lk_status;
 
         tx_isi.setText(isi);
 
@@ -66,7 +97,9 @@ public class DetailPelaporan extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 String date = day+" "+namabulan[month]+" "+year;
+                tgl_proses = year+"-"+month+"-"+day;
                 et_tgl.setText(date);
+                tx_judulPilihTgl.setTextColor(getResources().getColor(R.color.colorTextList));
             }
         };
 
@@ -77,11 +110,50 @@ public class DetailPelaporan extends AppCompatActivity {
                 Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(100);
                 // go to a new activity
-                Intent intent = new Intent(DetailPelaporan.this,Pelaporan.class);
-                intent.putExtra("statusLap","Proses");
-                startActivity(intent);
-                finish();
+                if (et_tgl.getText().toString().trim().length()>0){
+                    updatePel();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Mohon isi tanggal pengerjaan",Toast.LENGTH_LONG).show();
+                }
             }
         });
+    }
+
+    private void updatePel(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.URL + "buat_laporan/change_status_proses.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Response :", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getInt("success")==1){
+                        Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(DetailPelaporan.this,Home.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Update Pelaporan gagal!", Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error Response :",error.getMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("lk_id", lk_id );
+                params.put("lk_status", "Proses");
+                params.put("lk_update", tgl_proses);
+                params.put("lk_ket", lk_ket+"\n \nTanggal pengerjaan : "+et_tgl.getText());
+                return params;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 }
