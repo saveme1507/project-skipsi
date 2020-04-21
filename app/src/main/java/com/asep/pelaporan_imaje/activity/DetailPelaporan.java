@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,7 +40,7 @@ public class DetailPelaporan extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     DatePickerDialog.OnDateSetListener onDateSetListener;
     String[] namabulan = {"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"};
-    String lk_id,lk_tgl,lk_ket,lk_status,mp_nama,mu_nama,tgl_proses;
+    String id_intent,hlm_id,lk_id,lk_tgl,lk_ket,lk_status,mp_nama,mu_nama,tgl_proses;
     EditText et_tgl;
     TextView tx_judulPilihTgl;
     @Override
@@ -56,6 +57,23 @@ public class DetailPelaporan extends AppCompatActivity {
         SlideView sv_terima =(SlideView)findViewById(R.id.sv_terima_detailpelaporan);
         tx_judulPilihTgl =(TextView)findViewById(R.id.tx_judulPilihTgl_detailPel);
         ImageView logo =(ImageView)findViewById(R.id.logo_detaiPel);
+        Button bt_proses =(Button)findViewById(R.id.bt_proses_detailpelaporan);
+
+        id_intent = getIntent().getStringExtra("id_intent");
+        if (id_intent.equals("Pending")){
+            bt_proses.setVisibility(View.GONE);
+        }else if (id_intent.equals("Proses")){
+            et_tgl.setVisibility(View.GONE);
+            sv_terima.setVisibility(View.GONE);
+            logo.setVisibility(View.GONE);
+            tx_judulPilihTgl.setVisibility(View.GONE);
+        }else if (id_intent.equals("Selesai")){
+            bt_proses.setVisibility(View.GONE);
+            et_tgl.setVisibility(View.GONE);
+            sv_terima.setVisibility(View.GONE);
+            logo.setVisibility(View.GONE);
+            tx_judulPilihTgl.setVisibility(View.GONE);
+        }
 
         if (sharedPreferences.getString("mu_flag","").equals("0")){
             et_tgl.setVisibility(View.GONE);
@@ -64,8 +82,8 @@ public class DetailPelaporan extends AppCompatActivity {
             tx_judulPilihTgl.setVisibility(View.GONE);
         }
 
-
-            lk_id   = getIntent().getStringExtra("lk_id");
+        hlm_id  = getIntent().getStringExtra("hlm_id");
+        lk_id   = getIntent().getStringExtra("lk_id");
         lk_tgl  = getIntent().getStringExtra("lk_tgl");
         lk_ket   = getIntent().getStringExtra("lk_ket");
         lk_status  = getIntent().getStringExtra("lk_status");
@@ -115,6 +133,17 @@ public class DetailPelaporan extends AppCompatActivity {
                 }else{
                     Toast.makeText(getApplicationContext(),"Mohon isi tanggal pengerjaan",Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        bt_proses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailPelaporan.this,BuatLaporanPengerjaan.class);
+                intent.putExtra("id_intent","Pelaporan_proses");
+                intent.putExtra("hlm_id",hlm_id);
+                intent.putExtra("mp_nama",mp_nama);
+                startActivity(intent);
             }
         });
     }

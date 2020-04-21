@@ -266,6 +266,8 @@ public class Pelaporan extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                             Intent intent = new Intent(Pelaporan.this,DetailPelaporan.class);
+                            intent.putExtra("id_intent", statusLap);
+                            intent.putExtra("hlm_id",itemPelaporans.get(getAdapterPosition()).hlm_id);
                             intent.putExtra("lk_id",itemPelaporans.get(getAdapterPosition()).lk_id);
                             intent.putExtra("mu_nama",itemPelaporans.get(getAdapterPosition()).mu_nama);
                             intent.putExtra("mp_nama", itemPelaporans.get(getAdapterPosition()).mp_nama);

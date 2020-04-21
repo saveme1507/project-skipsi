@@ -127,6 +127,7 @@ public class DetailHome extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetailHome.this,BuatLaporanPengerjaan.class);
+                intent.putExtra("id_intent", "Detail_home_lap_kunjungan");
                 startActivity(intent);
             }
         });
@@ -143,6 +144,7 @@ public class DetailHome extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetailHome.this,BuatLaporanPengerjaan.class);
+                intent.putExtra("id_intent","Detail_home_lap_pm");
                 startActivity(intent);
             }
         });

@@ -67,6 +67,10 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorTextList"
                 android:textSize="14dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,7 +102,7 @@
             </RelativeLayout>
             <ng.max.slideview.SlideView
                 android:id="@+id/sv_terima_detailpelaporan"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="90dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:sv_buttonBackgroundColor="@color/colorAccent"
@@ -107,7 +111,20 @@
                 app:sv_slideText="Terima"
                 app:sv_slideTextColor="@color/colorAccent"
                 app:sv_strokeColor="@color/colorAccent"
-                android:layout_marginBottom="40dp"/>
+                android:layout_marginBottom="40dp" />
+
+                <Button
+                    android:id="@+id/bt_proses_detailpelaporan"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_btn_merah_shadow"
+                    android:text="Proses"
+                    android:textSize="14dp"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="50dp"/>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
