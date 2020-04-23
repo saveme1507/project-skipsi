@@ -146,8 +146,7 @@
                 android:textSize="14dp"
                 android:paddingStart="8dp"
                 android:background="@drawable/bg_edittext"
-                android:layout_marginTop="3dp"
-                android:focusable="false"/>
+                android:layout_marginTop="3dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -161,8 +160,7 @@
                 android:textSize="14dp"
                 android:paddingStart="8dp"
                 android:background="@drawable/bg_edittext"
-                android:layout_marginTop="3dp"
-                android:focusable="false"/>
+                android:layout_marginTop="3dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

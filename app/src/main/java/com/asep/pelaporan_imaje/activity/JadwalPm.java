@@ -146,7 +146,7 @@ public class JadwalPm extends AppCompatActivity {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
-    class ItemJadwalpm{
+    private class ItemJadwalpm{
         String mm_id,mm_sn,mm_tipe,mm_last_pm;
 
         public ItemJadwalpm(String mm_id, String mm_sn, String mm_tipe, String mm_last_pm) {
@@ -191,7 +191,7 @@ public class JadwalPm extends AppCompatActivity {
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
-    class RecycleAdapterJadwalpm extends RecyclerView.Adapter<RecycleAdapterJadwalpm.MyViewHolderJadwalpm>{
+    private class RecycleAdapterJadwalpm extends RecyclerView.Adapter<RecycleAdapterJadwalpm.MyViewHolderJadwalpm>{
         List<ItemJadwalpm> itemJadwalpms;
         Context context;
 

@@ -195,7 +195,7 @@ public class PergantianPart extends AppCompatActivity {
 
     private void simpan(){
         final ProgressDialog loading = ProgressDialog.show(this, "Menyimpan", "Mohon Menungggu...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.URL + "buat_lapPengerjaan/simpan_laporan_mesin.php", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.URL + "sparepart/simpan_pergantian_part.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("Response :", response);
@@ -255,11 +255,9 @@ public class PergantianPart extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        if (requestCode == PICK_CAMERA_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        }else if (requestCode == PICK_CAMERA_REQUEST ) {
             Bitmap bitmapCamera = (Bitmap)data.getExtras().get("data");
-            setToImageView(getResizedBitmap(bitmapCamera, 512));;
+            iv_gambar.setImageBitmap(bitmapCamera);
         }
 
     }

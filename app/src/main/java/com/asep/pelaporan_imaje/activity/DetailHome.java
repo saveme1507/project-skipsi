@@ -139,21 +139,20 @@ public class DetailHome extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button bt_lapPm = (Button)findViewById(R.id.bt_buatlaporanpm_detailhome);
-        bt_lapPm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DetailHome.this,BuatLaporanPengerjaan.class);
-                intent.putExtra("id_intent","Detail_home_lap_pm");
-                startActivity(intent);
-            }
-        });
+//        Button bt_lapPm = (Button)findViewById(R.id.bt_buatlaporanpm_detailhome);
+//        bt_lapPm.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(DetailHome.this,BuatLaporanPengerjaan.class);
+//                intent.putExtra("id_intent","Detail_home_lap_pm");
+//                startActivity(intent);
+//            }
+//        });
         if (sharedPreferences.getString("mu_flag","").equals("0")){
             bt_pengaturanDatamesin.setVisibility(View.GONE);
             bt_tambahPelanggan.setVisibility(View.GONE);
             bt_buatLapKunjungan.setVisibility(View.GONE);
             bt_pergantianpart.setVisibility(View.GONE);
-            bt_lapPm.setVisibility(View.GONE);
         }
     }
 }

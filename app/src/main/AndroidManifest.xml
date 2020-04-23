@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,10 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.WebView"></activity>
+        <activity android:name=".activity.DetailLaporan"></activity>
+        <activity android:name=".activity.WebView" />
         <activity android:name=".activity.DetailPelaporan" />
         <activity android:name=".activity.Laporan" />
-        <activity android:name=".activity.PerformaMesin"></activity>
+        <activity android:name=".activity.PerformaMesin" />
         <activity android:name=".activity.PergantianPart" />
         <activity android:name=".activity.Pelaporan" />
         <activity android:name=".activity.BuatLaporanPengerjaan" />

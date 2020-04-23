@@ -100,8 +100,6 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
             sp_pelanggan.setEnabled(false);
             dataSpinnerSN(mp_nama);
             sp_sn.setEnabled(false);
-        }else if (id_intent.equals("Detail_home_lap_pm")){
-            dataSpinnerPelanggan("");
         }else if (id_intent.equals("Detail_home_lap_kunjungan")){
             dataSpinnerSN("");
         }
