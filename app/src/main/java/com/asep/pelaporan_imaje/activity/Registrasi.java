@@ -35,7 +35,7 @@ public class Registrasi extends AppCompatActivity {
     NiceSpinner niceSpinner;
     ProgressDialog pDialog;
     Button btn_register, btn_login;
-    EditText txt_username, txt_password, txt_confirm_password ,txt_email;
+    EditText txt_username, txt_password, txt_confirm_password, txt_email;
     Intent intent;
     ArrayList<String> pt = new ArrayList<String>();
     int success;
@@ -67,16 +67,15 @@ public class Registrasi extends AppCompatActivity {
 
         btn_login = (Button) findViewById(R.id.daftar_login);
         btn_register = (Button) findViewById(R.id.daftar_daftar);
-        txt_username = (EditText) findViewById(R.id.daftar_username);
-        txt_password = (EditText) findViewById(R.id.daftar_password);
-        txt_confirm_password = (EditText) findViewById(R.id.daftar_password_conf);
-        txt_email   = (EditText) findViewById(R.id.daftar_email);
+        txt_username = (EditText) findViewById(R.id.et_user_reg);
+        txt_password = (EditText) findViewById(R.id.et_pass_reg);
+        txt_confirm_password = (EditText) findViewById(R.id.et_konfirmasiPass_reg);
+        txt_email   = (EditText) findViewById(R.id.et_email_reg);
         niceSpinner = (NiceSpinner) findViewById(R.id.daftar_spinnerCust);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 intent = new Intent(Registrasi.this, Login.class);
                 finish();
                 startActivity(intent);
@@ -96,7 +95,16 @@ public class Registrasi extends AppCompatActivity {
                 if (conMgr.getActiveNetworkInfo() != null
                         && conMgr.getActiveNetworkInfo().isAvailable()
                         && conMgr.getActiveNetworkInfo().isConnected()) {
-                    checkRegister(username, email, password, confirm_password, cust);
+                    if (username.trim().length()>0 && email.trim().length()>0 && password.trim().length()>0 &&
+                            confirm_password.trim().length()>0 && cust.trim().length()>0){
+                        if (password.equals(confirm_password)){
+                            checkRegister(username, email, password, confirm_password, cust);
+                        }else {
+                            Toast.makeText(getApplicationContext(),"Mohon ceh kembali password yang anda masukan", Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        Toast.makeText(getApplicationContext(),"kolom tidak boleh kosong",Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show();
                 }
@@ -133,9 +141,7 @@ public class Registrasi extends AppCompatActivity {
                         txt_confirm_password.setText("");
 
                     } else {
-                        Toast.makeText(getApplicationContext(),
-                                jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-
+                        Toast.makeText(getApplicationContext(),jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -145,8 +151,6 @@ public class Registrasi extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Login Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
                 hideDialog();
             }
         }) {
@@ -154,10 +158,16 @@ public class Registrasi extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
+                String flag;
+                if (cust.equals("PT. Printech Group")){
+                    flag="1";
+                }else {
+                    flag="0";
+                }
                 params.put("nama", username);
                 params.put("email", email);
                 params.put("password", password);
-                params.put("confirm_password", confirm_password);
+                params.put("flag",flag);
                 params.put("nama_pt", cust);
 
                 return params;

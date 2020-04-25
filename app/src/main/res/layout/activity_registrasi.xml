@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_login"
     tools:context=".activity.Registrasi">
 
@@ -23,62 +23,62 @@
             android:text="Daftar"
             android:textSize="25dp"
             android:textAlignment="center"
-            android:layout_margin="25dp"/>
-        <EditText
-            android:id="@+id/daftar_username"
+            android:layout_marginTop="20dp"/>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <EditText
+                android:id="@+id/et_user_reg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:inputType="text"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:hint="username"
-            android:paddingLeft="15dp"
-            android:drawablePadding="22dp"
-            android:drawableLeft="@android:drawable/ic_menu_myplaces"
-            android:singleLine="true"/>
-        <EditText
-            android:id="@+id/daftar_email"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <EditText
+                android:id="@+id/et_email_reg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="textEmailAddress"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:hint="email"
-            android:inputType="textEmailAddress"
-            android:paddingLeft="15dp"
-            android:drawablePadding="22dp"
-            android:drawableLeft="@android:drawable/sym_action_email"
-            android:singleLine="true"/>
-        <EditText
-            android:id="@+id/daftar_password"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <in.anshul.libray.PasswordEditText
+                android:id="@+id/et_pass_reg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                app:password_visible="false"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:hint="password"
-            android:paddingLeft="15dp"
-            android:drawablePadding="30dp"
-            android:drawableLeft="@android:drawable/ic_lock_idle_lock"
-            android:password="true"
-            android:singleLine="true"/>
-        <EditText
-            android:id="@+id/daftar_password_conf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:hint="konfirmasi password"
-            android:paddingLeft="15dp"
-            android:drawablePadding="30dp"
-            android:drawableLeft="@android:drawable/ic_lock_idle_lock"
-            android:password="true"
-            android:singleLine="true"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp">
+            <in.anshul.libray.PasswordEditText
+                android:id="@+id/et_konfirmasiPass_reg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Konfirmasi password"
+                app:password_visible="false"/>
+        </android.support.design.widget.TextInputLayout>
 
         <org.angmarch.views.NiceSpinner
             android:id="@+id/daftar_spinnerCust"
@@ -88,8 +88,7 @@
             android:scrollbars="vertical"
             android:background="#a2a23b"
             android:hint="Pilih Perusahaan"
-            android:textAlignment="center"
-            />
+            android:textAlignment="center"/>
         <Button
             android:id="@+id/daftar_daftar"
             android:layout_width="match_parent"

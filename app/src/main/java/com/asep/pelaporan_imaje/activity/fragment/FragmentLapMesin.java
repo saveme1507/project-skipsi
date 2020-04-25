@@ -94,7 +94,7 @@ public class FragmentLapMesin extends Fragment {
             this.hlm_id=hlm_id;
             this.tgl = tgl;
             this.sn = sn;
-            this.hlm_id = hlm_ttd;
+            this.hlm_ttd = hlm_ttd;
         }
 
         public String getHlm_id() {
@@ -176,6 +176,8 @@ public class FragmentLapMesin extends Fragment {
                         Intent intent = new Intent(getActivity(), DetailLaporan.class);
                         intent.putExtra("hlm_id",itemLapMesins.get(getAdapterPosition()).hlm_id);
                         intent.putExtra("flag",flag);
+                        intent.putExtra("id_intent","lap_mesin");
+                        startActivity(intent);
                     }
                 });
             }

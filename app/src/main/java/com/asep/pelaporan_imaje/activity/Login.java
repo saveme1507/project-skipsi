@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -33,9 +34,10 @@ import in.anshul.libray.PasswordEditText;
 
 public class Login extends AppCompatActivity {
         ProgressDialog pDialog;
-        Button btn_register, btn_login;
+        Button  btn_login;
         PasswordEditText et_pass;
         EditText et_user;
+        TextView register;
         Intent intent;
         int success;
         ConnectivityManager conMgr;
@@ -64,8 +66,9 @@ public class Login extends AppCompatActivity {
                 }
             }
 
+            Boolean cekLogin = getIntent().getBooleanExtra("session",false);
             btn_login = (Button) findViewById(R.id.li_masuk);
-            btn_register = (Button) findViewById(R.id.li_daftar);
+            register = (TextView) findViewById(R.id.li_daftar);
             et_user     =(EditText)findViewById(R.id.et_user_login);
             et_pass     =(PasswordEditText)findViewById(R.id.et_pass_login);
 
@@ -75,9 +78,13 @@ public class Login extends AppCompatActivity {
 
             if (session) {
                 Intent intent = new Intent(Login.this, Home.class);
-                finish();
                 startActivity(intent);
+                finish();
             }
+
+//            if (!cekLogin){
+//                Toast.makeText(getApplicationContext(),"Akun anda telah di gunakan di handphone lain, silahkan login kembali",Toast.LENGTH_LONG).show();
+//            }
 
 
             btn_login.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +110,7 @@ public class Login extends AppCompatActivity {
                 }
             });
 
-            btn_register.setOnClickListener(new View.OnClickListener() {
+            register.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     intent = new Intent(Login.this, Registrasi.class);
@@ -114,7 +121,14 @@ public class Login extends AppCompatActivity {
 
         }
 
-        //proses Login
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Login.this.finish();
+        System.exit(0);
+    }
+
+    //proses Login
         private void checkLogin(final String username, final String password) {
             pDialog = new ProgressDialog(this);
             pDialog.setCancelable(false);

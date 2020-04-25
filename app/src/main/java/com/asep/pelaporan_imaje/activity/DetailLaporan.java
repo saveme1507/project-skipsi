@@ -51,13 +51,19 @@ public class DetailLaporan extends AppCompatActivity {
         bt_simpan   =(Button)findViewById(R.id.bt_simpan_detailLap);
         bt_ulangi   =(Button)findViewById(R.id.bt_ulangi_detailLap);
         signaturePad=(SignaturePad)findViewById(R.id.signaturePad);
-        RelativeLayout rl_signature =(RelativeLayout)findViewById(R.id.rl_signature);
+        RelativeLayout rl_signature =(RelativeLayout)findViewById(R.id.rl_acc);
 
         String hlmId = getIntent().getStringExtra("hlm_id");
+        final String id_intent = getIntent().getStringExtra("id_intent");
         flag = getIntent().getStringExtra("flag");
-        getDataLapMesin(hlmId);
 
-        if (!flag.equals("acc")){
+        if (id_intent.equals("lap_mesin")){
+            getDataLapMesin(hlmId);
+        }else if (id_intent.equals("per_part")){
+            getDataPerPart(hlmId);
+        }
+
+        if (flag.equals("acc")){
             rl_signature.setVisibility(View.GONE);
         }
 
@@ -83,7 +89,12 @@ public class DetailLaporan extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 bmp_ttd = signaturePad.getSignatureBitmap();
-                simpanTtd();
+                if (id_intent.equals("lap_mesin")){
+                    simpanTtd_mesin(bmp_ttd);
+                }else{
+                    simpanTtd_part(bmp_ttd);
+                }
+
             }
         });
         bt_ulangi.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +119,39 @@ public class DetailLaporan extends AppCompatActivity {
                         parameter = jObj.getString("parameter");
                         keterangan = jObj.getString("keterangan");
                     }
-                    tx_hlmID.setText(hlm_id);
+                    tx_hlmID.setText("No: "+hlm_id);
+                    tx_header.setText(header.replace("*","\n\n"));
+                    tx_mesin.setText(mesin.replace("*","\n\n"));
+                    tx_parameter.setText(parameter.replace("*","\n\n"));
+                    tx_parameter.setText(keterangan);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Edit profil gagal", Toast.LENGTH_SHORT).show();
+                }
+            }},new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error response :", error.getMessage());
+            }
+        });
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+    private void getDataPerPart(String hlmId){
+        StringRequest stringRequest = new StringRequest( Server.URL+"sparepart/select_lapPart.php?hlm_id="+hlmId,new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Response: ",response);
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    if (jObj.getInt("success") == 1) {
+                        hlm_id  = jObj.getString("hlm_id");
+                        header  = jObj.getString("header");
+                        mesin   = jObj.getString("mesin");
+                        parameter = jObj.getString("parameter");
+                        keterangan = jObj.getString("keterangan");
+                    }
+                    tx_hlmID.setText("No: "+hlm_id);
                     tx_header.setText(header.replace("*","\n\n"));
                     tx_mesin.setText(mesin.replace("*","\n\n"));
                     tx_parameter.setText(parameter.replace("*","\n\n"));
@@ -127,8 +170,8 @@ public class DetailLaporan extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void simpanTtd() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,Server.URL+"buat_lapPengerjaan/simpanTtd.php",new Response.Listener<String>() {
+    private void simpanTtd_mesin(final Bitmap bitmap) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,Server.URL+"buat_lapPengerjaan/simpanTtd_mesin.php",new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("Response: ",response);
@@ -153,7 +196,7 @@ public class DetailLaporan extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("hlm_ttd", BitmapFormat.getStringImage(bmp_ttd));
+                params.put("hlm_ttd", BitmapFormat.getStringImage(bitmap));
                 params.put("hlm_id", hlm_id);
                 return params;
             }
@@ -161,5 +204,40 @@ public class DetailLaporan extends AppCompatActivity {
         RequestQueue requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+    private void simpanTtd_part(final Bitmap bitmap) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,Server.URL+"sparepart/simpan_ttdPart.php",new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Response: ",response);
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    if (jObj.getInt("success") == 1) {
+                        Toast.makeText(getApplicationContext(),jObj.getString("message"),Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(DetailLaporan.this,Home.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Error !", Toast.LENGTH_SHORT).show();
+                }
+            }},new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error response :", error.getMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("hlm_ttd", BitmapFormat.getStringImage(bitmap));
+                params.put("hlm_id", hlm_id);
+                return params;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
 
 }
