@@ -5,13 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -40,10 +33,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -63,7 +52,6 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
     String id_intent,hlm_id,mp_nama,tanggal;
     ArrayAdapter<String> snAdapter;
     ArrayAdapter<String> arrayAdapter;
-    Bitmap bmp,scalebmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +76,6 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
         id_intent = getIntent().getStringExtra("id_intent");
         hlm_id = getIntent().getStringExtra("hlm_id");
         mp_nama = getIntent().getStringExtra("mp_nama");
-        bmp = BitmapFactory.decodeResource(getResources(),R.drawable.pdf_logo_printech);
-        scalebmp = Bitmap.createScaledBitmap(bmp,247,110,false);
 
         ArrayAdapter<String> langAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item ,pengerjaan );
         langAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -300,42 +286,5 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void createPDF(){
-        PdfDocument pdfDocument = new PdfDocument();
-        Paint paintLogoPrintech = new Paint();
-        Paint paintTitle = new Paint();
 
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1322,1870,1).create();
-        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
-        Canvas canvas = page.getCanvas();
-
-        //Logo
-        canvas.drawBitmap(scalebmp,86,34,paintLogoPrintech);
-
-        //Nomer Laporan
-        paintLogoPrintech.setColor(Color.BLACK);
-        paintLogoPrintech.setTextSize(25f);
-        paintLogoPrintech.setTextAlign(Paint.Align.RIGHT);
-        canvas.drawText("NO: 98",1200,50,paintLogoPrintech);
-
-        paintTitle.setTextAlign(Paint.Align.CENTER);
-        paintTitle.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-        paintTitle.setTextSize(30f);
-        canvas.drawText("MACHINE REPORT",1322/2,398,paintTitle);
-
-
-
-        pdfDocument.finishPage(page);
-        File file = new File("/storage/emulated/0/Download/COBA.pdf");
-        try {
-            pdfDocument.writeTo(new FileOutputStream(file));
-            Toast.makeText(getApplicationContext(),"pdf berhasil disimpan",Toast.LENGTH_LONG).show();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        pdfDocument.close();
-    }
 }

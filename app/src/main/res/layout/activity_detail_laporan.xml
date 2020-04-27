@@ -62,13 +62,13 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp">
+
             <TextView
                 android:id="@+id/tx_hlm_id_detailLap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:textSize="14dp"
                 android:text="coba"
+                android:textStyle="bold"
                 android:textColor="@color/colorTextList"/>
             <TextView
                 android:id="@+id/tx_header_detailLap"
@@ -92,8 +92,10 @@
                 android:id="@+id/tx_mesin_detailLap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorTextList"/>
+                android:textColor="@color/colorTextList"
+                android:layout_marginTop="5dp"/>
             <TextView
+                android:id="@+id/tx_paraNama_datailLap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorTextList"
@@ -104,7 +106,8 @@
                 android:id="@+id/tx_parameter_detailLap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorTextList"/>
+                android:textColor="@color/colorTextList"
+                android:layout_marginTop="5dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,15 +119,17 @@
                 android:id="@+id/tx_keterangan_detailLap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorTextList"/>
+                android:textColor="@color/colorTextList"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="30dp"/>
 
             <RelativeLayout
                 android:id="@+id/rl_acc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
                 android:padding="20dp"
-                android:background="#F8F8F8">
+                android:background="#D6D6D6">
                 <RelativeLayout
                     android:id="@+id/rl_signature"
                     android:layout_width="match_parent"
@@ -160,7 +165,8 @@
                     android:layout_height="wrap_content"
                     android:text="ulangi"
                     android:layout_below="@id/rl_signature"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_btn_putih_shadow"/>
                 <Button
                     android:id="@+id/bt_simpan_detailLap"
                     android:layout_width="match_parent"
@@ -174,7 +180,22 @@
                     android:textColor="#FFF"
                     android:textStyle="bold"/>
             </RelativeLayout>
-
+            <ImageView
+                android:id="@+id/iv_ttd_detailLap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"/>
+            <Button
+                android:id="@+id/bt_cetak_detailLap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_merah_shadow"
+                android:text="Cetak Laporan"
+                android:textColor="#FFF"
+                android:textStyle="bold"
+                android:visibility="gone"
+                android:layout_marginBottom="30dp"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

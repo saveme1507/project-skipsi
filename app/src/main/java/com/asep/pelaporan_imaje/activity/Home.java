@@ -221,12 +221,6 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        ////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
     }
 
     @Override
@@ -235,63 +229,25 @@ public class Home extends AppCompatActivity {
         inflater.inflate(R.menu.option,menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
-//            case R.id.action_infoAplikasi :
-//                Intent intent = new Intent(Home.this,AboutApk.class);
-//                startActivity(intent);
-//                return true;
-////            case R.id.action_login :
-////                Intent i =new Intent(Home.this,Login.class);
-////                finish();
-////                startActivity(i);
-////                return true;
-//            case R.id.action_logout :
-//                SharedPreferences.Editor editor = sharedpreferences.edit();
-//                editor.putBoolean(Login.session_status, false);
-//                editor.putString(TAG_ID, null);
-//                editor.putString(TAG_USERNAME, null);
-//                editor.putString(TAG_STATUS, null);
-//                editor.commit();
-//                deleteToken(idToken);
-//                Intent a =new Intent(Home.this,Login.class);
-//                finish();
-//                startActivity(a);
-//
-//                return true;
-
+            case R.id.action_share :
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT,"isi");
+                intent.putExtra(Intent.EXTRA_SUBJECT,"subject");
+                startActivity(Intent.createChooser(intent,"Share via"));
+                return true;
+            case R.id.action_about_apk :
+                Intent i =new Intent(Home.this,AboutApk.class);
+                finish();
+                startActivity(i);
+                return true;
             default: return super.onOptionsItemSelected(item);
-
         }
-
     }
-
-//    @Override
-//    protected void onStop(){
-//        sliderLayout.stopAutoCycle();
-//        super.onStop();
-//    }
-//
-//    @Override
-//    public void onSliderClick(BaseSliderView slider) {
-//        Toast.makeText(this,slider.getBundle().get("extra")+"",Toast.LENGTH_LONG).show();
-//    }
-//
-//    @Override
-//    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//    }
-//
-//    @Override
-//    public void onPageSelected(int position) {
-//        Log.d("Slider","Page Change :"+position);
-//    }
-//
-//    @Override
-//    public void onPageScrollStateChanged(int state) {
-//
-//    }
 
     private void notifikasi(String namaPt){
         StringRequest strReq = new StringRequest(Request.Method.GET, Server.URL+"menu_utama/get_jml_pelaporan.php?mp_nama="+namaPt.replace(" ","%20"), new Response.Listener<String>() {
@@ -307,13 +263,11 @@ public class Home extends AppCompatActivity {
                 }
                 if (!pending.equals("0")){
                     tx_notif_pending.setText(pending);
-                }else{
-                    tx_notif_pending.setVisibility(View.GONE);
+                    tx_notif_pending.setVisibility(View.VISIBLE);
                 }
                 if (!proses.equals("0")){
                     tx_notif_proses.setText(proses);
-                }else {
-                    tx_notif_proses.setVisibility(View.GONE);
+                    tx_notif_proses.setVisibility(View.VISIBLE);
                 }
             }
         }, new Response.ErrorListener() {

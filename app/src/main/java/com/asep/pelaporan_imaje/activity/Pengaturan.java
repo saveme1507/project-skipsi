@@ -465,8 +465,7 @@ public class Pengaturan extends AppCompatActivity {
         editor.putString("mu_id_pt", null);
         editor.putString("mp_nama",null);
         editor.commit();
-        Intent a =new Intent(Pengaturan.this,Login.class);
-        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent a =new Intent(Pengaturan.this,SpashScreen.class);
         startActivity(a);
         finish();
     }

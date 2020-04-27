@@ -90,7 +90,8 @@
                        android:textColor="#FFF"
                        android:textSize="8dp"
                        android:layout_marginTop="20dp"
-                       android:layout_marginStart="65dp"/>
+                       android:layout_marginStart="65dp"
+                       android:visibility="gone"/>
                     <Button
                         android:id="@+id/bt_pelPending_home"
                         android:layout_width="wrap_content"
@@ -133,7 +134,8 @@
                         android:textColor="#FFF"
                         android:textSize="8dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginStart="61dp"/>
+                        android:layout_marginStart="61dp"
+                        android:visibility="gone"/>
                     <Button
                         android:id="@+id/bt_pelProses_home"
                         android:layout_width="wrap_content"

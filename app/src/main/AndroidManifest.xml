@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.DetailLaporan"></activity>
+        <activity android:name=".activity.AboutApk"></activity>
+        <activity android:name=".activity.DetailLaporan" />
         <activity android:name=".activity.WebView" />
         <activity android:name=".activity.DetailPelaporan" />
         <activity android:name=".activity.Laporan" />
@@ -38,14 +39,14 @@
         <activity android:name=".activity.DataMesin" />
         <activity android:name=".activity.DetailHome" />
         <activity android:name=".activity.Registrasi" />
-        <activity android:name=".activity.Login">
+        <activity android:name=".activity.Login"></activity>
+        <activity android:name=".activity.SpashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SpashScreen" />
         <activity android:name=".activity.Home" />
 
         <uses-library

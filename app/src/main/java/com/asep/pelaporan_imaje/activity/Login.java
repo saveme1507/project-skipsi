@@ -66,7 +66,6 @@ public class Login extends AppCompatActivity {
                 }
             }
 
-            Boolean cekLogin = getIntent().getBooleanExtra("session",false);
             btn_login = (Button) findViewById(R.id.li_masuk);
             register = (TextView) findViewById(R.id.li_daftar);
             et_user     =(EditText)findViewById(R.id.et_user_login);
@@ -81,11 +80,6 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-
-//            if (!cekLogin){
-//                Toast.makeText(getApplicationContext(),"Akun anda telah di gunakan di handphone lain, silahkan login kembali",Toast.LENGTH_LONG).show();
-//            }
-
 
             btn_login.setOnClickListener(new View.OnClickListener() {
 

@@ -31,12 +31,14 @@ public class SpashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spash_screen);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
         Thread splash = new Thread(){
             public void run(){
                 try{
-                    sleep(4*1000);
-                    cekToken();
-
+                    sleep(3*1000);
+                        Intent i = new Intent(SpashScreen.this, Login.class);
+                        startActivity(i);
+                        finish();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -47,7 +49,6 @@ public class SpashScreen extends AppCompatActivity {
     private void cekToken(){
         FirebaseInstanceService firebaseInstanceService = new FirebaseInstanceService();
         final String token = firebaseInstanceService.getToken_1();
-        sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
         final String id = sharedPreferences.getString("mu_id","");
 
         StringRequest strReq = new StringRequest(Request.Method.POST, Server.URL+"ss/cekToken.php", new Response.Listener<String>() {
@@ -57,13 +58,13 @@ public class SpashScreen extends AppCompatActivity {
                 Boolean session;
                 try {
                     JSONObject jObj = new JSONObject(response);
-                    if (jObj.getInt("success")!= 1){
+                    if (jObj.getInt("success")== 1){
+                        session=true;
+                    }else {
                         SharedPreferences.Editor editor=sharedPreferences.edit();
                         editor.putBoolean("session_status",false);
                         editor.commit();
                         session=false;
-                    }else {
-                        session=true;
                     }
                     Intent i = new Intent(SpashScreen.this, Login.class);
                     i.putExtra("session",session);
@@ -71,6 +72,10 @@ public class SpashScreen extends AppCompatActivity {
                     finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Intent i = new Intent(SpashScreen.this, Login.class);
+                    i.putExtra("session",false);
+                    startActivity(i);
+                    finish();
                 }
             }
         }, new Response.ErrorListener() {

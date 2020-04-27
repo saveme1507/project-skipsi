@@ -202,7 +202,7 @@ public class Registrasi extends AppCompatActivity {
                 for (int i=0; i<response.length();i++){
                     try{
                         JSONObject jsonObject = response.getJSONObject(i);
-                        pt.add(jsonObject.getString("nama_pt"));
+                        pt.add(jsonObject.getString("mp_nama"));
                     }catch (JSONException e){
                         e.printStackTrace();
                     }
