@@ -136,6 +136,7 @@ public class DetailHome extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetailHome.this,PergantianPart.class);
+                intent.putExtra("id_intent","");
                 startActivity(intent);
             }
         });

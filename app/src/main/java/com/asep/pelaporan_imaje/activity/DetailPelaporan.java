@@ -80,6 +80,7 @@ public class DetailPelaporan extends AppCompatActivity {
             sv_terima.setVisibility(View.GONE);
             logo.setVisibility(View.GONE);
             tx_judulPilihTgl.setVisibility(View.GONE);
+            bt_proses.setVisibility(View.GONE);
         }
 
         hlm_id  = getIntent().getStringExtra("hlm_id");
@@ -143,6 +144,7 @@ public class DetailPelaporan extends AppCompatActivity {
                 intent.putExtra("id_intent","Pelaporan_proses");
                 intent.putExtra("hlm_id",hlm_id);
                 intent.putExtra("mp_nama",mp_nama);
+                intent.putExtra("id_pergantian","0");
                 startActivity(intent);
             }
         });

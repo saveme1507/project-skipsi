@@ -1,6 +1,7 @@
 package com.asep.pelaporan_imaje.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -228,7 +229,19 @@ public class PerformaMesin extends AppCompatActivity {
             TextView tx_tgl,tx_nama;
             public MyViewHolderPerforma(View itemView) {
                 super(itemView);
+                tx_tgl =itemView.findViewById(R.id.tx_tgl_itemperforma);
+                tx_nama =itemView.findViewById(R.id.tx_namapart_itemperforma);
 
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(PerformaMesin.this,DetailLaporan.class);
+                        intent.putExtra("id_intent","per_part");
+                        intent.putExtra("hlm_id",itemPerformas.get(getAdapterPosition()).hs_id);
+                        intent.putExtra("flag","");
+                        startActivity(intent);
+                    }
+                });
             }
         }
     }

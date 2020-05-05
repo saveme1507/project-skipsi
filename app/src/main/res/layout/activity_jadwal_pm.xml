@@ -22,10 +22,10 @@
             android:paddingLeft="30dp"
             android:paddingRight="10dp">
 
-            <android.support.constraint.ConstraintLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/textView9"
@@ -35,10 +35,7 @@
                     android:text="Jadwal PM "
                     android:textColor="#FBFBFB"
                     android:textSize="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    android:layout_alignParentStart="true"/>
 
                 <TextView
                     android:id="@+id/tx_judul_jadwalpm"
@@ -49,33 +46,23 @@
                     android:text="dummy"
                     android:textColor="#FBFBFB"
                     android:textSize="16dp"
-                    app:layout_constraintEnd_toStartOf="@+id/spinner_sort_datamesin"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView9"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_toEndOf="@id/textView9"/>
 
                 <TextView
                     android:layout_width="275dp"
                     android:layout_height="1dp"
                     android:background="#FBFBFB"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                    android:layout_below="@id/textView9"/>
 
                 <org.angmarch.views.NiceSpinner
                     android:id="@+id/spinner_sort_Jadwalpm"
-                    android:layout_width="100dp"
+                    android:layout_width="150dp"
                     android:layout_height="25dp"
                     app:backgroundSelector="?android:attr/selectableItemBackground"
                     app:arrowTint="#FBFBFB"
                     android:textAlignment="textEnd"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 

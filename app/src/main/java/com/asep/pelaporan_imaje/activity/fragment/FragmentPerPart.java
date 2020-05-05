@@ -2,6 +2,7 @@ package com.asep.pelaporan_imaje.activity.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentPerPart extends Fragment {
+    SharedPreferences sharedPreferences;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RecycleAdapterPerPart recycleAdapterPerPart;
@@ -46,8 +48,9 @@ public class FragmentPerPart extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         itemPerParts = new ArrayList<>();
+        sharedPreferences = this.getActivity().getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
 
-        getData("1");
+        getData(sharedPreferences.getString("mu_id_pt",""));
 
         return v;
     }

@@ -59,7 +59,7 @@ public class PergantianPart extends AppCompatActivity {
     List<String> array_mp_nama;
     List<String> array_mm_id;
     List<String> array_mm_sn  ;
-    String tanggal;
+    String tanggal,id_intent;
     private static final int PICK_IMAGE_REQUEST=1, PICK_CAMERA_REQUEST=2;
     Bitmap bitmap,decoded;
 
@@ -82,6 +82,7 @@ public class PergantianPart extends AppCompatActivity {
         iv_galeri   =(ImageView)findViewById(R.id.iv_galeri_pergantianPart);
         bt_simpan   =(Button)findViewById(R.id.bt_simpan_pergantianPart);
 
+        id_intent = getIntent().getStringExtra("id_intent");
         dataSpinnerPelanggan();
         sp_pelanggan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -134,6 +135,7 @@ public class PergantianPart extends AppCompatActivity {
             }
         });
     }
+
 
     private void dataSpinnerPelanggan(){
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.URL + "data_mesin/select_namaPT.php",new Response.Listener<JSONArray>() {
@@ -203,9 +205,16 @@ public class PergantianPart extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getInt("success")==1){
                         Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(PergantianPart.this,Home.class);
-                        startActivity(intent);
-                        finish();
+                        if (id_intent.equals("lapMesin")){
+                            Intent intent = new Intent();
+                            intent.putExtra("id_pergantian",jsonObject.getString("id_pergantian"));
+                            setResult(10,intent);
+                            finish();
+                        }else {
+                            Intent intent = new Intent(PergantianPart.this,Home.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -49,7 +49,7 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
     List<String> array_mp_id  ;
     List<String> array_mp_nama;
     List<String> array_mm_sn  ;
-    String id_intent,hlm_id,mp_nama,tanggal;
+    String id_intent,hlm_id,mp_nama,tanggal,id_pergantian;
     ArrayAdapter<String> snAdapter;
     ArrayAdapter<String> arrayAdapter;
 
@@ -88,6 +88,7 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
             sp_sn.setEnabled(false);
         }else if (id_intent.equals("Detail_home_lap_kunjungan")){
             dataSpinnerSN("");
+            dataSpinnerPelanggan("");
         }
 
         sp_pelanggan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -123,14 +124,18 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
             }
         };
 
-        TextView tx_pergantianPart =(TextView)findViewById(R.id.tx_pergantianPart_lapPengerjaan);
-        tx_pergantianPart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(BuatLaporanPengerjaan.this,PergantianPart.class);
-                startActivity(intent);
-            }
-        });
+        TextView tx_pergantianPart = findViewById(R.id.tx_pergantianPart_lapPengerjaan);
+        tx_pergantianPart.setVisibility(View.GONE);
+        TextView tx_optional = findViewById(R.id.tx_optional_lapPengerjaan);
+        tx_optional.setVisibility(View.GONE);
+//        tx_pergantianPart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(BuatLaporanPengerjaan.this,PergantianPart.class);
+//                intent.putExtra("id_intent","lapMesin");
+//                startActivityForResult(intent,10);
+//            }
+//        });
         Button bt_simpan=(Button)findViewById(R.id.bt_simpan_lapPengerjaan);
         bt_simpan.setOnClickListener(new View.OnClickListener() {
             @Override

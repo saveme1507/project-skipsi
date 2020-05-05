@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -87,7 +88,7 @@ public class Home extends AppCompatActivity {
             notifikasi("");
         }
         Picasso .get()
-                .load(sharedPreferences.getString("mu_logo", ""))
+                .load(sharedPreferences.getString("mu_logo", Server.URL+"pengaturan/images_profil/image_profil_default.png"))
                 .error(R.drawable.user_icon)
                 .centerCrop()
                 .fit()
@@ -190,13 +191,23 @@ public class Home extends AppCompatActivity {
             }
         });
         Button bt_buatlpaoran = (Button)findViewById(R.id.bt_buatlaporan_home);
-        bt_buatlpaoran.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Home.this,BuatLaporan.class);
-                startActivity(intent);
-            }
-        });
+        if (sharedPreferences.getString("mu_flag","").equals("0")) {
+            bt_buatlpaoran.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Home.this, BuatLaporan.class);
+                    startActivity(intent);
+                }
+            });
+        }else{
+            bt_buatlpaoran.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(),"Menu ini hanya untuk pelanggan",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
         Button bt_kontak = (Button)findViewById(R.id.bt_kontak_home);
         bt_kontak.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -59,7 +59,7 @@ public class DetailLaporan extends AppCompatActivity {
     String hlm_id,header,mesin,parameter,keterangan,flag,teknisi,string_ttd,namaLap;
     SignaturePad signaturePad;
     Button bt_simpan,bt_ulangi,bt_cetak;
-    Bitmap bmp_ttd,bmp,scalebmp;
+    Bitmap bmp_ttd,bmp,scalebmp,bmp_signatur;
     ImageView iv_ttd;
     int pageWidth = 1322;
     private int STORAGE_PERMISSION_CODE = 1;
@@ -86,12 +86,14 @@ public class DetailLaporan extends AppCompatActivity {
         iv_ttd      =findViewById(R.id.iv_ttd_detailLap);
         RelativeLayout rl_signature =findViewById(R.id.rl_acc);
 
+        iv_ttd.setVisibility(View.VISIBLE);
+
         bmp = BitmapFactory.decodeResource(getResources(),R.drawable.pdf_logo_printech);
         scalebmp = Bitmap.createScaledBitmap(bmp,247,110,false);
 
-        String hlmId = getIntent().getStringExtra("hlm_id");
-        final String id_intent = getIntent().getStringExtra("id_intent");
-        flag = getIntent().getStringExtra("flag");
+        String hlmId = getIntent().getStringExtra("hlm_id"); //id laporan
+        final String id_intent = getIntent().getStringExtra("id_intent"); //membedakan laporan &pergantian sparepart
+        flag = getIntent().getStringExtra("flag"); //untuk hiden button
 
         if (!sharedPreferences.getString("mu_flag","").equals("0")){
             rl_signature.setVisibility(View.GONE);
@@ -134,11 +136,11 @@ public class DetailLaporan extends AppCompatActivity {
         bt_simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                bmp_ttd = signaturePad.getSignatureBitmap();
+                bmp_signatur = signaturePad.getSignatureBitmap();
                 if (id_intent.equals("lap_mesin")){
-                    simpanTtd_mesin(bmp_ttd);
+                    simpanTtd_mesin(bmp_signatur);
                 }else{
-                    simpanTtd_part(bmp_ttd);
+                    simpanTtd_part(bmp_signatur);
                 }
 
             }

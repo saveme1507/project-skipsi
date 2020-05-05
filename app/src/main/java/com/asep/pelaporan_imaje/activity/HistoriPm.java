@@ -1,6 +1,7 @@
 package com.asep.pelaporan_imaje.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -159,10 +159,12 @@ public class HistoriPm extends AppCompatActivity {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(context, "id :"+itemHistorpms.get(getAdapterPosition()).hlm_tanggal, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(HistoriPm.this,DetailLaporan.class);
+                        intent.putExtra("id_intent","lap_mesin");
+                        intent.putExtra("hlm_id",itemHistorpms.get(getAdapterPosition()).hlm_id);
+                        intent.putExtra("flag","");
+                        startActivity(intent);
 //                    Intent intent = new Intent(view.getContext(),DetailSparepart.class);
-//                    intent.putExtra("nama",itemSpareparts.get(getAdapterPosition()).nama);
-//                    intent.putExtra("patch",itemSpareparts.get(getAdapterPosition()).patch);
 //                    view.getContext().startActivity(intent);
                     }
                 });

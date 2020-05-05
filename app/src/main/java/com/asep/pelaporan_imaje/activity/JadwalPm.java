@@ -66,6 +66,7 @@ public class JadwalPm extends AppCompatActivity {
             niceSpinner.setVisibility(View.GONE);
         }else{
             tx_judul.setText("All");
+            getDataMesin("");
         }
 
 

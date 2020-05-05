@@ -2,6 +2,7 @@ package com.asep.pelaporan_imaje.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -127,6 +128,9 @@ public class BuatLaporan extends AppCompatActivity {
                     if (jsonObject.getInt("success")==1){
                         Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                         et_deskripsi.setText("");
+                        Intent intent = new Intent(BuatLaporan.this,Home.class);
+                        startActivity(intent);
+                        finish();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

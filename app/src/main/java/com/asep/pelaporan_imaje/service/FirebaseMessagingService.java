@@ -45,7 +45,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         String NOTIF_CHANEL_ID="notif_Id";
         Intent intent = new Intent(this, Login.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
 

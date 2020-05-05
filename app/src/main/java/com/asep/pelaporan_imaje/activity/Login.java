@@ -172,6 +172,7 @@ public class Login extends AppCompatActivity {
                             editor.commit();
 
                             // Memanggil main activity
+                            tambahToken();
                             Intent intent = new Intent(Login.this, Home.class);
                             finish();
                             startActivity(intent);
