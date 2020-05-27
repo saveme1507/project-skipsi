@@ -1,10 +1,23 @@
 package com.asep.pelaporan_imaje.activity;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,6 +44,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +60,10 @@ public class JadwalPm extends AppCompatActivity {
     NiceSpinner niceSpinner;
     private ArrayList<String> data = new ArrayList<>();
     private TextView tx_judul;
+    private FloatingActionButton float_cetak;
+    private Bitmap bmp,scalebmp;
+    private int pageWidth = 1322;
+    private int STORAGE_PERMISSION_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +73,18 @@ public class JadwalPm extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
-
+        float_cetak= findViewById(R.id.floating_cetak_pm);
         recyclerViewJadwalpm = (RecyclerView)findViewById(R.id.recycle_item_jadwalpm);
         niceSpinner = (NiceSpinner)findViewById(R.id.spinner_sort_Jadwalpm);
         tx_judul    = (TextView)findViewById(R.id.tx_judul_jadwalpm);
+
         layoutManagerJadwalpm = new LinearLayoutManager(this);
         recyclerViewJadwalpm.setLayoutManager(layoutManagerJadwalpm);
         recyclerViewJadwalpm.setHasFixedSize(true);
         itemJadwalpms = new ArrayList<>();
 
+        bmp = BitmapFactory.decodeResource(getResources(),R.drawable.pdf_logo_printech);
+        scalebmp = Bitmap.createScaledBitmap(bmp,247,110,false);
 
         if (sharedPreferences.getString("mu_flag","").equals("0")){
             tx_judul.setText(sharedPreferences.getString("mp_nama",""));
@@ -69,6 +94,17 @@ public class JadwalPm extends AppCompatActivity {
             getDataMesin("");
         }
 
+        if (niceSpinner.getText().equals("All")){
+            float_cetak.hide();
+        }else{
+            float_cetak.show();
+            float_cetak.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    createPDF();
+                }
+            });
+        }
 
         dataSpinner();
         getDataMesin(tx_judul.getText().toString());
@@ -88,6 +124,49 @@ public class JadwalPm extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == STORAGE_PERMISSION_CODE)  {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private void reqPermisionStorege(){
+        if (ContextCompat.checkSelfPermission(JadwalPm.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+//            Toast.makeText(DetailLaporan.this, "You have already granted this permission!",Toast.LENGTH_SHORT).show();
+        } else {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                new AlertDialog.Builder(this)
+                        .setTitle("Permission needed")
+                        .setMessage("This permission is needed because of this and that")
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(JadwalPm.this,
+                                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                            }
+                        })
+                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .create().show();
+
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+            }
+        }
+    }
+
     private void getDataMesin(String namaPT){
         String url= Server.URL + "data_mesin/select_datamesin_by_namaPT.php?nama_pt="+namaPT;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url.replace(" ","%20"),new Response.Listener<JSONArray>() {
@@ -102,7 +181,8 @@ public class JadwalPm extends AppCompatActivity {
                                 jsonObject.getString("mm_id"),
                                 jsonObject.getString("mm_sn"),
                                 jsonObject.getString("mm_tipe"),
-                                jsonObject.getString("mm_last_pm")
+                                jsonObject.getString("mm_last_pm"),
+                                jsonObject.getString("mm_posisi")
                         );
                         itemJadwalpms.add(myitemJadwalpm);
                         recycleAdapterJadwalpm  = new RecycleAdapterJadwalpm(itemJadwalpms,JadwalPm.this);
@@ -146,15 +226,109 @@ public class JadwalPm extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
     }
 
+    private void createPDF(){
+        int i;
+        PdfDocument pdfDocument = new PdfDocument();
+        Paint paint = new Paint();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pageWidth,1870,1).create();//height normal A4=1870
+        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+        Canvas canvas = page.getCanvas();
+        //Logo
+        canvas.drawBitmap(scalebmp,86,50,paint);
+
+        //title
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+        paint.setTextSize(30f);
+        String judul="Data Jadwal PM Mesin "+tx_judul.getText().toString();
+        canvas.drawText( judul.toUpperCase(),1322/2,220,paint);
+
+        //tabel header
+        canvas.drawLine(86,270,pageWidth-86,270,paint); //horisontal atas
+        canvas.drawLine(86,300,pageWidth-86,300,paint); //horisontal bawah
+        canvas.drawLine(86,270,86,300,paint); //verical start
+        canvas.drawLine(130,270,130,300,paint); //vertical no
+        canvas.drawLine(350,270,350,300,paint); //vertical tipe mesin
+        canvas.drawLine(580,270,580,300,paint); //vertical sn mesin
+        canvas.drawLine(800,270,800,300,paint); //vertical line
+        canvas.drawLine(1000,270,1000,300,paint); //veertical last pm
+        canvas.drawLine(pageWidth-86,270,pageWidth-86,300,paint); //vertical next pm
+        //field header
+        fieldHeader(paint,canvas,107,295,"NO");
+        fieldHeader(paint,canvas,240,295,"TIPE MESIN");
+        fieldHeader(paint,canvas,465,295,"SERIAL NUMBER");
+        fieldHeader(paint,canvas,690,295,"LINE");
+        fieldHeader(paint,canvas,900,295,"LAST PM");
+        fieldHeader(paint,canvas,1118,295,"NEXT PM");
+
+        //ISI
+        for (i=0; i < itemJadwalpms.size(); i++){
+            int col_awal =  (i)*30+300;
+            int col_akhir = (i+1)*30+300;
+            fieldTable(canvas,paint,col_awal,col_akhir,String.valueOf(i+1),
+                    itemJadwalpms.get(i).mm_tipe,
+                    itemJadwalpms.get(i).mm_sn,
+                    itemJadwalpms.get(i).mm_posisi,
+                    DateFormat.dd_mmm_yyyy(itemJadwalpms.get(i).mm_last_pm),
+                    DateFormat.dateNextPm(itemJadwalpms.get(i).mm_last_pm));
+        }
+
+        pdfDocument.finishPage(page);
+        reqPermisionStorege();
+        String path ="/storage/emulated/0/Download/";
+        File file = new File(path+"DataPM-"+tx_judul.getText().toString()+".pdf");
+        try {
+            pdfDocument.writeTo(new FileOutputStream(file));
+            Toast.makeText(getApplicationContext(),"Data PM berhasil disimpan "+path,Toast.LENGTH_LONG).show();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        pdfDocument.close();
+    }
+
+    private void fieldHeader(Paint paint, Canvas canvas, int x,int y,String text){
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+        paint.setTextSize(20f);
+        canvas.drawText(text,x,y,paint);
+    }
+    private void fieldDetail(Paint paint, Canvas canvas, int x,int y,String text){
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+        paint.setTextSize(20f);
+        canvas.drawText(text,x,y,paint);
+    }
+    private void fieldTable(Canvas canvas,Paint paint,int hy_awal,int hy_akhir, String no,String type,String sn,String line,String last,String next){
+        canvas.drawLine(86,hy_akhir,pageWidth-86,hy_akhir,paint); //horisontal bawah, start awal 300, interval 30
+        canvas.drawLine(86,hy_awal,86,hy_akhir,paint); //verical start
+        canvas.drawLine(130,hy_awal,130,hy_akhir,paint); //vertical no
+        canvas.drawLine(350,hy_awal,350,hy_akhir,paint); //vertical tipe mesin
+        canvas.drawLine(580,hy_awal,580,hy_akhir,paint); //vertical sn mesin
+        canvas.drawLine(800,hy_awal,800,hy_akhir,paint); //vertical line
+        canvas.drawLine(1000,hy_awal,1000,hy_akhir,paint); //veertical last pm
+        canvas.drawLine(pageWidth-86,hy_awal,pageWidth-86,hy_akhir,paint); //vertical next pm
+        //field header
+        fieldDetail(paint,canvas,107,hy_akhir-5,no);
+        fieldDetail(paint,canvas,240,hy_akhir-5,type);
+        fieldDetail(paint,canvas,465,hy_akhir-5,sn);
+        fieldDetail(paint,canvas,690,hy_akhir-5,line);
+        fieldDetail(paint,canvas,900,hy_akhir-5,last);
+        fieldDetail(paint,canvas,1118,hy_akhir-5,next);
+    }
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     private class ItemJadwalpm{
-        String mm_id,mm_sn,mm_tipe,mm_last_pm;
+        String mm_id,mm_sn,mm_tipe,mm_last_pm,mm_posisi;
 
-        public ItemJadwalpm(String mm_id, String mm_sn, String mm_tipe, String mm_last_pm) {
+        public ItemJadwalpm(String mm_id, String mm_sn, String mm_tipe, String mm_last_pm,String mm_posisi) {
             this.mm_id = mm_id;
             this.mm_sn = mm_sn;
             this.mm_tipe = mm_tipe;
             this.mm_last_pm = mm_last_pm;
+            this.mm_posisi = mm_posisi;
         }
 
         public String getMm_id() {
@@ -187,6 +361,14 @@ public class JadwalPm extends AppCompatActivity {
 
         public void setMm_last_pm(String mm_last_pm) {
             this.mm_last_pm = mm_last_pm;
+        }
+
+        public String getMm_posisi() {
+            return mm_posisi;
+        }
+
+        public void setMm_posisi(String mm_posisi) {
+            this.mm_posisi = mm_posisi;
         }
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////

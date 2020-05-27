@@ -190,6 +190,15 @@
                 android:layout_gravity="center_horizontal"
                 android:scrollbars="vertical"
                 android:scrollbarSize="@dimen/cardview_compat_inset_shadow"/>
+            <Button
+                android:id="@+id/cetak_item_performa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cetak Pergantian"
+                android:textAllCaps="false"
+                android:textColor="#FFF"
+                android:background="@drawable/bg_btn_merah_shadow"
+                android:layout_margin="30dp"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

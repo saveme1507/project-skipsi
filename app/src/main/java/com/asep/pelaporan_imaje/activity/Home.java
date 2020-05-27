@@ -113,10 +113,10 @@ public class Home extends AppCompatActivity {
 
 
         List<SlideModel> slideModels=new ArrayList<>();
-        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide1.png"));
-        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide2.png"));
-        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide3.png"));
-        slideModels.add(new SlideModel("http://192.168.43.103/pelaporan_imaje/images/slider/slide4.png"));
+        slideModels.add(new SlideModel(Server.URL+"images/slider/slide1.png"));
+        slideModels.add(new SlideModel(Server.URL+"images/slider/slide2.png"));
+        slideModels.add(new SlideModel(Server.URL+"images/slider/slide3.png"));
+        slideModels.add(new SlideModel(Server.URL+"images/slider/slide4.png"));
         imageSlider.setImageList(slideModels,true);
 
 //        initial button
