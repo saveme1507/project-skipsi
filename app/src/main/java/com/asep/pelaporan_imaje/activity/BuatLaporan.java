@@ -86,7 +86,12 @@ public class BuatLaporan extends AppCompatActivity {
         bt_kirim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                simpan();
+                if (ns_line.getText().toString().length()>1 && ns_sn.getText().toString().length()>1){
+                    simpan();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Harap pilih line atau serial number mesin",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -130,11 +135,11 @@ public class BuatLaporan extends AppCompatActivity {
                         et_deskripsi.setText("");
                         Intent intent = new Intent(BuatLaporan.this,Home.class);
                         startActivity(intent);
-                        finish();
+                        finishAffinity();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Laporan gagal dikirim!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Silahkan pilih line atau serial number mesin", Toast.LENGTH_LONG).show();
                 }
                 loading.dismiss();
             }

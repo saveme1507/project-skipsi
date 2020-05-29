@@ -27,7 +27,7 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp">
             <EditText
@@ -84,17 +84,34 @@
             android:id="@+id/daftar_spinnerCust"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:scrollbars="vertical"
             android:background="#a2a23b"
             android:hint="Pilih Perusahaan"
             android:textAlignment="center"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/layout_pertanyaan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <EditText
+                android:id="@+id/et_user_pertanyaan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tinta standart mesin S8C2 ?"
+                android:inputType="text"/>
+        </android.support.design.widget.TextInputLayout>
+
         <Button
             android:id="@+id/daftar_daftar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_btn_merah_shadow"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
@@ -106,7 +123,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_btn_putih_shadow"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
             android:text="Kembali Login"

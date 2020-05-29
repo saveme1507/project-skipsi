@@ -55,7 +55,6 @@ public class Login extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_login);
-            tambahToken();
             conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             {
                 if (conMgr.getActiveNetworkInfo() != null
@@ -77,8 +76,9 @@ public class Login extends AppCompatActivity {
 
             if (session) {
                 Intent intent = new Intent(Login.this, Home.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                finish();
+                finishAffinity();
             }
 
             btn_login.setOnClickListener(new View.OnClickListener() {
@@ -108,8 +108,8 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     intent = new Intent(Login.this, Registrasi.class);
-                    finish();
                     startActivity(intent);
+                    finish();
                 }
             });
 
@@ -172,10 +172,10 @@ public class Login extends AppCompatActivity {
                             editor.commit();
 
                             // Memanggil main activity
-                            tambahToken();
+                            tambahToken(a);
                             Intent intent = new Intent(Login.this, Home.class);
-                            finish();
                             startActivity(intent);
+                            finishAffinity();
                             Log.d("pass benar", String.valueOf(jObj.getInt("success")));
                         }
                     } catch (JSONException e) {
@@ -222,11 +222,10 @@ public class Login extends AppCompatActivity {
                 pDialog.dismiss();
         }
 
-        private void tambahToken(){
+        private void tambahToken(final String id){
             FirebaseInstanceService firebaseInstanceService = new FirebaseInstanceService();
             final String token = firebaseInstanceService.getToken_1();
             sharedpreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
-            final String id = sharedpreferences.getString("mu_id","null");
 
             StringRequest strReq = new StringRequest(Request.Method.POST, Server.URL+"login/tambah_token.php", new Response.Listener<String>() {
                 @Override

@@ -115,9 +115,12 @@ public class JadwalPm extends AppCompatActivity {
                 tx_judul.setText(data.get(i));
                 if ("All".equalsIgnoreCase(tx_judul.getText().toString())) {
                     getDataMesin("");
-                } else {
-                    getDataMesin(tx_judul.getText().toString().replace("PT.","").toLowerCase());
-                }
+                } else if ("PT. Printech Group".equalsIgnoreCase(tx_judul.getText().toString())) {
+                    getDataMesin("");
+                }else{
+                        getDataMesin(tx_judul.getText().toString().replace("PT.","").toLowerCase());
+                    }
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {

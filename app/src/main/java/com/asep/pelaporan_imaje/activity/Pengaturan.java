@@ -307,9 +307,9 @@ public class Pengaturan extends AppCompatActivity {
                         editor.putString("mu_nama", user);
                         editor.commit();
                         Intent intent = new Intent(Pengaturan.this,Home.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-                        finish();
+                        finishAffinity();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -416,9 +416,8 @@ public class Pengaturan extends AppCompatActivity {
                         editor.commit();
                         Log.d("test",sharedPreferences.getString("mu_logo","jika gagal"));
                         Intent intent = new Intent(Pengaturan.this,Home.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-                        finish();
+                        finishAffinity();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -453,6 +452,9 @@ public class Pengaturan extends AppCompatActivity {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public void logOut(){
         sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
+        String id = sharedPreferences.getString("mu_id","");
+        tambahToken(id);
+
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(Login.session_status, false);
         editor.putString("mu_id", null);
@@ -467,7 +469,7 @@ public class Pengaturan extends AppCompatActivity {
         editor.commit();
         Intent a =new Intent(Pengaturan.this,SpashScreen.class);
         startActivity(a);
-        finish();
+        finishAffinity();
     }
     private void showFileChooser() {
         Intent intent = new Intent();
@@ -521,5 +523,29 @@ public class Pengaturan extends AppCompatActivity {
         byte[] imageBytes = baos.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
+    }
+
+    private void tambahToken(final String id){
+        StringRequest strReq = new StringRequest(Request.Method.POST, Server.URL+"login/hapus_token.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d( "Hapus token : " , response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("hapus token Error: " , error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mu_id",id);
+                return params;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(strReq);
     }
 }

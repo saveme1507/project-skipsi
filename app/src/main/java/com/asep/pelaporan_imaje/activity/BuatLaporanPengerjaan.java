@@ -74,7 +74,6 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
         et_desk     =(EditText)findViewById(R.id.et_deskripsi_lapPengerjaan);
 
         id_intent = getIntent().getStringExtra("id_intent");
-        hlm_id = getIntent().getStringExtra("hlm_id");
         mp_nama = getIntent().getStringExtra("mp_nama");
 
         ArrayAdapter<String> langAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item ,pengerjaan );
@@ -86,9 +85,11 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
             sp_pelanggan.setEnabled(false);
             dataSpinnerSN(mp_nama);
             sp_sn.setEnabled(false);
+            hlm_id = getIntent().getStringExtra("hlm_id");
         }else if (id_intent.equals("Detail_home_lap_kunjungan")){
             dataSpinnerSN("");
             dataSpinnerPelanggan("");
+            hlm_id="null";
         }
 
         sp_pelanggan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -118,7 +119,7 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 String date = day+" "+namabulan[month]+" "+year;
-                tanggal = year+"-"+month+"-"+day;
+                tanggal = year+"-"+(month+1)+"-"+day;
                 et_tanggal.setText(date);
                 getSn(hlm_id);
             }
@@ -256,7 +257,7 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(BuatLaporanPengerjaan.this,Home.class);
                         startActivity(intent);
-                        finish();
+                        finishAffinity();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

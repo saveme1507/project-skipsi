@@ -197,25 +197,25 @@ public class Kontak extends AppCompatActivity {
                 iv_wa.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent sendIntent = new Intent();
-                        sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Hello, "+itemKontaks.get(getAdapterPosition()).mu_nama);
-                        sendIntent.setType("text/plain");
-                        view.getContext().startActivity(sendIntent);
+                        String url = "https://api.whatsapp.com/send?phone=+62"+itemKontaks.get(getAdapterPosition()).mu_telp;
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        startActivity(i);
                     }
                 });
                 iv_email.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent=null, chooser=null;
-                        intent = new Intent(Intent.ACTION_SEND);
-                        String[] to={"email"};
-                        intent.putExtra(Intent.EXTRA_EMAIL, to);
-                        intent.putExtra(Intent.EXTRA_SUBJECT,"Tentang aplikasi myprintech");
-                        intent.putExtra(Intent.EXTRA_TEXT,"Hello, "+itemKontaks.get(getAdapterPosition()).mu_nama +"\n Tulis isi disini");
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        String[] strTo = { itemKontaks.get(getAdapterPosition()).mu_email };
+                        intent.putExtra(Intent.EXTRA_EMAIL, strTo);
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Pelaporan gangguan mesin barcode");
+                        intent.putExtra(Intent.EXTRA_TEXT, " ");
+//                        Uri attachments = Uri.parse(image_path);
+//                        intent.putExtra(Intent.EXTRA_STREAM, attachments);
                         intent.setType("message/rfc822");
-                        chooser=Intent.createChooser(intent, "Send Email");
-                        view.getContext().startActivity(chooser);
+                        intent.setPackage("com.google.android.gm");
+                        startActivity(intent);
                     }
                 });
             }

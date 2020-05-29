@@ -5,9 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,8 +38,12 @@ import java.util.Map;
 public class Registrasi extends AppCompatActivity {
     NiceSpinner niceSpinner;
     ProgressDialog pDialog;
+    AlertDialog.Builder alertDialogBuilder;
+    LayoutInflater layoutInflater;
+    View view;
     Button btn_register, btn_login;
-    EditText txt_username, txt_password, txt_confirm_password, txt_email;
+    EditText txt_username, txt_password, txt_confirm_password, txt_email,et_pertanyaan;
+    TextInputLayout textInputLayout;
     Intent intent;
     ArrayList<String> pt = new ArrayList<String>();
     int success;
@@ -72,6 +80,9 @@ public class Registrasi extends AppCompatActivity {
         txt_confirm_password = (EditText) findViewById(R.id.et_konfirmasiPass_reg);
         txt_email   = (EditText) findViewById(R.id.et_email_reg);
         niceSpinner = (NiceSpinner) findViewById(R.id.daftar_spinnerCust);
+        et_pertanyaan = findViewById(R.id.et_user_pertanyaan);
+        textInputLayout = findViewById(R.id.layout_pertanyaan);
+        textInputLayout.setVisibility(View.GONE);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,9 +109,17 @@ public class Registrasi extends AppCompatActivity {
                     if (username.trim().length()>0 && email.trim().length()>0 && password.trim().length()>0 &&
                             confirm_password.trim().length()>0 && cust.trim().length()>0){
                         if (password.equals(confirm_password)){
-                            checkRegister(username, email, password, confirm_password, cust);
+                            if (niceSpinner.getSelectedIndex()==0){
+                                if (et_pertanyaan.getText().toString().toLowerCase().equals("5157e")){
+                                    checkRegister(username, email, password, confirm_password, cust);
+                                }else{
+                                    Toast.makeText(getApplicationContext(),"Jawaban untuk daftar sebagai teknisi salah !",Toast.LENGTH_LONG).show();
+                                }
+                            }else{
+                                checkRegister(username, email, password, confirm_password, cust);
+                            }
                         }else {
-                            Toast.makeText(getApplicationContext(),"Mohon ceh kembali password yang anda masukan", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Mohon cek kembali password yang anda masukan", Toast.LENGTH_LONG).show();
                         }
                     }else {
                         Toast.makeText(getApplicationContext(),"kolom tidak boleh kosong",Toast.LENGTH_LONG).show();
@@ -108,6 +127,22 @@ public class Registrasi extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i==0){
+                    textInputLayout.setVisibility(View.VISIBLE);
+                }else{
+                    textInputLayout.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
@@ -131,7 +166,7 @@ public class Registrasi extends AppCompatActivity {
                     // Check for error node in json
                     if (success == 1) {
 
-                        Log.e("Berhasil Mendaftar", jObj.toString());
+                        Log.d("Berhasil Mendaftar", jObj.toString());
                         Toast.makeText(getApplicationContext(),
                                 jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
 
@@ -208,6 +243,7 @@ public class Registrasi extends AppCompatActivity {
                     }
                 }
                 niceSpinner.attachDataSource(pt);
+                niceSpinner.setSelectedIndex(1);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -218,4 +254,5 @@ public class Registrasi extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
+
 }

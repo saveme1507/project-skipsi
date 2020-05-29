@@ -162,6 +162,7 @@ public class PerformaMesin extends AppCompatActivity {
             }
         }
     }
+
     public class MyValueFormatter extends ValueFormatter implements IValueFormatter{
         @Override
         public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler){
@@ -437,7 +438,7 @@ public class PerformaMesin extends AppCompatActivity {
                         Intent intent = new Intent(PerformaMesin.this,DetailLaporan.class);
                         intent.putExtra("id_intent","per_part");
                         intent.putExtra("hlm_id",itemPerformas.get(getAdapterPosition()).hs_id);
-                        intent.putExtra("flag","");
+                        intent.putExtra("flag","acc");
                         startActivity(intent);
                     }
                 });

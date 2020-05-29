@@ -161,7 +161,7 @@ public class DetailPelaporan extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(DetailPelaporan.this,Home.class);
                         startActivity(intent);
-                        finish();
+                        finishAffinity();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
