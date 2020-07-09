@@ -48,8 +48,9 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
     String[] pengerjaan = {"Perbaikan","Kunjungan Rutin","Preventive Maintenance"};
     List<String> array_mp_id  ;
     List<String> array_mp_nama;
-    List<String> array_mm_sn  ;
-    String id_intent,hlm_id,mp_nama,tanggal,id_pergantian;
+    List<String> array_mm_sn;
+    List<String> array_mm_id ;
+    String id_intent,hlm_id,mp_nama,tanggal,mp_id,mm_id;
     ArrayAdapter<String> snAdapter;
     ArrayAdapter<String> arrayAdapter;
 
@@ -86,6 +87,8 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
             dataSpinnerSN(mp_nama);
             sp_sn.setEnabled(false);
             hlm_id = getIntent().getStringExtra("hlm_id");
+            mp_id = "null";
+            mm_id = "null";
         }else if (id_intent.equals("Detail_home_lap_kunjungan")){
             dataSpinnerSN("");
             dataSpinnerPelanggan("");
@@ -96,9 +99,21 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 dataSpinnerSN(sp_pelanggan.getSelectedItem().toString());
+                mp_id = array_mp_id.get(i);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        sp_sn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mm_id = array_mm_id.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
@@ -129,14 +144,7 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
         tx_pergantianPart.setVisibility(View.GONE);
         TextView tx_optional = findViewById(R.id.tx_optional_lapPengerjaan);
         tx_optional.setVisibility(View.GONE);
-//        tx_pergantianPart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(BuatLaporanPengerjaan.this,PergantianPart.class);
-//                intent.putExtra("id_intent","lapMesin");
-//                startActivityForResult(intent,10);
-//            }
-//        });
+
         Button bt_simpan=(Button)findViewById(R.id.bt_simpan_lapPengerjaan);
         bt_simpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,10 +205,12 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 Log.d("Response :",response.toString());
                 array_mm_sn = new ArrayList<>();
+                array_mm_id = new ArrayList<>();
                 for (int i=0; i<response.length(); i++){
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
                         array_mm_sn.add(jsonObject.getString("mm_sn"));
+                        array_mm_id.add(jsonObject.getString("mm_id"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -258,6 +268,8 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
                         Intent intent = new Intent(BuatLaporanPengerjaan.this,Home.class);
                         startActivity(intent);
                         finishAffinity();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Laporan gagal dikirim!", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -285,6 +297,9 @@ public class BuatLaporanPengerjaan extends AppCompatActivity {
                 params.put("dlm_visco", et_visco.getText().toString());
                 params.put("dlm_temp", et_temp.getText().toString());
                 params.put("dlm_ket", et_desk.getText().toString());
+                params.put("dlm_id_mesin",mm_id);
+                params.put("mp_id",mp_id);
+                Log.e("params",params.toString());
                 return params;
             }
         };

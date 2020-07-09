@@ -197,7 +197,7 @@ public class Kontak extends AppCompatActivity {
                 iv_wa.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String url = "https://api.whatsapp.com/send?phone=+62"+itemKontaks.get(getAdapterPosition()).mu_telp;
+                        String url = "https://api.whatsapp.com/send?phone=+62"+itemKontaks.get(getAdapterPosition()).mu_telp.substring(1,11);
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(url));
                         startActivity(i);

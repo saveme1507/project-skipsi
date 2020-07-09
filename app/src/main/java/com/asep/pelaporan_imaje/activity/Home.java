@@ -88,8 +88,13 @@ public class Home extends AppCompatActivity {
         }else{
             notifikasi("");
         }
-        Picasso .get()
-                .load(sharedPreferences.getString("mu_logo", Server.URL+"pengaturan/images_profil/image_profil_default.png"))
+
+        String path = sharedPreferences.getString("mu_logo","kampret");
+        if (path.equals("")){
+            path =  Server.URL+"pengaturan/images_profil/image_profil_default.png";
+        }
+        Picasso.get()
+                .load(path)
                 .error(R.drawable.user_icon)
                 .centerCrop()
                 .fit()
@@ -248,8 +253,8 @@ public class Home extends AppCompatActivity {
             case R.id.action_share :
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT,"isi");
-                intent.putExtra(Intent.EXTRA_SUBJECT,"subject");
+                intent.putExtra(Intent.EXTRA_TEXT,"Link untuk download aplikasi My_Printech \n  https://drive.google.com/drive/folders/1MbOEmT0vwRP4guGfFHXGSHzI73qabV3i?usp=sharing");
+                intent.putExtra(Intent.EXTRA_SUBJECT,"Donwload My_Printech");
                 startActivity(Intent.createChooser(intent,"Share via"));
                 return true;
             case R.id.action_about_apk :

@@ -13,6 +13,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -115,11 +116,9 @@ public class JadwalPm extends AppCompatActivity {
                 tx_judul.setText(data.get(i));
                 if ("All".equalsIgnoreCase(tx_judul.getText().toString())) {
                     getDataMesin("");
-                } else if ("PT. Printech Group".equalsIgnoreCase(tx_judul.getText().toString())) {
-                    getDataMesin("");
                 }else{
-                        getDataMesin(tx_judul.getText().toString().replace("PT.","").toLowerCase());
-                    }
+                    getDataMesin(tx_judul.getText().toString().replace("PT.","").toLowerCase());
+                }
 
             }
             @Override
@@ -139,11 +138,11 @@ public class JadwalPm extends AppCompatActivity {
     }
     private void reqPermisionStorege(){
         if (ContextCompat.checkSelfPermission(JadwalPm.this,
-                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 //            Toast.makeText(DetailLaporan.this, "You have already granted this permission!",Toast.LENGTH_SHORT).show();
         } else {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
                 new AlertDialog.Builder(this)
                         .setTitle("Permission needed")
@@ -152,7 +151,7 @@ public class JadwalPm extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ActivityCompat.requestPermissions(JadwalPm.this,
-                                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                                        new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
                             }
                         })
                         .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -165,7 +164,7 @@ public class JadwalPm extends AppCompatActivity {
 
             } else {
                 ActivityCompat.requestPermissions(this,
-                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                        new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
             }
         }
     }
@@ -280,6 +279,7 @@ public class JadwalPm extends AppCompatActivity {
         reqPermisionStorege();
         String path ="/storage/emulated/0/Download/";
         File file = new File(path+"DataPM-"+tx_judul.getText().toString()+".pdf");
+        Log.e("path",Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString());
         try {
             pdfDocument.writeTo(new FileOutputStream(file));
             Toast.makeText(getApplicationContext(),"Data PM berhasil disimpan "+path,Toast.LENGTH_LONG).show();

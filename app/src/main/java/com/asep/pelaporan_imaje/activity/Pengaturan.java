@@ -228,7 +228,11 @@ public class Pengaturan extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 String telp =et_telp.getText().toString();
                 if (telp.trim().length()>0){
-                    editTelp(mu_id,telp);
+                    if (telp.trim().length()==12){
+                        editTelp(mu_id,telp);
+                    }else{
+                        Toast.makeText(view.getContext(),"Nomer HP harus 12 digit, tidak pakai spasi",Toast.LENGTH_SHORT).show();
+                    }
                 }else{
                     Toast.makeText(view.getContext(),"Kolom tidak boleh kosong",Toast.LENGTH_SHORT).show();
                 }
@@ -441,7 +445,7 @@ public class Pengaturan extends AppCompatActivity {
                 params.put("mu_id", mu_id);
                 params.put("hapus_file_lama",sharedPreferences.getString("mu_logo","").replace(
                         "http://192.168.43.103/pelaporan_imaje/pengaturan/images_profil/",
-                        "C:\\xampp\\htdocs\\pelaporan_imaje\\pengaturan\\images_profil\\"));
+                        "C:\\xampp2\\htdocs\\pelaporan_imaje\\pengaturan\\images_profil\\"));
                 return params;
             }
         };

@@ -110,7 +110,7 @@ public class Registrasi extends AppCompatActivity {
                             confirm_password.trim().length()>0 && cust.trim().length()>0){
                         if (password.equals(confirm_password)){
                             if (niceSpinner.getSelectedIndex()==0){
-                                if (et_pertanyaan.getText().toString().toLowerCase().equals("5157e")){
+                                if (et_pertanyaan.getText().toString().toLowerCase().equalsIgnoreCase("5157e")){
                                     checkRegister(username, email, password, confirm_password, cust);
                                 }else{
                                     Toast.makeText(getApplicationContext(),"Jawaban untuk daftar sebagai teknisi salah !",Toast.LENGTH_LONG).show();
@@ -174,7 +174,7 @@ public class Registrasi extends AppCompatActivity {
                         txt_email.setText("");
                         txt_password.setText("");
                         txt_confirm_password.setText("");
-
+                        et_pertanyaan.setText("");
                     } else {
                         Toast.makeText(getApplicationContext(),jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                     }
@@ -194,7 +194,7 @@ public class Registrasi extends AppCompatActivity {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 String flag;
-                if (cust.equals("PT. Printech Group")){
+                if (cust.equals("PT Printech Group")){
                     flag="1";
                 }else {
                     flag="0";

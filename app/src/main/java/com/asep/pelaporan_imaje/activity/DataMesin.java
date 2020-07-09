@@ -58,6 +58,7 @@ public class DataMesin extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     Spinner sp_palanggan;
     String id_intent;
+    String[] pt;  //split nama pt [1]
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,28 +81,33 @@ public class DataMesin extends AppCompatActivity {
                 tx_judul.setText(sharedPreferences.getString("mp_nama",""));
                 niceSpinner.setVisibility(View.GONE);
             }else{
-                tx_judul.setText("");
+                tx_judul.setText("All");
             }
         }else if (id_intent.equals("pengaturan_data_mesin")){
-            tx_judul.setText("");
+            tx_judul.setText("All");
         }
-
+        pt = tx_judul.getText().toString().split(" ");
         layoutManager   = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         items = new ArrayList<>();
 
         dataSpinner();
-        getDataMesin(tx_judul.getText().toString());
-
+        if(tx_judul.getText().toString().equals("All")){
+            getDataMesin("");
+        }else{
+            getDataMesin(pt[1]);
+        }
         niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 tx_judul.setText(data.get(i));
-                if ("All".equalsIgnoreCase(tx_judul.getText().toString())) {
+                if ("All".equalsIgnoreCase(data.get(i))) {
                     getDataMesin("");
                 } else {
-                    getDataMesin(tx_judul.getText().toString().replace("PT.","").toLowerCase());
+                    pt = tx_judul.getText().toString().split(" ");
+                    Log.e("pt",pt[1]);
+                    getDataMesin(pt[1].toLowerCase());
                 }
             }
             @Override
@@ -118,10 +124,11 @@ public class DataMesin extends AppCompatActivity {
 
     private void getDataMesin(String namaPT){
         String url=Server.URL + "data_mesin/select_datamesin_by_namaPT.php?nama_pt="+namaPT;
-        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url.replace(" ","%20"),new Response.Listener<JSONArray>() {
+        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 items.clear();
+                Log.d("response",response.toString());
                 for (int i=0; i<response.length(); i++){
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
@@ -134,13 +141,13 @@ public class DataMesin extends AppCompatActivity {
                                 jsonObject.getString("mp_id")
                         );
                         items.add(myitem);
-                        recycleAdapter  = new RecycleAdapter(items,DataMesin.this);
-                        recycleAdapter.notifyDataSetChanged();
-                        recyclerView.setAdapter(recycleAdapter);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
+                recycleAdapter = new RecycleAdapter(items,DataMesin.this);
+                recycleAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(recycleAdapter);
             }
         },new Response.ErrorListener(){
             @Override
@@ -298,6 +305,8 @@ public class DataMesin extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(DataMesin.this, android.R.layout.simple_spinner_item,nama_pt);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_palanggan.setAdapter(arrayAdapter);
+
+
 
         if (!id.equals("")) {
             tx_judul.setText(judul);

@@ -71,7 +71,7 @@
             android:id="@+id/et_lastPm_dialog_datamesin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Last PM"
+            android:hint="Last PM (yyyy-mm-dd)"
             android:inputType="text"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout

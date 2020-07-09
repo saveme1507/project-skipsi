@@ -27,7 +27,7 @@
             android:id="@+id/et_hp_dialogHp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nomer Handphone"
+            android:hint="Nomer Handphone (0822xxx)"
             android:inputType="text"/>
     </android.support.design.widget.TextInputLayout>
 </LinearLayout>

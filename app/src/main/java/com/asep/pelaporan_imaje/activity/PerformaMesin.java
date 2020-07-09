@@ -132,11 +132,11 @@ public class PerformaMesin extends AppCompatActivity {
     }
     private void reqPermisionStorege(){
         if (ContextCompat.checkSelfPermission(PerformaMesin.this,
-                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 //            Toast.makeText(DetailLaporan.this, "You have already granted this permission!",Toast.LENGTH_SHORT).show();
         } else {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
                 new AlertDialog.Builder(this)
                         .setTitle("Permission needed")
@@ -145,7 +145,7 @@ public class PerformaMesin extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ActivityCompat.requestPermissions(PerformaMesin.this,
-                                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                                        new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
                             }
                         })
                         .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -158,7 +158,7 @@ public class PerformaMesin extends AppCompatActivity {
 
             } else {
                 ActivityCompat.requestPermissions(this,
-                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                        new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
             }
         }
     }
@@ -307,7 +307,7 @@ public class PerformaMesin extends AppCompatActivity {
         File file = new File(path+"Data Pergantian part mesin -"+sn+".pdf");
         try {
             pdfDocument.writeTo(new FileOutputStream(file));
-            Toast.makeText(getApplicationContext(),"Data PM berhasil disimpan "+path,Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Data pergantian sparepart berhasil disimpan "+path,Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
