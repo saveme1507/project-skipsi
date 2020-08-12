@@ -3,6 +3,7 @@ package com.asep.pelaporan_imaje.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -35,6 +36,13 @@ public class SpashScreen extends AppCompatActivity {
         Thread splash = new Thread(){
             public void run(){
                 try{
+                    int audio = R.raw.a;
+
+                    MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), audio);
+                    if (sharedPreferences.getBoolean("audioWellcome",false)){
+                        mediaPlayer.start();
+                    }
+
                     sleep(3*1000);
                         Intent i = new Intent(SpashScreen.this, Login.class);
                         startActivity(i);

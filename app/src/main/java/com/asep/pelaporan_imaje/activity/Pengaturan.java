@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 
 import in.anshul.libray.PasswordEditText;
 
+import static com.asep.pelaporan_imaje.activity.Login.session_status;
+
 public class Pengaturan extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     AlertDialog.Builder alertDialogBuilder, builderProfil;
@@ -51,9 +54,10 @@ public class Pengaturan extends AppCompatActivity {
     String mu_id,mu_pass;
     PasswordEditText et_passOld,et_passNew,et_confirm;
     EditText et_user,et_telp;
+    Switch aSwitch;
     ImageView iv_image;
     private static final int PICK_IMAGE_REQUEST =1 ;
-    int bitmap_size = 60; // range 1 - 100
+        int bitmap_size = 60; // range 1 - 100
     Bitmap bitmap, decoded;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +73,14 @@ public class Pengaturan extends AppCompatActivity {
         TextView tx_telp    =(TextView)findViewById(R.id.tx_gantiHp_pengaturan);
         TextView tx_hapusAkun   =(TextView)findViewById(R.id.tx_hapusAkun_pengaturan);
         TextView tx_profil  =(TextView)findViewById(R.id.tx_editProfil_pengaturan);
+        aSwitch             = findViewById(R.id.switch_audio);
 
         sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
         mu_id   = sharedPreferences.getString("mu_id","");
         mu_pass = sharedPreferences.getString("mu_pass","");
+        if (sharedPreferences.getBoolean("audioWellcome",false)){
+            aSwitch.setChecked(true);
+        }
 
         tx_profil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +116,21 @@ public class Pengaturan extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 logOut();
+            }
+        });
+        aSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("audioWellcome", true);
+                if (aSwitch.isChecked()){
+                    editor.putBoolean("audioWellcome", true);
+                    editor.commit();
+                }else{
+                    editor.putBoolean("audioWellcome", false);
+                    editor.commit();
+                }
+
             }
         });
     }
@@ -444,8 +467,10 @@ public class Pengaturan extends AppCompatActivity {
                 params.put("mu_logo", getStringImage(decoded));
                 params.put("mu_id", mu_id);
                 params.put("hapus_file_lama",sharedPreferences.getString("mu_logo","").replace(
-                        "http://192.168.43.103/pelaporan_imaje/pengaturan/images_profil/",
-                        "C:\\xampp2\\htdocs\\pelaporan_imaje\\pengaturan\\images_profil\\"));
+                        Server.URL+"pengaturan/images_profil/",
+                        "/home/artisanc/public_html/app-pelaporan/pelaporan_imaje/pengaturan/images_profil/"));
+//                "/home/artisanc/public_html/app-pelaporan/pelaporan_imaje/pengaturan/images_profil/"
+//                "C:\\xampp2\\htdocs\\pelaporan_imaje\\pengaturan\\images_profil\\"
                 return params;
             }
         };
@@ -460,7 +485,7 @@ public class Pengaturan extends AppCompatActivity {
         tambahToken(id);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(Login.session_status, false);
+        editor.putBoolean(session_status, false);
         editor.putString("mu_id", null);
         editor.putString("mu_nama", null);
         editor.putString("mu_telp", null);

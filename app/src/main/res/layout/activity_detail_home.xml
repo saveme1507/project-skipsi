@@ -44,6 +44,8 @@
         android:fitsSystemWindows="true"
         android:layout_gravity="center_horizontal"
         android:columnCount="4"
+        android:rowCount="4"
+        android:useDefaultMargins="true"
         android:keepScreenOn="true">
             <Button
                 android:id="@+id/bt_datamesin_detailhome"
@@ -155,6 +157,17 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginRight="3dp"
                 android:layout_marginTop="3dp"/>
+        <Button
+            android:id="@+id/bt_reportBulanan"
+            android:layout_width="80dp"
+            android:layout_height="72dp"
+            android:layout_margin="3dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:drawableTop="@drawable/report_bulanan"
+            android:text="Laporan        Bulanan"
+            android:textAllCaps="false"
+            android:textColor="#E03838"
+            android:textSize="10dp" />
 
             <Button
                 android:id="@+id/bt_pengaturanDatamesin_detailHome"
@@ -205,17 +218,8 @@
                 android:textColor="#E03838"
                 android:textSize="10dp" />
 
-<!--            <Button-->
-<!--                android:id="@+id/bt_buatlaporanpm_detailhome"-->
-<!--                android:layout_width="80dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="3dp"-->
-<!--                android:background="?android:attr/selectableItemBackground"-->
-<!--                android:drawableTop="@drawable/home_buatlappm"-->
-<!--                android:text="Buat Laporan      PM"-->
-<!--                android:textAllCaps="false"-->
-<!--                android:textColor="#E03838"-->
-<!--                android:textSize="10dp" />-->
+
+
 
     </GridLayout>
 

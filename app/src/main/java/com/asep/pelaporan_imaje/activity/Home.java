@@ -253,7 +253,8 @@ public class Home extends AppCompatActivity {
             case R.id.action_share :
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT,"Link untuk download aplikasi My_Printech \n  https://drive.google.com/drive/folders/1MbOEmT0vwRP4guGfFHXGSHzI73qabV3i?usp=sharing");
+                intent.putExtra(Intent.EXTRA_TEXT,"Link untuk download aplikasi My_Printech \n " +
+                        " https://drive.google.com/drive/folders/1MbOEmT0vwRP4guGfFHXGSHzI73qabV3i?usp=sharing");
                 intent.putExtra(Intent.EXTRA_SUBJECT,"Donwload My_Printech");
                 startActivity(Intent.createChooser(intent,"Share via"));
                 return true;

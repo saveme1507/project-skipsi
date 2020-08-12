@@ -39,6 +39,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.asep.pelaporan_imaje.R;
 import com.asep.pelaporan_imaje.config.BitmapFormat;
+import com.asep.pelaporan_imaje.config.DateFormat;
 import com.asep.pelaporan_imaje.server.Server;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.squareup.picasso.Picasso;
@@ -56,7 +57,7 @@ import java.util.Map;
 public class DetailLaporan extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     TextView tx_hlmID,tx_header,tx_mesin,tx_parameter,tx_ket,tx_paraNama;
-    String hlm_id,header,mesin,parameter,keterangan,flag,teknisi,string_ttd,namaLap;
+    String hlm_id,header,mesin,parameter,keterangan,flag,teknisi,string_ttd,namaLap,namaTtd;
     SignaturePad signaturePad;
     Button bt_simpan,bt_ulangi,bt_cetak;
     Bitmap bmp_ttd,bmp,scalebmp,bmp_signatur;
@@ -106,6 +107,17 @@ public class DetailLaporan extends AppCompatActivity {
             getDataPerPart(hlmId);
             namaLap="Laporan Pergantian Sparepart";
             tx_paraNama.setText("SparePart: ");
+        }else if(id_intent.equals("historiPm")){
+            getDataLapMesin(hlmId);
+            namaLap="Detail PM";
+            rl_signature.setVisibility(View.GONE);
+            bt_cetak.setVisibility(View.GONE);
+        }else if(id_intent.equals("performaMesin")){
+            getDataPerPart(hlmId);
+            namaLap="Laporan Pergantian Sparepart";
+            tx_paraNama.setText("SparePart: ");
+            rl_signature.setVisibility(View.GONE);
+            bt_cetak.setVisibility(View.GONE);
         }
 
         if (flag.equals("acc")){
@@ -218,6 +230,7 @@ public class DetailLaporan extends AppCompatActivity {
                         keterangan = jObj.getString("keterangan");
                         teknisi = jObj.getString("teknisi");
                         string_ttd = jObj.getString("ttd");
+                        namaTtd = jObj.getString("namaTtd");
                     }
                     tx_hlmID.setText("No: "+hlm_id);
                     tx_header.setText(header.replace("*","\n\n"));
@@ -255,6 +268,7 @@ public class DetailLaporan extends AppCompatActivity {
                         keterangan = jObj.getString("keterangan");
                         string_ttd = jObj.getString("ttd");
                         teknisi="";
+                        namaTtd = jObj.getString("namaTtd");
                     }
                     tx_hlmID.setText("No: "+hlm_id);
                     tx_header.setText(header.replace("*","\n\n"));
@@ -306,6 +320,7 @@ public class DetailLaporan extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("hlm_ttd", BitmapFormat.getStringImage(bitmap));
                 params.put("hlm_id", hlm_id);
+                params.put("mu_nama",sharedPreferences.getString("mu_nama",null));
                 return params;
             }
         };
@@ -340,6 +355,7 @@ public class DetailLaporan extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("hlm_ttd", BitmapFormat.getStringImage(bitmap));
                 params.put("hlm_id", hlm_id);
+                params.put("mu_nama", sharedPreferences.getString("mu_nama",null));
                 return params;
             }
         };
@@ -434,12 +450,16 @@ public class DetailLaporan extends AppCompatActivity {
         staticLayout.draw(canvas);
         canvas.restore();
 
-        paintTitle.setTextSize(22);
-        paintTitle.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-        canvas.drawText("Paraf Pelanggan:",pageWidth-300,880,paintTitle);
+//        paintTitle.setTextSize(22);
+//        paintTitle.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+//        canvas.drawText("Paraf Pelanggan:",pageWidth-300,880,paintTitle);
+        int col_akhir=780;
+        fieldDetail(paintTitle,canvas,1085,col_akhir+100, "Karawang, "+ DateFormat.currentDataReport());
+        fieldDetail(paintTitle,canvas,1085,col_akhir+125, "Pelanggan");
+        fieldDetail(paintTitle,canvas,1085,col_akhir+320, namaTtd);
 
         Bitmap scalettd = Bitmap.createScaledBitmap(bmp_ttd,180,180,false);
-        canvas.drawBitmap(scalettd,pageWidth-300,900,paintLogo);
+        canvas.drawBitmap(scalettd,pageWidth-300,910,paintLogo);
 
         pdfDocument.finishPage(page);
         reqPermisionStorege();
@@ -456,6 +476,12 @@ public class DetailLaporan extends AppCompatActivity {
 
         pdfDocument.close();
 
+    }
+    private void fieldDetail(Paint paint, Canvas canvas, int x,int y,String text){
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+        paint.setTextSize(20f);
+        canvas.drawText(text,x,y,paint);
     }
 
 

@@ -112,6 +112,31 @@
             android:drawablePadding="15dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp">
+            <TextView
+                android:id="@+id/tx_audio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Suara Splash Screen"
+                android:textColor="#000"
+                android:textSize="16dp"
+                android:drawableLeft="@drawable/icon_pengaturan_speaker"
+                android:drawablePadding="15dp"
+                android:gravity="center_horizontal"/>
+            <Switch
+                android:id="@+id/switch_audio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_toEndOf="@id/tx_audio"
+                android:layout_alignParentRight="true"
+                android:gravity="center_horizontal"/>
+        </RelativeLayout>
         <Button
             android:id="@+id/btn_logout_pengaturan"
             android:layout_width="match_parent"

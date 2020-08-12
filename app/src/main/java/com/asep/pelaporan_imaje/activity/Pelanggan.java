@@ -148,8 +148,8 @@ public class Pelanggan extends AppCompatActivity {
                 params.put("mp_alamat", alamat);
                 params.put("mp_logo",getStringImage(BitmapFormat.getBitmapFromImageView(iv_logo)));
                 params.put("patch_logo", logo.replace(
-                        "http://192.168.43.103/pelaporan_imaje/pelanggan/images_pelanggan/",
-                        "C:\\xampp\\htdocs\\pelaporan_imaje\\pelanggan\\images_pelanggan\\"));
+                        Server.URL+"pelanggan/images_pelanggan/",
+                        "/home/artisanc/public_html/app-pelaporan/pelaporan_imaje/pelanggan/images_pelanggan/"));
                 return params;
             }
         };
@@ -217,8 +217,10 @@ public class Pelanggan extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mp_id", id);
                 params.put("patch_logo", logo.replace(
-                        "http://192.168.43.103/pelaporan_imaje/pelanggan/images_pelanggan/",
-                        "C:\\xampp\\htdocs\\pelaporan_imaje\\pelanggan\\images_pelanggan\\"));
+                        Server.URL+"pelanggan/images_pelanggan/",
+                        "/home/artisanc/public_html/app-pelaporan/pelaporan_imaje/pelanggan/images_pelanggan/"));
+
+//                "C:\\xampp\\htdocs\\pelaporan_imaje\\pelanggan\\images_pelanggan\\"
                 return params;
             }
         };

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -66,6 +67,7 @@ public class PerformaMesin extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     PerformaMesin.RecycleAdapterPerforma recycleAdapterPerforma;
     List<PerformaMesin.ItemPerforma> itemPerformas;
+    SharedPreferences sharedPreferences;
     ArrayList<BarEntry> barEntries;
     ArrayList<String> barLabels;
     BarDataSet barDataSet;
@@ -92,6 +94,7 @@ public class PerformaMesin extends AppCompatActivity {
         tx_pm   =(TextView)findViewById(R.id.tx_mmLastPm_perfom);
         button = findViewById(R.id.cetak_item_performa);
         recyclerView =(RecyclerView)findViewById(R.id.recycle_item_performa);
+        sharedPreferences = getSharedPreferences("shared_preference_users", Context.MODE_PRIVATE);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
@@ -292,14 +295,19 @@ public class PerformaMesin extends AppCompatActivity {
         fieldHeader(paint,canvas,943,395,"SPAREPART");
 
         //ISI
+        int col_akhir = 0;
         for (i=0; i < itemPerformas.size(); i++){
             int col_awal =  (i)*30+400;
-            int col_akhir = (i+1)*30+400;
+            col_akhir = (i+1)*30+400;
             fieldTable(canvas,paint,col_awal,col_akhir,String.valueOf(i+1),
                     DateFormat.dd_mmm_yyyy(itemPerformas.get(i).hs_tgl),
                     itemPerformas.get(i).hs_pn,
                     itemPerformas.get(i).hs_nama);
         }
+        fieldTtd(paint,canvas,1085,col_akhir+100, "Karawang, "+DateFormat.currentDataReport());
+        fieldTtd(paint,canvas,1085,col_akhir+125, "Teknisi");
+        fieldTtd(paint,canvas,1085,col_akhir+250, sharedPreferences.getString("mu_nama",null));
+
 
         pdfDocument.finishPage(page);
         reqPermisionStorege();
@@ -325,6 +333,12 @@ public class PerformaMesin extends AppCompatActivity {
     }
     private void fieldDetail(Paint paint, Canvas canvas, int x,int y,String text){
         paint.setTextAlign(Paint.Align.LEFT);
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+        paint.setTextSize(20f);
+        canvas.drawText(text,x,y,paint);
+    }
+    private void fieldTtd(Paint paint, Canvas canvas, int x,int y,String text){
+        paint.setTextAlign(Paint.Align.CENTER);
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
         paint.setTextSize(20f);
         canvas.drawText(text,x,y,paint);
@@ -436,9 +450,9 @@ public class PerformaMesin extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(PerformaMesin.this,DetailLaporan.class);
-                        intent.putExtra("id_intent","per_part");
+                        intent.putExtra("id_intent","performaMesin");
                         intent.putExtra("hlm_id",itemPerformas.get(getAdapterPosition()).hs_id);
-                        intent.putExtra("flag","acc");
+                        intent.putExtra("flag","");
                         startActivity(intent);
                     }
                 });

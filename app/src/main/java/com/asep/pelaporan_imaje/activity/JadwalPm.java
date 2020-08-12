@@ -264,9 +264,10 @@ public class JadwalPm extends AppCompatActivity {
         fieldHeader(paint,canvas,1118,295,"NEXT PM");
 
         //ISI
+        int col_akhir = 0;
         for (i=0; i < itemJadwalpms.size(); i++){
             int col_awal =  (i)*30+300;
-            int col_akhir = (i+1)*30+300;
+            col_akhir = (i+1)*30+300;
             fieldTable(canvas,paint,col_awal,col_akhir,String.valueOf(i+1),
                     itemJadwalpms.get(i).mm_tipe,
                     itemJadwalpms.get(i).mm_sn,
@@ -274,6 +275,9 @@ public class JadwalPm extends AppCompatActivity {
                     DateFormat.dd_mmm_yyyy(itemJadwalpms.get(i).mm_last_pm),
                     DateFormat.dateNextPm(itemJadwalpms.get(i).mm_last_pm));
         }
+        fieldDetail(paint,canvas,1085,col_akhir+100, "Karawang, "+DateFormat.currentDataReport());
+        fieldDetail(paint,canvas,1085,col_akhir+125, "Teknisi");
+        fieldDetail(paint,canvas,1085,col_akhir+250, sharedPreferences.getString("mu_nama",null));
 
         pdfDocument.finishPage(page);
         reqPermisionStorege();

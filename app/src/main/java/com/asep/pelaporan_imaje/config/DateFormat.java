@@ -106,4 +106,21 @@ public class DateFormat {
         }
         return hasil;
     }
+    public static String currentDataReport() {
+        int hari,tgl,bulan,tahun;
+        String hasil = "";
+        try {
+            GregorianCalendar date = (GregorianCalendar) GregorianCalendar.getInstance();
+            String namaHari[] = {"Sabtu","Minggu","Senin","Selasa","Rabu","Kamis","Jum'at"};
+            String namabulan[] = {"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"};
+            hari    = date.get(Calendar.DAY_OF_WEEK);
+            tgl     = date.get(Calendar.DAY_OF_MONTH);
+            bulan   = date.get(Calendar.MONTH);
+            tahun   = date.get(Calendar.YEAR);
+            hasil   = namaHari[hari] + " "+tgl+" "+namabulan[bulan]+ " " + tahun;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return hasil;
+    }
 }

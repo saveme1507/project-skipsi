@@ -160,12 +160,10 @@ public class HistoriPm extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(HistoriPm.this,DetailLaporan.class);
-                        intent.putExtra("id_intent","lap_mesin");
+                        intent.putExtra("id_intent","historiPm");
                         intent.putExtra("hlm_id",itemHistorpms.get(getAdapterPosition()).hlm_id);
                         intent.putExtra("flag","");
                         startActivity(intent);
-//                    Intent intent = new Intent(view.getContext(),DetailSparepart.class);
-//                    view.getContext().startActivity(intent);
                     }
                 });
             }

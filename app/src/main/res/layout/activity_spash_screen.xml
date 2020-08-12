@@ -8,4 +8,14 @@
     android:background="@drawable/splash"
     tools:context=".activity.SpashScreen">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="online"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-thin"
+        android:textColor="#FFF"
+        android:paddingBottom="5dp"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

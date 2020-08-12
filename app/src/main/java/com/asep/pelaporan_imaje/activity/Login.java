@@ -169,6 +169,7 @@ public class Login extends AppCompatActivity {
                             editor.putString("mu_id_pt", h);
                             editor.putString("mp_nama",i);
                             editor.putString("mu_flag",j);
+                            editor.putBoolean("audioWellcome",false);
                             editor.commit();
 
                             // Memanggil main activity
