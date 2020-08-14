@@ -149,7 +149,9 @@ public class Pelanggan extends AppCompatActivity {
                 params.put("mp_logo",getStringImage(BitmapFormat.getBitmapFromImageView(iv_logo)));
                 params.put("patch_logo", logo.replace(
                         Server.URL+"pelanggan/images_pelanggan/",
-                        "/home/artisanc/public_html/app-pelaporan/pelaporan_imaje/pelanggan/images_pelanggan/"));
+                        "C:\\xampp2\\htdocs\\pelaporan_imaje\\pelanggan\\images_pelanggan\\"));
+//                "C:\\xampp\\htdocs\\pelaporan_imaje\\pelanggan\\images_pelanggan\\"
+//                "/home/artisanc/public_html/app-pelaporan/pelaporan_imaje/pelanggan/images_pelanggan/"
                 return params;
             }
         };
@@ -218,8 +220,8 @@ public class Pelanggan extends AppCompatActivity {
                 params.put("mp_id", id);
                 params.put("patch_logo", logo.replace(
                         Server.URL+"pelanggan/images_pelanggan/",
-                        "/home/artisanc/public_html/app-pelaporan/pelaporan_imaje/pelanggan/images_pelanggan/"));
-
+                        "C:\\xampp2\\htdocs\\pelaporan_imaje\\pelanggan\\images_pelanggan\\"));
+//                "/home/artisanc/public_html/app-pelaporan/pelaporan_imaje/pelanggan/images_pelanggan/"
 //                "C:\\xampp\\htdocs\\pelaporan_imaje\\pelanggan\\images_pelanggan\\"
                 return params;
             }

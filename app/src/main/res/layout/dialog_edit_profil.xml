@@ -10,7 +10,7 @@
         android:id="@+id/tx_judul_dialog_edittext"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Edit Nomer Handphone"
+        android:text="Edit Profil"
         android:textSize="18dp"
         android:gravity="center_vertical"
         android:fontFamily=""

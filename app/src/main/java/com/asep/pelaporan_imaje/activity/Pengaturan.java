@@ -468,7 +468,7 @@ public class Pengaturan extends AppCompatActivity {
                 params.put("mu_id", mu_id);
                 params.put("hapus_file_lama",sharedPreferences.getString("mu_logo","").replace(
                         Server.URL+"pengaturan/images_profil/",
-                        "/home/artisanc/public_html/app-pelaporan/pelaporan_imaje/pengaturan/images_profil/"));
+                        "C:\\xampp2\\htdocs\\pelaporan_imaje\\pengaturan\\images_profil\\"));
 //                "/home/artisanc/public_html/app-pelaporan/pelaporan_imaje/pengaturan/images_profil/"
 //                "C:\\xampp2\\htdocs\\pelaporan_imaje\\pengaturan\\images_profil\\"
                 return params;
